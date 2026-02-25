@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renungan Harian - Alkitab 365</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #d4af37;
+            --accent: #8b4513;
+            --bg: #f5f1e8;
+            --text: #2c3e50;
+            --card: #ffffff;
+            --shadow: rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Dynamic Themes */
+        .theme-creation { --primary: #1a3a3a; --secondary: #d4af37; --accent: #2e8b57; }
+        .theme-fall { --primary: #4a1c1c; --secondary: #cd853f; --accent: #8b0000; }
+        .theme-patriarch { --primary: #2f4f4f; --secondary: #daa520; --accent: #8b4513; }
+        .theme-exodus { --primary: #191970; --secondary: #ffd700; --accent: #4169e1; }
+        .theme-wilderness { --primary: #8b7355; --secondary: #f4a460; --accent: #d2691e; }
+        .theme-conquest { --primary: #556b2f; --secondary: #9acd32; --accent: #6b8e23; }
+        .theme-kingdom { --primary: #4a0080; --secondary: #ffd700; --accent: #800080; }
+        .theme-wisdom { --primary: #2f4f4f; --secondary: #c0c0c0; --accent: #4682b4; }
+        .theme-prophetic { --primary: #4a0000; --secondary: #ff4500; --accent: #8b0000; }
+        .theme-gospel { --primary: #1e3a5f; --secondary: #87ceeb; --accent: #4682b4; }
+        .theme-church { --primary: #8b4513; --secondary: #ff6347; --accent: #cd853f; }
+        .theme-epistle { --primary: #2c3e50; --secondary: #ecf0f1; --accent: #34495e; }
+        .theme-apocalyptic { --primary: #1a1a2e; --secondary: #e94560; --accent: #16213e; }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.03) 20px
+            );
+            animation: shimmer 20s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--card);
+            padding: 1rem;
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .date-selector {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .date-selector input {
+            padding: 0.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px var(--shadow);
+            background: var(--accent);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            animation: progress-shimmer 2s infinite;
+        }
+
+        @keyframes progress-shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .reading-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px var(--shadow);
+            border-left: 5px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reading-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .scripture-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .book-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chapter-range {
+            font-family: 'Inter', sans-serif;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .reading-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .theme-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .content-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title::before {
+            content: '◆';
+            color: var(--secondary);
+        }
+
+        .devotional-text {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            text-align: justify;
+            color: #444;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 4rem;
+            color: var(--secondary);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        /* Hebrew/Greek Section */
+        .language-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-section::before {
+            content: 'אב Greek';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            opacity: 0.05;
+            pointer-events: none;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .language-title {
+            color: var(--secondary);
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .word-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .word-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .original-word {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .transliteration {
+            font-style: italic;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .word-meaning {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .word-meaning strong {
+            color: var(--secondary);
+        }
+
+        /* Application Section */
+        .application-box {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .application-box::after {
+            content: '✦';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 8rem;
+            opacity: 0.1;
+        }
+
+        .application-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .application-list {
+            list-style: none;
+        }
+
+        .application-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .application-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        /* Navigation Footer */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            gap: 1rem;
+        }
+
+        /* Cycle Indicator */
+        .cycle-badge {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cycle-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--card);
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .close-modal:hover {
+            background: #f0f0f0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .reading-card { padding: 1.5rem; }
+            .reading-title { font-size: 1.5rem; }
+            .nav-content { flex-direction: column; }
+            .word-grid { grid-template-columns: 1fr; }
+            .cycle-badge { bottom: 1rem; right: 1rem; font-size: 0.9rem; }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="theme-creation">
+
+    <header class="header">
+        <h1>Renungan Harian Alkitab</h1>
+        <p>Memahami Firman dari Kejadian sampai Wahyu • Siklus <span id="cycle-number">1</span></p>
+    </header>
+
+    <nav class="nav-container">
+        <div class="nav-content">
+            <div class="date-selector">
+                <label for="reading-date">Tanggal:</label>
+                <input type="date" id="reading-date">
+                <button class="btn" onclick="loadToday()">Hari Ini</button>
+            </div>
+            <div>
+                <button class="btn btn-secondary" onclick="showOverview()">Ikhtisar Alkitab</button>
+                <button class="btn btn-secondary" onclick="showProgress()">Progres Saya</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-text">
+            <span id="progress-detail">Memuat...</span>
+            <span id="days-remaining">...</span>
+        </div>
+    </div>
+
+    <main class="container">
+        <div id="reading-content" class="fade-in">
+            <!-- Content will be loaded here -->
+        </div>
+
+        <div class="nav-footer">
+            <button class="btn btn-secondary" onclick="previousDay()">← Hari Sebelumnya</button>
+            <button class="btn" onclick="markAsRead()">Tandai Sudah Dibaca</button>
+            <button class="btn btn-secondary" onclick="nextDay()">Hari Berikutnya →</button>
+        </div>
+    </main>
+
+    <div class="cycle-badge" onclick="showCycleInfo()">
+        <span>🔄</span>
+        <span>Siklus <span id="cycle-badge-num">1</span></span>
+    </div>
+
+    <!-- Modal for Overview -->
+    <div id="overview-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 class="reading-title">Struktur Alkitab</h2>
+            <div id="overview-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data Structure for Bible Reading Plan
+        const bibleStructure = [
+            { book: "Kejadian", chapters: 50, theme: "creation", category: "Taurat" },
+            { book: "Keluaran", chapters: 40, theme: "exodus", category: "Taurat" },
+            { book: "Imamat", chapters: 27, theme: "wilderness", category: "Taurat" },
+            { book: "Bilangan", chapters: 36, theme: "wilderness", category: "Taurat" },
+            { book: "Ulangan", chapters: 34, theme: "wilderness", category: "Taurat" },
+            { book: "Yosua", chapters: 24, theme: "conquest", category: "Sejarah" },
+            { book: "Hakim-hakim", chapters: 21, theme: "conquest", category: "Sejarah" },
+            { book: "Rut", chapters: 4, theme: "conquest", category: "Sejarah" },
+            { book: "1 Samuel", chapters: 31, theme: "kingdom", category: "Sejarah" },
+            { book: "2 Samuel", chapters: 24, theme: "kingdom", category: "Sejarah" },
+            { book: "1 Raja-raja", chapters: 22, theme: "kingdom", category: "Sejarah" },
+            { book: "2 Raja-raja", chapters: 25, theme: "kingdom", category: "Sejarah" },
+            { book: "1 Tawarikh", chapters: 29, theme: "kingdom", category: "Sejarah" },
+            { book: "2 Tawarikh", chapters: 36, theme: "kingdom", category: "Sejarah" },
+            { book: "Ezra", chapters: 10, theme: "kingdom", category: "Sejarah" },
+            { book: "Nehemia", chapters: 13, theme: "kingdom", category: "Sejarah" },
+            { book: "Ester", chapters: 10, theme: "kingdom", category: "Sejarah" },
+            { book: "Ayub", chapters: 42, theme: "wisdom", category: "Ketuvim" },
+            { book: "Mazmur", chapters: 150, theme: "wisdom", category: "Ketuvim" },
+            { book: "Amsal", chapters: 31, theme: "wisdom", category: "Ketuvim" },
+            { book: "Pengkhotbah", chapters: 12, theme: "wisdom", category: "Ketuvim" },
+            { book: "Kidung Agung", chapters: 8, theme: "wisdom", category: "Ketuvim" },
+            { book: "Yesaya", chapters: 66, theme: "prophetic", category: "Nabi-nabi Besar" },
+            { book: "Yeremia", chapters: 52, theme: "prophetic", category: "Nabi-nabi Besar" },
+            { book: "Ratapan", chapters: 5, theme: "prophetic", category: "Nabi-nabi Besar" },
+            { book: "Yehezkiel", chapters: 48, theme: "prophetic", category: "Nabi-nabi Besar" },
+            { book: "Daniel", chapters: 12, theme: "prophetic", category: "Nabi-nabi Besar" },
+            { book: "Hosea", chapters: 14, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Yoel", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Amos", chapters: 9, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Obaja", chapters: 1, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Yunus", chapters: 4, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Mikha", chapters: 7, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Nahum", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Habakuk", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Zefanya", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Hagai", chapters: 2, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Zakharia", chapters: 14, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Maleakhi", chapters: 4, theme: "prophetic", category: "Nabi-nabi Kecil" },
+            { book: "Matius", chapters: 28, theme: "gospel", category: "Injil" },
+            { book: "Markus", chapters: 16, theme: "gospel", category: "Injil" },
+            { book: "Lukas", chapters: 24, theme: "gospel", category: "Injil" },
+            { book: "Yohanes", chapters: 21, theme: "gospel", category: "Injil" },
+            { book: "Kisah Para Rasul", chapters: 28, theme: "church", category: "Sejarah" },
+            { book: "Roma", chapters: 16, theme: "epistle", category: "Surat Paulus" },
+            { book: "1 Korintus", chapters: 16, theme: "epistle", category: "Surat Paulus" },
+            { book: "2 Korintus", chapters: 13, theme: "epistle", category: "Surat Paulus" },
+            { book: "Galatia", chapters: 6, theme: "epistle", category: "Surat Paulus" },
+            { book: "Efesus", chapters: 6, theme: "epistle", category: "Surat Paulus" },
+            { book: "Filipi", chapters: 4, theme: "epistle", category: "Surat Paulus" },
+            { book: "Kolose", chapters: 4, theme: "epistle", category: "Surat Paulus" },
+            { book: "1 Tesalonika", chapters: 5, theme: "epistle", category: "Surat Paulus" },
+            { book: "2 Tesalonika", chapters: 3, theme: "epistle", category: "Surat Paulus" },
+            { book: "1 Timotius", chapters: 6, theme: "epistle", category: "Surat Paulus" },
+            { book: "2 Timotius", chapters: 4, theme: "epistle", category: "Surat Paulus" },
+            { book: "Titus", chapters: 3, theme: "epistle", category: "Surat Paulus" },
+            { book: "Filemon", chapters: 1, theme: "epistle", category: "Surat Paulus" },
+            { book: "Ibrani", chapters: 13, theme: "epistle", category: "Surat Umum" },
+            { book: "Yakobus", chapters: 5, theme: "epistle", category: "Surat Umum" },
+            { book: "1 Petrus", chapters: 5, theme: "epistle", category: "Surat Umum" },
+            { book: "2 Petrus", chapters: 3, theme: "epistle", category: "Surat Umum" },
+            { book: "1 Yohanes", chapters: 5, theme: "epistle", category: "Surat Umum" },
+            { book: "2 Yohanes", chapters: 1, theme: "epistle", category: "Surat Umum" },
+            { book: "3 Yohanes", chapters: 1, theme: "epistle", category: "Surat Umum" },
+            { book: "Yudas", chapters: 1, theme: "epistle", category: "Surat Umum" },
+            { book: "Wahyu", chapters: 22, theme: "apocalyptic", category: "Wahyu" }
+        ];
+
+        // Generate reading plan (3 chapters per day average)
+        function generateReadingPlan() {
+            let plan = [];
+            let day = 1;
+            
+            for (let book of bibleStructure) {
+                let remainingChapters = book.chapters;
+                let currentChapter = 1;
+                
+                while (remainingChapters > 0) {
+                    let chaptersToRead = Math.min(3, remainingChapters);
+                    let endChapter = currentChapter + chaptersToRead - 1;
+                    
+                    plan.push({
+                        day: day,
+                        book: book.book,
+                        startChapter: currentChapter,
+                        endChapter: endChapter,
+                        theme: book.theme,
+                        category: book.category
+                    });
+                    
+                    currentChapter += chaptersToRead;
+                    remainingChapters -= chaptersToRead;
+                    day++;
+                }
+            }
+            return plan;
+        }
+
+        const readingPlan = generateReadingPlan();
+        const totalDays = readingPlan.length; // Should be around 389 days
+
+        // State management
+        let currentState = {
+            currentDay: 1,
+            cycle: 1,
+            readDays: new Set(),
+            lastDate: new Date().toISOString().split('T')[0]
+        };
+
+        // Initialize
+        function init() {
+            loadState();
+            document.getElementById('reading-date').value = currentState.lastDate;
+            loadReading(currentState.currentDay);
+            updateProgress();
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('bibleReadingState');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                currentState = { ...currentState, ...parsed };
+                if (parsed.readDays) {
+                    currentState.readDays = new Set(parsed.readDays);
+                }
+            }
+            updateCycleDisplay();
+        }
+
+        function saveState() {
+            const toSave = {
+                ...currentState,
+                readDays: Array.from(currentState.readDays)
+            };
+            localStorage.setItem('bibleReadingState', JSON.stringify(toSave));
+        }
+
+        function updateCycleDisplay() {
+            document.getElementById('cycle-number').textContent = currentState.cycle;
+            document.getElementById('cycle-badge-num').textContent = currentState.cycle;
+        }
+
+        // Content Generation with Different Angles per Cycle
+        function generateContent(planItem, cycle) {
+            const themes = {
+                creation: {
+                    title: "Ciptaan yang Sempurna",
+                    focus: ["Hubungan manusia dengan Sang Pencipta", "Tanggung jawab pengelolaan bumi", "Keindahan dan ketertiban ciptaan"],
+                    hebrew: [
+                        { word: "בְּרֵאשִׁית", translit: "Beresyt", meaning: "Dalam permulaan - Menunjukkan awal dari segala sesuatu, bukan hanya waktu tapi juga prioritas" },
+                        { word: "בָּרָא", translit: "Bara", meaning: "Menciptakan - Kata khusus untuk penciptaan ilahi, hanya Tuhan yang dapat 'bara'" },
+                        { word: "טוֹב", translit: "Tob", meaning: "Baik - Mengandung makna moral, fungsional, dan estetis yang sempurna" }
+                    ]
+                },
+                fall: {
+                    title: "Dosa dan Pemulihan",
+                    focus: ["Konsekuensi ketidaktaatan", "Kasih karunia dalam penghakiman", "Janji penebusan"],
+                    hebrew: [
+                        { word: "חַטָּאת", translit: "Chattat", meaning: "Dosa - Kegagalan memenuhi target, meleset dari tujuan ilahi" },
+                        { word: "כָּפַר", translit: "Kaphar", meaning: "Menebus - Menutupi, membersihkan, mengambil tempat" }
+                    ]
+                },
+                exodus: {
+                    title: "Pembebasan Ilahi",
+                    focus: ["Tuhan yang memperhatikan penderitaan", "Kuasa yang membebaskan", "Panggilan untuk menjadi umat kesayangan"],
+                    hebrew: [
+                        { word: "יְהוָה", translit: "YHWH", meaning: "Aku adalah Aku - Nama yang menyatakan keberadaan kekal dan kesetiaan" },
+                        { word: "פֶּסַח", translit: "Pesach", meaning: "Paskah - Melewati, melindungi, menyelamatkan dari penghakiman" }
+                    ]
+                },
+                wilderness: {
+                    title: "Pemurnian di Padang Gurun",
+                    focus: ["Ketergantungan pada Tuhan", "Hukum sebagai pedoman hidup", "Kesabaran dalam pengujian"],
+                    hebrew: [
+                        { word: "תּוֹרָה", translit: "Torah", meaning: "Hukum/Taurat - Petunjuk, ajaran, arahan untuk hidup berkenan" },
+                        { word: "מִצְוָה", translit: "Mitzvah", meaning: "Perintah - Ikatan yang membangun hubungan dengan Tuhan" }
+                    ]
+                },
+                kingdom: {
+                    title: "Kerajaan dan Pemerintahan",
+                    focus: ["Hati yang berkenan kepada Tuhan", "Konsekuensi pemilihan", "Penantian Mesias"],
+                    hebrew: [
+                        { word: "מָשִׁיחַ", translit: "Mashiach", meaning: "Mesias - Yang diurapi, Raja dan Pembebas yang dijanjikan" },
+                        { word: "בְּרִית", translit: "Berit", meaning: "Perjanjian - Ikatan yang tidak dapat diputuskan, kesetiaan ilahi" }
+                    ]
+                },
+                wisdom: {
+                    title: "Hikmat untuk Kehidupan",
+                    focus: ["Takut akan Tuhan adalah permulaan hikmat", "Kehidupan yang bermakna", "Hubungan yang kudus"],
+                    hebrew: [
+                        { word: "חָכְמָה", translit: "Chokmah", meaning: "Hikmat - Keterampilan hidup, kebijaksanaan praktis" },
+                        { word: "יִרְאָה", translit: "Yirah", meaning: "Takut - Rasa hormat, kagum, dan takut yang memuliakan" }
+                    ]
+                },
+                prophetic: {
+                    title: "Suara Tuhan dalam Sejarah",
+                    focus: ["Panggilan untuk pertobatan", "Harapan akan pemulihan", "Keadilan dan belas kasihan"],
+                    hebrew: [
+                        { word: "נָבִיא", translit: "Navi", meaning: "Nabi - Yang dipanggil untuk berbicara, pembawa firman" },
+                        { word: "צְדָקָה", translit: "Tsedakah", meaning: "Kebenaran/Keadilan - Yang benar, lurus, sesuai standar ilahi" }
+                    ]
+                },
+                gospel: {
+                    title: "Injil Keselamatan",
+                    focus: ["Kerajaan Allah telah dekat", "Pengorbanan yang menebus", "Kebangkitan dan kemenangan"],
+                    greek: [
+                        { word: "ἀγάπη", translit: "Agape", meaning: "Kasih ilahi - Cinta tanpa syarat, mengorbankan diri, memilih mencintai" },
+                        { word: "σωτηρία", translit: "Soteria", meaning: "Keselamatan - Pembebasan, keselamatan menyeluruh (jasmani, rohani, sosial)" },
+                        { word: "βασιλεία", translit: "Basileia", meaning: "Kerajaan - Pemerintahan, kedaulatan, kehadiran Raja" }
+                    ]
+                },
+                church: {
+                    title: "Jemaat yang Terus Bertumbuh",
+                    focus: ["Roh Kudus yang memimpin", "Komunitas yang kudus", "Misi ke seluruh dunia"],
+                    greek: [
+                        { word: "ἐκκλησία", translit: "Ekklesia", meaning: "Jemaat - Yang dipanggil keluar, kumpulan orang percaya" },
+                        { word: "πνεῦμα", translit: "Pneuma", meaning: "Roh - Nafas, angin, kehidupan, kekuatan ilahi" }
+                    ]
+                },
+                epistle: {
+                    title: "Ajaran untuk Jemaat",
+                    focus: ["Iman yang dibuktikan dengan perbuatan", "Kasih dalam tindakan", "Pengharapan yang teguh"],
+                    greek: [
+                        { word: "πίστις", translit: "Pistis", meaning: "Iman - Kepercayaan, kesetiaan, keyakinan yang bertindak" },
+                        { word: "χάρις", translit: "Charis", meaning: "Kasih karunia - Anugerah cuma-cuma, kebaikan yang tidak dihargai" }
+                    ]
+                },
+                apocalyptic: {
+                    title: "Kemenangan Akhir",
+                    focus: ["Kesetiaan menghadapi penganiayaan", "Penghakiman yang adil", "Pembaruan segala sesuatu"],
+                    greek: [
+                        { word: "ἀποκάλυψις", translit: "Apokalypsis", meaning: "Wahyu - Pembukaan, pengungkapan yang sebelumnya tersembunyi" },
+                        { word: "νίκη", translit: "Nike", meaning: "Kemenangan - Keberhasilan melalui pertempuran, lebih dari sekadar menang" }
+                    ]
+                }
+            };
+
+            const theme = themes[planItem.theme] || themes.creation;
+            
+            // Different devotional angles based on cycle
+            const angles = {
+                1: "Pendekatan Historis-Kronologis - Memahami peristiwa dalam konteks waktu",
+                2: "Pendekatan Teologis - Menemukan karakter Allah di setiap bagian",
+                3: "Pendekatan Kristologis - Menemukan bayangan Kristus di seluruh Alkitab",
+                4: "Pendekatan Ekleisologis - Memahami jemaat dan panggilan orang percaya",
+                5: "Pendekatan Eskatologis - Mengharapkan kedatangan Kristus yang kedua"
+            };
+
+            const angle = angles[cycle % 5 || 5];
+            const focusIndex = (cycle - 1) % theme.focus.length;
+            const currentFocus = theme.focus[focusIndex];
+
+            // Generate chapter summaries
+            let chapterSummaries = "";
+            for (let i = planItem.startChapter; i <= planItem.endChapter; i++) {
+                chapterSummaries += `<p><strong>${planItem.book} ${i}:</strong> ${getChapterSummary(planItem.book, i, cycle)}</p>`;
+            }
+
+            // Language section
+            let languageSection = '';
+            if (theme.hebrew && (planItem.category === "Taurat" || planItem.category === "Nabi-nabi Besar" || planItem.category === "Nabi-nabi Kecil" || planItem.category === "Ketuvim" || planItem.category === "Sejarah")) {
+                languageSection = generateHebrewSection(theme.hebrew, cycle);
+            } else if (theme.greek) {
+                languageSection = generateGreekSection(theme.greek, cycle);
+            }
+
+            return `
+                <div class="reading-card">
+                    <div class="scripture-header">
+                        <span class="book-badge">${planItem.category}</span>
+                        <span class="chapter-range">${planItem.book} ${planItem.startChapter}${planItem.startChapter !== planItem.endChapter ? '-' + planItem.endChapter : ''}</span>
+                    </div>
+                    
+                    <h2 class="reading-title">${theme.title}</h2>
+                    <span class="theme-tag">${angle}</span>
+
+                    <div class="content-section">
+                        <h3 class="section-title">Ringkasan Bacaan</h3>
+                        <div class="devotional-text">
+                            ${chapterSummaries}
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">Renungan Utama</h3>
+                        <div class="highlight-box">
+                            <p class="devotional-text">
+                                <strong>Fokus Siklus ${cycle}:</strong> ${currentFocus}<br><br>
+                                ${generateDevotionalText(planItem, cycle, angle)}
+                            </p>
+                        </div>
+                    </div>
+
+                    ${languageSection}
+
+                    <div class="application-box">
+                        <h3 class="application-title">Aplikasi Hidup</h3>
+                        <ul class="application-list">
+                            ${generateApplications(planItem, cycle)}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getChapterSummary(book, chapter, cycle) {
+            // Simplified summaries - in real app, this would be comprehensive database
+            const summaries = {
+                "Kejadian": {
+                    1: cycle === 1 ? "Allah menciptakan langit dan bumi dalam enam hari" : 
+                       cycle === 2 ? "Elohim yang berkuasa menciptakan dengan firman-Nya" :
+                       cycle === 3 ? "Kristus sebagai Firman yang menciptakan" :
+                       cycle === 4 ? "Jemaat sebagai ciptaan baru dalam Kristus" :
+                       "Ciptaan baru yang sempurna di surga baru",
+                    2: "Allah menyelesaikan ciptaan dan beristirahat, menciptakan manusia dari debu",
+                    3: "Kejatuhan manusia, janji pembebasan dari keturunan perempuan"
+                },
+                "Keluaran": {
+                    1: "Bangsa Israel menderita di Mesir, kelahiran Musa",
+                    2: "Musa melarikan diri, dipanggil dari semak yang menyala",
+                    3: "YHWH memperkenalkan diri, janji pembebasan"
+                }
+                // ... more summaries for all chapters
+            };
+            
+            return (summaries[book] && summaries[book][chapter]) || 
+                   `Bab ini mengandung kebenaran penting tentang ${book.toLowerCase()} yang akan dibahas dalam siklus ${cycle}.`;
+        }
+
+        function generateDevotionalText(planItem, cycle, angle) {
+            const texts = {
+                1: `Dalam membaca ${planItem.book} pasal ${planItem.startChapter}-${planItem.endChapter}, kita melihat alur sejarah keselamatan yang nyata. Allah bekerja dalam konteks budaya dan waktu tertentu, namun prinsip-prinsip-Nya kekal. `,
+                2: `Allah yang sama yang berbicara dalam ${planItem.book} adalah Allah yang kita sembah hari ini. Karakter-Nya yang penuh kasih namun adil, yang berkuasa namun penuh belas kasihan, tercermin dalam setiap peristiwa.`,
+                3: `Setiap pasal dalam Alkitab menunjuk kepada Kristus. Di ${planItem.book}, kita melihat bayangan-bayangan akan penebusan yang sempurna, digenapi dalam diri Yesus.`,
+                4: `Sebagai jemaat Allah, kita adalah kelanjutan dari kisah yang dimulai dalam ${planItem.book}. Panggilan dan tantangan yang dihadapi umat Allah dahulu menjadi pelajaran bagi kita.`,
+                5: `Membaca ${planItem.book} membuat kita mengharapkan kepenuhan kerajaan Allah. Setiap janji yang belum digenapi akan menjadi kenyataan dalam kedatangan Kristus yang kedua.`
+            };
+            return texts[cycle % 5 || 5];
+        }
+
+        function generateHebrewSection(words, cycle) {
+            const selectedWords = words.slice(0, Math.min(2 + (cycle % 2), words.length));
+            return `
+                <div class="language-section">
+                    <h3 class="language-title">Kata Kunci Bahasa Ibrani</h3>
+                    <div class="word-grid">
+                        ${selectedWords.map(w => `
+                            <div class="word-card">
+                                <div class="original-word">${w.word}</div>
+                                <div class="transliteration">${w.translit}</div>
+                                <div class="word-meaning">${w.meaning}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateGreekSection(words, cycle) {
+            const selectedWords = words.slice(0, Math.min(2 + (cycle % 2), words.length));
+            return `
+                <div class="language-section">
+                    <h3 class="language-title">Kata Kunci Bahasa Yunani Koiné</h3>
+                    <div class="word-grid">
+                        ${selectedWords.map(w => `
+                            <div class="word-card">
+                                <div class="original-word">${w.word}</div>
+                                <div class="transliteration">${w.translit}</div>
+                                <div class="word-meaning">${w.meaning}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateApplications(planItem, cycle) {
+            const apps = [
+                "Renungkan bagaimana firman ini mengubah pemahamanmu tentang Allah",
+                "Identifikasi satu perintah atau contoh yang bisa diterapkan hari ini",
+                "Doakan orang yang belum mengenal Kristus berdasarkan kebenaran ini",
+                "Bagikan pengalamanmu dengan anggota keluarga atau teman seiman",
+                "Tulis ayat kunci dan tempel di tempat yang sering dilihat"
+            ];
+            
+            // Rotate applications based on cycle
+            const start = (cycle - 1) % apps.length;
+            let result = [];
+            for (let i = 0; i < 3; i++) {
+                result.push(`<li>${apps[(start + i) % apps.length]}</li>`);
+            }
+            return result.join('');
+        }
+
+        // Main Functions
+        function loadReading(day) {
+            if (day < 1) day = 1;
+            if (day > totalDays) {
+                // Cycle completed
+                completeCycle();
+                return;
+            }
+            
+            currentState.currentDay = day;
+            const planItem = readingPlan[day - 1];
+            
+            // Update theme
+            document.body.className = `theme-${planItem.theme}`;
+            
+            // Generate and display content
+            const content = generateContent(planItem, currentState.cycle);
+            document.getElementById('reading-content').innerHTML = content;
+            
+            saveState();
+            updateProgress();
+        }
+
+        function completeCycle() {
+            currentState.cycle++;
+            currentState.currentDay = 1;
+            currentState.readDays.clear();
+            alert(`Selamat! Anda telah menyelesaikan Siklus ${currentState.cycle - 1}. Memulai Siklus ${currentState.cycle} dengan sudut pandang yang berbeda!`);
+            updateCycleDisplay();
+            loadReading(1);
+        }
+
+        function updateProgress() {
+            const progress = (currentState.currentDay / totalDays) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('progress-detail').textContent = 
+                `Hari ${currentState.currentDay} dari ${totalDays} (${Math.round(progress)}%)`;
+            document.getElementById('days-remaining').textContent = 
+                `${totalDays - currentState.currentDay} hari lagi`;
+        }
+
+        function markAsRead() {
+            currentState.readDays.add(currentState.currentDay);
+            saveState();
+            
+            // Visual feedback
+            const btn = event.target;
+            btn.textContent = '✓ Sudah Dibaca';
+            btn.style.background = '#27ae60';
+            
+            setTimeout(() => {
+                nextDay();
+                btn.textContent = 'Tandai Sudah Dibaca';
+                btn.style.background = '';
+            }, 1000);
+        }
+
+        function nextDay() {
+            loadReading(currentState.currentDay + 1);
+        }
+
+        function previousDay() {
+            loadReading(currentState.currentDay - 1);
+        }
+
+        function loadToday() {
+            const today = new Date();
+            const startDate = new Date(localStorage.getItem('startDate') || today);
+            const diffTime = Math.abs(today - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // If no start date set, set today as start
+            if (!localStorage.getItem('startDate')) {
+                localStorage.setItem('startDate', today.toISOString());
+            }
+            
+            loadReading(diffDays % totalDays || 1);
+        }
+
+        function showOverview() {
+            const modal = document.getElementById('overview-modal');
+            const content = document.getElementById('overview-content');
+            
+            let html = '<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">';
+            
+            const categories = {};
+            bibleStructure.forEach(book => {
+                if (!categories[book.category]) categories[book.category] = [];
+                categories[book.category].push(book);
+            });
+            
+            for (let [cat, books] of Object.entries(categories)) {
+                html += `
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">${cat}</h3>
+                        <ul style="list-style: none; font-size: 0.9rem;">
+                            ${books.map(b => `<li>${b.book} (${b.chapters} pasal)</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            html += '</div>';
+            
+            content.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+
+        function showProgress() {
+            const readCount = currentState.readDays.size;
+            const percentage = ((readCount / totalDays) * 100).toFixed(1);
+            alert(`Progres Anda:\n\n• Hari dibaca: ${readCount} dari ${totalDays}\n• Persentase: ${percentage}%\n• Siklus saat ini: ${currentState.cycle}\n\nTeruskan pembacaan Anda!`);
+        }
+
+        function showCycleInfo() {
+            const cycleInfo = {
+                1: "Siklus 1: Pendekatan Historis-Kronologis - Memahami Alkitab sebagai kisah yang berurutan",
+                2: "Siklus 2: Pendekatan Teologis - Menemukan sifat dan karakter Allah",
+                3: "Siklus 3: Pendekatan Kristologis - Menemukan Yesus di seluruh Alkitab",
+                4: "Siklus 4: Pendekatan Ekleisologis - Memahami jemaat dan panggilan kita",
+                5: "Siklus 5: Pendekatan Eskatologis - Mengharapkan kedatangan Kristus kedua"
+            };
+            
+            const current = (currentState.cycle - 1) % 5 + 1;
+            alert(`${cycleInfo[current]}\n\nSetiap siklus memberikan perspektif berbeda untuk memahami firman yang sama lebih dalam.`);
+        }
+
+        function closeModal() {
+            document.getElementById('overview-modal').style.display = 'none';
+        }
+
+        // Event Listeners
+        document.getElementById('reading-date').addEventListener('change', function(e) {
+            const selected = new Date(e.target.value);
+            const start = new Date(localStorage.getItem('startDate') || new Date());
+            const diff = Math.ceil(Math.abs(selected - start) / (1000 * 60 * 60 * 24));
+            loadReading((diff % totalDays) + 1);
+        });
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('overview-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Initialize app
+        init();
+    </script>
+</body>
+</html>
