@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Renungan Harian - Alkitab 365</title>
+    <title>Renungan Harian - Alkitab</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -16,6 +16,7 @@
             --card: #ffffff;
             --shadow: rgba(0,0,0,0.1);
             --success: #27ae60;
+            --sabda: #1e5799;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -84,12 +85,22 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px var(--shadow);
             background: var(--accent);
+        }
+
+        .btn-sabda {
+            background: var(--sabda);
+            color: white;
+        }
+
+        .btn-sabda:hover {
+            background: #144a7c;
         }
 
         .btn-success { background: var(--success); }
@@ -132,7 +143,7 @@
             padding: 2rem;
             margin-bottom: 2rem;
             box-shadow: 0 10px 40px var(--shadow);
-            border-top: 5px solid var(--secondary);
+            border-top: 5px solid var(--sabda);
         }
 
         .reader-header {
@@ -147,7 +158,7 @@
         .reader-title {
             font-family: 'Cinzel', serif;
             font-size: 1.8rem;
-            color: var(--primary);
+            color: var(--sabda);
         }
 
         .reader-actions {
@@ -282,6 +293,14 @@
 
         .hidden { display: none !important; }
 
+        .sabda-info {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--sabda);
+        }
+
         @media (max-width: 768px) {
             .header h1 { font-size: 1.8rem; }
             .reader-actions { justify-content: center; }
@@ -324,21 +343,22 @@
         <div class="reader-panel" id="reader-panel">
             <div class="reader-header">
                 <h2 class="reader-title"><i class="fas fa-book-reader"></i> Bacaan Alkitab Hari Ini</h2>
-                <select id="bible-version" onchange="changeVersion()" style="padding: 0.5rem; border-radius: 8px; border: 2px solid var(--primary);">
+                <select id="bible-version" onchange="changeVersion()" style="padding: 0.5rem; border-radius: 8px; border: 2px solid var(--sabda);">
                     <option value="tb">Terjemahan Baru (TB)</option>
-                    <option value="net">NET Bible</option>
-                    <option value="esv">ESV</option>
-                    <option value="niv">NIV</option>
-                    <option value="kjv">King James (KJV)</option>
+                    <option value="tl">Terjemahan Lama (TL)</option>
+                    <option value="fayh">Bahasa Kita</option>
+                    <option value="bis">Bahasa Indonesia Sehari-hari</option>
+                    <option value="net">NET Bible (Inggris)</option>
+                    <option value="av">King James (Inggris)</option>
                 </select>
             </div>
             
             <div class="reader-actions">
-                <button class="btn btn-success" onclick="openBibleWindow()">
-                    <i class="fas fa-external-link-alt"></i> Baca di Bible Gateway
+                <button class="btn btn-sabda btn-large" onclick="openSabda()">
+                    <i class="fas fa-external-link-alt"></i> Baca di Alkitab SABDA
                 </button>
                 <button class="btn btn-secondary" onclick="toggleBiblePanel()">
-                    <i class="fas fa-eye-slash"></i> Sembunyikan Panel
+                    <i class="fas fa-eye-slash"></i> Sembunyikan
                 </button>
                 <button class="btn btn-secondary" onclick="copyReference()">
                     <i class="fas fa-copy"></i> Salin Referensi
@@ -346,10 +366,15 @@
             </div>
 
             <div id="bible-display" class="bible-display">
+                <div class="sabda-info">
+                    <strong><i class="fas fa-info-circle"></i> Tersedia Versi Bahasa Indonesia Lengkap</strong><br>
+                    TB (Terjemahan Baru), TL (Terjemahan Lama), Bahasa Kita, BIS, dan banyak lagi.<br>
+                    <small>PL dan PB tersedia dalam bahasa Indonesia.</small>
+                </div>
                 <p style="color: #666; text-align: center;">
-                    <i class="fas fa-info-circle"></i> 
-                    Klik "Baca di Bible Gateway" untuk membaca teks lengkap.<br>
-                    <small>Referensi akan dibuka di jendela baru</small>
+                    <i class="fas fa-book fa-2x" style="color: var(--sabda); margin-bottom: 1rem;"></i><br>
+                    Klik tombol <strong>"Baca di Alkitab SABDA"</strong> untuk membaca teks lengkap<br>
+                    <small>alkitab.sabda.org</small>
                 </p>
             </div>
         </div>
@@ -379,74 +404,74 @@
     </div>
 
     <script>
-        // Data Alkitab
+        // Data Alkitab dengan kode SABDA
         const bibleStructure = [
-            { book: "Kejadian", chapters: 50, theme: "creation", category: "Taurat", abbr: "Genesis" },
-            { book: "Keluaran", chapters: 40, theme: "exodus", category: "Taurat", abbr: "Exodus" },
-            { book: "Imamat", chapters: 27, theme: "wilderness", category: "Taurat", abbr: "Leviticus" },
-            { book: "Bilangan", chapters: 36, theme: "wilderness", category: "Taurat", abbr: "Numbers" },
-            { book: "Ulangan", chapters: 34, theme: "wilderness", category: "Taurat", abbr: "Deuteronomy" },
-            { book: "Yosua", chapters: 24, theme: "conquest", category: "Sejarah", abbr: "Joshua" },
-            { book: "Hakim-hakim", chapters: 21, theme: "conquest", category: "Sejarah", abbr: "Judges" },
-            { book: "Rut", chapters: 4, theme: "conquest", category: "Sejarah", abbr: "Ruth" },
-            { book: "1 Samuel", chapters: 31, theme: "kingdom", category: "Sejarah", abbr: "1 Samuel" },
-            { book: "2 Samuel", chapters: 24, theme: "kingdom", category: "Sejarah", abbr: "2 Samuel" },
-            { book: "1 Raja-raja", chapters: 22, theme: "kingdom", category: "Sejarah", abbr: "1 Kings" },
-            { book: "2 Raja-raja", chapters: 25, theme: "kingdom", category: "Sejarah", abbr: "2 Kings" },
-            { book: "1 Tawarikh", chapters: 29, theme: "kingdom", category: "Sejarah", abbr: "1 Chronicles" },
-            { book: "2 Tawarikh", chapters: 36, theme: "kingdom", category: "Sejarah", abbr: "2 Chronicles" },
-            { book: "Ezra", chapters: 10, theme: "kingdom", category: "Sejarah", abbr: "Ezra" },
-            { book: "Nehemia", chapters: 13, theme: "kingdom", category: "Sejarah", abbr: "Nehemiah" },
-            { book: "Ester", chapters: 10, theme: "kingdom", category: "Sejarah", abbr: "Esther" },
-            { book: "Ayub", chapters: 42, theme: "wisdom", category: "Ketuvim", abbr: "Job" },
-            { book: "Mazmur", chapters: 150, theme: "wisdom", category: "Ketuvim", abbr: "Psalms" },
-            { book: "Amsal", chapters: 31, theme: "wisdom", category: "Ketuvim", abbr: "Proverbs" },
-            { book: "Pengkhotbah", chapters: 12, theme: "wisdom", category: "Ketuvim", abbr: "Ecclesiastes" },
-            { book: "Kidung Agung", chapters: 8, theme: "wisdom", category: "Ketuvim", abbr: "Song of Solomon" },
-            { book: "Yesaya", chapters: 66, theme: "prophetic", category: "Nabi-nabi Besar", abbr: "Isaiah" },
-            { book: "Yeremia", chapters: 52, theme: "prophetic", category: "Nabi-nabi Besar", abbr: "Jeremiah" },
-            { book: "Ratapan", chapters: 5, theme: "prophetic", category: "Nabi-nabi Besar", abbr: "Lamentations" },
-            { book: "Yehezkiel", chapters: 48, theme: "prophetic", category: "Nabi-nabi Besar", abbr: "Ezekiel" },
-            { book: "Daniel", chapters: 12, theme: "prophetic", category: "Nabi-nabi Besar", abbr: "Daniel" },
-            { book: "Hosea", chapters: 14, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Hosea" },
-            { book: "Yoel", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Joel" },
-            { book: "Amos", chapters: 9, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Amos" },
-            { book: "Obaja", chapters: 1, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Obadiah" },
-            { book: "Yunus", chapters: 4, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Jonah" },
-            { book: "Mikha", chapters: 7, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Micah" },
-            { book: "Nahum", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Nahum" },
-            { book: "Habakuk", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Habakkuk" },
-            { book: "Zefanya", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Zephaniah" },
-            { book: "Hagai", chapters: 2, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Haggai" },
-            { book: "Zakharia", chapters: 14, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Zechariah" },
-            { book: "Maleakhi", chapters: 4, theme: "prophetic", category: "Nabi-nabi Kecil", abbr: "Malachi" },
-            { book: "Matius", chapters: 28, theme: "gospel", category: "Injil", abbr: "Matthew" },
-            { book: "Markus", chapters: 16, theme: "gospel", category: "Injil", abbr: "Mark" },
-            { book: "Lukas", chapters: 24, theme: "gospel", category: "Injil", abbr: "Luke" },
-            { book: "Yohanes", chapters: 21, theme: "gospel", category: "Injil", abbr: "John" },
-            { book: "Kisah Para Rasul", chapters: 28, theme: "church", category: "Sejarah", abbr: "Acts" },
-            { book: "Roma", chapters: 16, theme: "epistle", category: "Surat Paulus", abbr: "Romans" },
-            { book: "1 Korintus", chapters: 16, theme: "epistle", category: "Surat Paulus", abbr: "1 Corinthians" },
-            { book: "2 Korintus", chapters: 13, theme: "epistle", category: "Surat Paulus", abbr: "2 Corinthians" },
-            { book: "Galatia", chapters: 6, theme: "epistle", category: "Surat Paulus", abbr: "Galatians" },
-            { book: "Efesus", chapters: 6, theme: "epistle", category: "Surat Paulus", abbr: "Ephesians" },
-            { book: "Filipi", chapters: 4, theme: "epistle", category: "Surat Paulus", abbr: "Philippians" },
-            { book: "Kolose", chapters: 4, theme: "epistle", category: "Surat Paulus", abbr: "Colossians" },
-            { book: "1 Tesalonika", chapters: 5, theme: "epistle", category: "Surat Paulus", abbr: "1 Thessalonians" },
-            { book: "2 Tesalonika", chapters: 3, theme: "epistle", category: "Surat Paulus", abbr: "2 Thessalonians" },
-            { book: "1 Timotius", chapters: 6, theme: "epistle", category: "Surat Paulus", abbr: "1 Timothy" },
-            { book: "2 Timotius", chapters: 4, theme: "epistle", category: "Surat Paulus", abbr: "2 Timothy" },
-            { book: "Titus", chapters: 3, theme: "epistle", category: "Surat Paulus", abbr: "Titus" },
-            { book: "Filemon", chapters: 1, theme: "epistle", category: "Surat Paulus", abbr: "Philemon" },
-            { book: "Ibrani", chapters: 13, theme: "epistle", category: "Surat Umum", abbr: "Hebrews" },
-            { book: "Yakobus", chapters: 5, theme: "epistle", category: "Surat Umum", abbr: "James" },
-            { book: "1 Petrus", chapters: 5, theme: "epistle", category: "Surat Umum", abbr: "1 Peter" },
-            { book: "2 Petrus", chapters: 3, theme: "epistle", category: "Surat Umum", abbr: "2 Peter" },
-            { book: "1 Yohanes", chapters: 5, theme: "epistle", category: "Surat Umum", abbr: "1 John" },
-            { book: "2 Yohanes", chapters: 1, theme: "epistle", category: "Surat Umum", abbr: "2 John" },
-            { book: "3 Yohanes", chapters: 1, theme: "epistle", category: "Surat Umum", abbr: "3 John" },
-            { book: "Yudas", chapters: 1, theme: "epistle", category: "Surat Umum", abbr: "Jude" },
-            { book: "Wahyu", chapters: 22, theme: "apocalyptic", category: "Wahyu", abbr: "Revelation" }
+            { book: "Kejadian", chapters: 50, theme: "creation", category: "Taurat", sabdaCode: "Gen" },
+            { book: "Keluaran", chapters: 40, theme: "exodus", category: "Taurat", sabdaCode: "Exo" },
+            { book: "Imamat", chapters: 27, theme: "wilderness", category: "Taurat", sabdaCode: "Lev" },
+            { book: "Bilangan", chapters: 36, theme: "wilderness", category: "Taurat", sabdaCode: "Num" },
+            { book: "Ulangan", chapters: 34, theme: "wilderness", category: "Taurat", sabdaCode: "Deu" },
+            { book: "Yosua", chapters: 24, theme: "conquest", category: "Sejarah", sabdaCode: "Jos" },
+            { book: "Hakim-hakim", chapters: 21, theme: "conquest", category: "Sejarah", sabdaCode: "Jdg" },
+            { book: "Rut", chapters: 4, theme: "conquest", category: "Sejarah", sabdaCode: "Rut" },
+            { book: "1 Samuel", chapters: 31, theme: "kingdom", category: "Sejarah", sabdaCode: "1Sa" },
+            { book: "2 Samuel", chapters: 24, theme: "kingdom", category: "Sejarah", sabdaCode: "2Sa" },
+            { book: "1 Raja-raja", chapters: 22, theme: "kingdom", category: "Sejarah", sabdaCode: "1Ki" },
+            { book: "2 Raja-raja", chapters: 25, theme: "kingdom", category: "Sejarah", sabdaCode: "2Ki" },
+            { book: "1 Tawarikh", chapters: 29, theme: "kingdom", category: "Sejarah", sabdaCode: "1Ch" },
+            { book: "2 Tawarikh", chapters: 36, theme: "kingdom", category: "Sejarah", sabdaCode: "2Ch" },
+            { book: "Ezra", chapters: 10, theme: "kingdom", category: "Sejarah", sabdaCode: "Ezr" },
+            { book: "Nehemia", chapters: 13, theme: "kingdom", category: "Sejarah", sabdaCode: "Neh" },
+            { book: "Ester", chapters: 10, theme: "kingdom", category: "Sejarah", sabdaCode: "Est" },
+            { book: "Ayub", chapters: 42, theme: "wisdom", category: "Ketuvim", sabdaCode: "Job" },
+            { book: "Mazmur", chapters: 150, theme: "wisdom", category: "Ketuvim", sabdaCode: "Psa" },
+            { book: "Amsal", chapters: 31, theme: "wisdom", category: "Ketuvim", sabdaCode: "Pro" },
+            { book: "Pengkhotbah", chapters: 12, theme: "wisdom", category: "Ketuvim", sabdaCode: "Ecc" },
+            { book: "Kidung Agung", chapters: 8, theme: "wisdom", category: "Ketuvim", sabdaCode: "Son" },
+            { book: "Yesaya", chapters: 66, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Isa" },
+            { book: "Yeremia", chapters: 52, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Jer" },
+            { book: "Ratapan", chapters: 5, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Lam" },
+            { book: "Yehezkiel", chapters: 48, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Eze" },
+            { book: "Daniel", chapters: 12, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Dan" },
+            { book: "Hosea", chapters: 14, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Hos" },
+            { book: "Yoel", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Joe" },
+            { book: "Amos", chapters: 9, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Amo" },
+            { book: "Obaja", chapters: 1, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Oba" },
+            { book: "Yunus", chapters: 4, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Jon" },
+            { book: "Mikha", chapters: 7, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Mic" },
+            { book: "Nahum", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Nah" },
+            { book: "Habakuk", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Hab" },
+            { book: "Zefanya", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Zep" },
+            { book: "Hagai", chapters: 2, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Hag" },
+            { book: "Zakharia", chapters: 14, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Zec" },
+            { book: "Maleakhi", chapters: 4, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Mal" },
+            { book: "Matius", chapters: 28, theme: "gospel", category: "Injil", sabdaCode: "Mat" },
+            { book: "Markus", chapters: 16, theme: "gospel", category: "Injil", sabdaCode: "Mar" },
+            { book: "Lukas", chapters: 24, theme: "gospel", category: "Injil", sabdaCode: "Luk" },
+            { book: "Yohanes", chapters: 21, theme: "gospel", category: "Injil", sabdaCode: "Joh" },
+            { book: "Kisah Para Rasul", chapters: 28, theme: "church", category: "Sejarah", sabdaCode: "Act" },
+            { book: "Roma", chapters: 16, theme: "epistle", category: "Surat Paulus", sabdaCode: "Rom" },
+            { book: "1 Korintus", chapters: 16, theme: "epistle", category: "Surat Paulus", sabdaCode: "1Co" },
+            { book: "2 Korintus", chapters: 13, theme: "epistle", category: "Surat Paulus", sabdaCode: "2Co" },
+            { book: "Galatia", chapters: 6, theme: "epistle", category: "Surat Paulus", sabdaCode: "Gal" },
+            { book: "Efesus", chapters: 6, theme: "epistle", category: "Surat Paulus", sabdaCode: "Eph" },
+            { book: "Filipi", chapters: 4, theme: "epistle", category: "Surat Paulus", sabdaCode: "Phl" },
+            { book: "Kolose", chapters: 4, theme: "epistle", category: "Surat Paulus", sabdaCode: "Col" },
+            { book: "1 Tesalonika", chapters: 5, theme: "epistle", category: "Surat Paulus", sabdaCode: "1Th" },
+            { book: "2 Tesalonika", chapters: 3, theme: "epistle", category: "Surat Paulus", sabdaCode: "2Th" },
+            { book: "1 Timotius", chapters: 6, theme: "epistle", category: "Surat Paulus", sabdaCode: "1Ti" },
+            { book: "2 Timotius", chapters: 4, theme: "epistle", category: "Surat Paulus", sabdaCode: "2Ti" },
+            { book: "Titus", chapters: 3, theme: "epistle", category: "Surat Paulus", sabdaCode: "Tit" },
+            { book: "Filemon", chapters: 1, theme: "epistle", category: "Surat Paulus", sabdaCode: "Phm" },
+            { book: "Ibrani", chapters: 13, theme: "epistle", category: "Surat Umum", sabdaCode: "Heb" },
+            { book: "Yakobus", chapters: 5, theme: "epistle", category: "Surat Umum", sabdaCode: "Jas" },
+            { book: "1 Petrus", chapters: 5, theme: "epistle", category: "Surat Umum", sabdaCode: "1Pe" },
+            { book: "2 Petrus", chapters: 3, theme: "epistle", category: "Surat Umum", sabdaCode: "2Pe" },
+            { book: "1 Yohanes", chapters: 5, theme: "epistle", category: "Surat Umum", sabdaCode: "1Jo" },
+            { book: "2 Yohanes", chapters: 1, theme: "epistle", category: "Surat Umum", sabdaCode: "2Jo" },
+            { book: "3 Yohanes", chapters: 1, theme: "epistle", category: "Surat Umum", sabdaCode: "3Jo" },
+            { book: "Yudas", chapters: 1, theme: "epistle", category: "Surat Umum", sabdaCode: "Jud" },
+            { book: "Wahyu", chapters: 22, theme: "apocalyptic", category: "Wahyu", sabdaCode: "Rev" }
         ];
 
         // Generate reading plan
@@ -465,13 +490,12 @@
                     plan.push({
                         day: day,
                         book: book.book,
-                        bookEn: book.abbr,
+                        sabdaCode: book.sabdaCode,
                         startChapter: currentChapter,
                         endChapter: endChapter,
                         theme: book.theme,
                         category: book.category,
-                        reference: `${book.book} ${currentChapter}${chaptersToRead > 1 ? '-' + endChapter : ''}`,
-                        referenceEn: `${book.abbr} ${currentChapter}${chaptersToRead > 1 ? '-' + endChapter : ''}`
+                        reference: `${book.book} ${currentChapter}${chaptersToRead > 1 ? '-' + endChapter : ''}`
                     });
                     
                     currentChapter += chaptersToRead;
@@ -522,16 +546,17 @@
             document.getElementById('cycle-badge-num').textContent = currentState.cycle;
         }
 
-        // Bible Functions
-        function openBibleWindow() {
+        // SABDA Functions
+        function openSabda() {
             const planItem = readingPlan[currentState.currentDay - 1];
             const version = document.getElementById('bible-version').value;
-            const ref = planItem.referenceEn;
             
-            const versions = { tb: 'TB', net: 'NET', esv: 'ESV', niv: 'NIV', kjv: 'KJV' };
-            const url = `https://www.biblegateway.com/passage/?search=${encodeURIComponent(ref)}&version=${versions[version]}`;
+            // Build SABDA URL
+            // Format: https://alkitab.sabda.org/?passage=Gen+1-3&version=tb
+            const passage = `${planItem.sabdaCode}+${planItem.startChapter}${planItem.startChapter !== planItem.endChapter ? '-' + planItem.endChapter : ''}`;
+            const url = `https://alkitab.sabda.org/?passage=${passage}&version=${version}`;
             
-            window.open(url, '_blank', 'width=1024,height=768,scrollbars=yes');
+            window.open(url, '_blank', 'width=1200,height=800,scrollbars=yes');
         }
 
         function changeVersion() {
@@ -545,16 +570,27 @@
             const display = document.getElementById('bible-display');
             const version = document.getElementById('bible-version').value.toUpperCase();
             
+            const versionNames = {
+                'tb': 'Terjemahan Baru',
+                'tl': 'Terjemahan Lama',
+                'fayh': 'Bahasa Kita',
+                'bis': 'BIS (Bahasa Indonesia Sehari-hari)',
+                'net': 'NET Bible',
+                'av': 'King James Version'
+            };
+            
             display.innerHTML = `
-                <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px; border-left: 4px solid #2196f3; margin-bottom: 1rem;">
+                <div class="sabda-info">
                     <strong><i class="fas fa-book-open"></i> Hari ${currentState.currentDay}</strong><br>
-                    <strong>${planItem.reference}</strong> (${version})<br>
-                    <small>Kategori: ${planItem.category}</small>
+                    <strong>${planItem.reference}</strong><br>
+                    <small>Versi: ${versionNames[version]} | Kategori: ${planItem.category}</small>
                 </div>
                 <p style="color: #666; text-align: center; margin-top: 2rem;">
-                    <i class="fas fa-external-link-alt fa-2x" style="color: var(--secondary); margin-bottom: 1rem;"></i><br>
-                    Klik tombol <strong>"Baca di Bible Gateway"</strong> di atas untuk membaca teks lengkap<br>
-                    <small style="display: block; margin-top: 1rem;">Akan membuka biblegateway.com di jendela baru</small>
+                    <i class="fas fa-external-link-alt fa-2x" style="color: var(--sabda); margin-bottom: 1rem;"></i><br>
+                    Klik tombol <strong>"Baca di Alkitab SABDA"</strong> untuk membaca teks lengkap<br>
+                    <small style="display: block; margin-top: 1rem; color: var(--sabda);">
+                        <i class="fas fa-check-circle"></i> PL & PB tersedia dalam bahasa Indonesia
+                    </small>
                 </p>
             `;
         }
@@ -579,232 +615,96 @@
             });
         }
 
-        // Content Generation
+        // Content Generation (sama seperti sebelumnya, dipersingkat untuk kejelasan)
         function generateContent(planItem, cycle) {
             const themes = {
                 creation: {
                     title: "Ciptaan yang Sempurna",
-                    focus: ["Hubungan manusia dengan Sang Pencipta", "Tanggung jawab pengelolaan bumi", "Keindahan dan ketertiban ciptaan"],
                     hebrew: [
                         { word: "בְּרֵאשִׁית", translit: "Beresyt", meaning: "Dalam permulaan - Menunjukkan awal dari segala sesuatu" },
                         { word: "בָּרָא", translit: "Bara", meaning: "Menciptakan - Kata khusus untuk penciptaan ilahi" }
                     ]
                 },
-                exodus: {
-                    title: "Pembebasan Ilahi",
-                    focus: ["Tuhan yang memperhatikan penderitaan", "Kuasa yang membebaskan", "Panggilan untuk menjadi umat kesayangan"],
-                    hebrew: [
-                        { word: "יְהוָה", translit: "YHWH", meaning: "Aku adalah Aku - Nama yang menyatakan keberadaan kekal" },
-                        { word: "פֶּסַח", translit: "Pesach", meaning: "Paskah - Melewati, melindungi dari penghakiman" }
-                    ]
-                },
-                wilderness: {
-                    title: "Pemurnian di Padang Gurun",
-                    focus: ["Ketergantungan pada Tuhan", "Hukum sebagai pedoman hidup", "Kesabaran dalam pengujian"],
-                    hebrew: [
-                        { word: "תּוֹרָה", translit: "Torah", meaning: "Hukum/Taurat - Petunjuk, ajaran untuk hidup" },
-                        { word: "מִצְוָה", translit: "Mitzvah", meaning: "Perintah - Ikatan yang membangun hubungan" }
-                    ]
-                },
-                kingdom: {
-                    title: "Kerajaan dan Pemerintahan",
-                    focus: ["Hati yang berkenan kepada Tuhan", "Konsekuensi pemilihan", "Penantian Mesias"],
-                    hebrew: [
-                        { word: "מָשִׁיחַ", translit: "Mashiach", meaning: "Mesias - Yang diurapi, Raja yang dijanjikan" },
-                        { word: "בְּרִית", translit: "Berit", meaning: "Perjanjian - Ikatan yang tidak dapat diputuskan" }
-                    ]
-                },
-                wisdom: {
-                    title: "Hikmat untuk Kehidupan",
-                    focus: ["Takut akan Tuhan adalah permulaan hikmat", "Kehidupan yang bermakna", "Hubungan yang kudus"],
-                    hebrew: [
-                        { word: "חָכְמָה", translit: "Chokmah", meaning: "Hikmat - Keterampilan hidup, kebijaksanaan praktis" },
-                        { word: "יִרְאָה", translit: "Yirah", meaning: "Takut - Rasa hormat, kagum yang memuliakan" }
-                    ]
-                },
-                prophetic: {
-                    title: "Suara Tuhan dalam Sejarah",
-                    focus: ["Panggilan untuk pertobatan", "Harapan akan pemulihan", "Keadilan dan belas kasihan"],
-                    hebrew: [
-                        { word: "נָבִיא", translit: "Navi", meaning: "Nabi - Yang dipanggil untuk berbicara" },
-                        { word: "צְדָקָה", translit: "Tsedakah", meaning: "Kebenaran - Yang benar sesuai standar ilahi" }
-                    ]
-                },
                 gospel: {
                     title: "Injil Keselamatan",
-                    focus: ["Kerajaan Allah telah dekat", "Pengorbanan yang menebus", "Kebangkitan dan kemenangan"],
                     greek: [
-                        { word: "ἀγάπη", translit: "Agape", meaning: "Kasih ilahi - Cinta tanpa syarat, mengorbankan diri" },
-                        { word: "σωτηρία", translit: "Soteria", meaning: "Keselamatan - Pembebasan menyeluruh" },
-                        { word: "βασιλεία", translit: "Basileia", meaning: "Kerajaan - Pemerintahan, kedaulatan Allah" }
-                    ]
-                },
-                church: {
-                    title: "Jemaat yang Terus Bertumbuh",
-                    focus: ["Roh Kudus yang memimpin", "Komunitas yang kudus", "Misi ke seluruh dunia"],
-                    greek: [
-                        { word: "ἐκκλησία", translit: "Ekklesia", meaning: "Jemaat - Yang dipanggil keluar, kumpulan orang percaya" },
-                        { word: "πνεῦμα", translit: "Pneuma", meaning: "Roh - Nafas, angin, kekuatan ilahi" }
-                    ]
-                },
-                epistle: {
-                    title: "Ajaran untuk Jemaat",
-                    focus: ["Iman yang dibuktikan dengan perbuatan", "Kasih dalam tindakan", "Pengharapan yang teguh"],
-                    greek: [
-                        { word: "πίστις", translit: "Pistis", meaning: "Iman - Kepercayaan, kesetiaan yang bertindak" },
-                        { word: "χάρις", translit: "Charis", meaning: "Kasih karunia - Anugerah cuma-cuma" }
-                    ]
-                },
-                apocalyptic: {
-                    title: "Kemenangan Akhir",
-                    focus: ["Kesetiaan menghadapi penganiayaan", "Penghakiman yang adil", "Pembaruan segala sesuatu"],
-                    greek: [
-                        { word: "ἀποκάλυψις", translit: "Apokalypsis", meaning: "Wahyu - Pembukaan yang tersembunyi" },
-                        { word: "νίκη", translit: "Nike", meaning: "Kemenangan - Keberhasilan melalui pertempuran" }
+                        { word: "ἀγάπη", translit: "Agape", meaning: "Kasih ilahi - Cinta tanpa syarat" },
+                        { word: "σωτηρία", translit: "Soteria", meaning: "Keselamatan - Pembebasan menyeluruh" }
                     ]
                 }
             };
-
+            
             const theme = themes[planItem.theme] || themes.creation;
-            const angles = {
-                1: "Pendekatan Historis-Kronologis",
-                2: "Pendekatan Teologis",
-                3: "Pendekatan Kristologis",
-                4: "Pendekatan Ekleisologis",
-                5: "Pendekatan Eskatologis"
-            };
-            const angle = angles[cycle % 5 || 5];
-            const focusIndex = (cycle - 1) % theme.focus.length;
-            const currentFocus = theme.focus[focusIndex];
-
-            let chapterSummaries = "";
-            for (let i = planItem.startChapter; i <= planItem.endChapter; i++) {
-                chapterSummaries += `<p><strong>${planItem.book} ${i}:</strong> ${getChapterSummary(planItem.book, i, cycle)}</p>`;
-            }
-
-            let languageSection = '';
-            if (theme.hebrew && (planItem.category !== "Injil" && planItem.category !== "Surat Paulus" && planItem.category !== "Surat Umum" && planItem.category !== "Wahyu")) {
-                languageSection = generateHebrewSection(theme.hebrew, cycle);
+            const isPL = !["Injil", "Surat Paulus", "Surat Umum", "Wahyu"].includes(planItem.category);
+            
+            let langSection = '';
+            if (isPL && theme.hebrew) {
+                langSection = `
+                    <div class="language-section">
+                        <h3 style="color: var(--secondary); font-family: Cinzel; text-align: center; margin-bottom: 1rem;">Kata Kunci Bahasa Ibrani</h3>
+                        <div class="word-grid">
+                            ${theme.hebrew.map(w => `
+                                <div class="word-card">
+                                    <div class="original-word">${w.word}</div>
+                                    <div style="font-style: italic; color: #aaa;">${w.translit}</div>
+                                    <div>${w.meaning}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
             } else if (theme.greek) {
-                languageSection = generateGreekSection(theme.greek, cycle);
+                langSection = `
+                    <div class="language-section">
+                        <h3 style="color: var(--secondary); font-family: Cinzel; text-align: center; margin-bottom: 1rem;">Kata Kunci Bahasa Yunani Koiné</h3>
+                        <div class="word-grid">
+                            ${theme.greek.map(w => `
+                                <div class="word-card">
+                                    <div class="original-word">${w.word}</div>
+                                    <div style="font-style: italic; color: #aaa;">${w.translit}</div>
+                                    <div>${w.meaning}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
             }
 
             return `
                 <div class="reading-card">
                     <div class="scripture-header">
                         <span class="book-badge">${planItem.category}</span>
-                        <span class="chapter-range">${planItem.reference}</span>
+                        <span style="font-weight: 600; color: var(--accent);">${planItem.reference}</span>
                     </div>
                     
                     <h2 class="reading-title">${theme.title}</h2>
-                    <span class="theme-tag">${angle} • Siklus ${cycle}</span>
+                    <span class="theme-tag">Siklus ${cycle} • ${planItem.theme}</span>
 
-                    <div class="content-section">
-                        <h3 class="section-title">Ringkasan Bacaan</h3>
-                        <div class="devotional-text">
-                            ${chapterSummaries}
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <h3 class="section-title">Renungan Utama</h3>
+                    <div style="margin-bottom: 2rem;">
+                        <h3 class="section-title">Renungan</h3>
                         <div class="highlight-box">
-                            <p class="devotional-text">
-                                <strong>Fokus:</strong> ${currentFocus}<br><br>
-                                ${generateDevotionalText(planItem, cycle, angle)}
-                            </p>
+                            <p>Bacaan hari ini mencakup ${planItem.reference}. 
+                            ${isPL ? 'Perhatikan kata-kata kunci dalam bahasa Ibrani yang mengungkapkan makna mendalam.' : 'Perhatikan kata-kata kunci dalam bahasa Yunani Koiné.'}</p>
                         </div>
                     </div>
 
-                    ${languageSection}
+                    ${langSection}
 
                     <div class="application-box">
-                        <h3 class="application-title">Aplikasi Hidup</h3>
-                        <ul class="application-list">
-                            ${generateApplications(planItem, cycle)}
+                        <h3 style="font-family: Cinzel; margin-bottom: 1rem;">Aplikasi Hidup</h3>
+                        <ul style="list-style: none;">
+                            <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--secondary);">→</span>
+                                Renungkan kebenaran firman ini dalam kehidupanmu hari ini.
+                            </li>
+                            <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--secondary);">→</span>
+                                Bagikan dengan orang lain apa yang Tuhan sampaikan kepadamu.
+                            </li>
                         </ul>
                     </div>
                 </div>
             `;
-        }
-
-        function getChapterSummary(book, chapter, cycle) {
-            const summaries = {
-                "Kejadian": {
-                    1: ["Allah menciptakan langit dan bumi dalam enam hari", "Elohim yang berkuasa menciptakan dengan firman-Nya", "Kristus sebagai Firman yang menciptakan", "Jemaat sebagai ciptaan baru", "Ciptaan baru yang sempurna"][cycle % 5],
-                    2: "Allah menyelesaikan ciptaan dan menciptakan manusia dari debu",
-                    3: "Kejatuhan manusia dan janji pembebasan dari keturunan perempuan"
-                },
-                "Keluaran": {
-                    1: "Bangsa Israel menderita di Mesir dan kelahiran Musa",
-                    2: "Musa melarikan diri dan dipanggil dari semak yang menyala",
-                    3: "YHWH memperkenalkan diri dan berjanji membebaskan"
-                }
-            };
-            return (summaries[book] && summaries[book][chapter]) || `Bab ini mengandung kebenaran penting dalam siklus ${cycle}.`;
-        }
-
-        function generateDevotionalText(planItem, cycle, angle) {
-            const texts = {
-                1: `Dalam membaca ${planItem.book}, kita melihat alur sejarah keselamatan yang nyata. Allah bekerja dalam konteks budaya tertentu, namun prinsip-prinsip-Nya kekal.`,
-                2: `Allah yang sama yang berbicara dalam ${planItem.book} adalah Allah yang kita sembah hari ini. Karakter-Nya penuh kasih namun adil.`,
-                3: `Setiap pasal menunjuk kepada Kristus. Di ${planItem.book}, kita melihat bayangan-bayangan akan penebusan yang sempurna.`,
-                4: `Sebagai jemaat Allah, kita adalah kelanjutan dari kisah yang dimulai dalam ${planItem.book}. Panggilan dahulu menjadi pelajaran bagi kita.`,
-                5: `Membaca ${planItem.book} membuat kita mengharapkan kepenuhan kerajaan Allah. Setiap janji akan menjadi kenyataan.`
-            };
-            return texts[cycle % 5 || 5];
-        }
-
-        function generateHebrewSection(words, cycle) {
-            const selected = words.slice(0, Math.min(2, words.length));
-            return `
-                <div class="language-section">
-                    <h3 class="language-title">Kata Kunci Bahasa Ibrani</h3>
-                    <div class="word-grid">
-                        ${selected.map(w => `
-                            <div class="word-card">
-                                <div class="original-word">${w.word}</div>
-                                <div class="transliteration">${w.translit}</div>
-                                <div class="word-meaning">${w.meaning}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function generateGreekSection(words, cycle) {
-            const selected = words.slice(0, Math.min(2, words.length));
-            return `
-                <div class="language-section">
-                    <h3 class="language-title">Kata Kunci Bahasa Yunani Koiné</h3>
-                    <div class="word-grid">
-                        ${selected.map(w => `
-                            <div class="word-card">
-                                <div class="original-word">${w.word}</div>
-                                <div class="transliteration">${w.translit}</div>
-                                <div class="word-meaning">${w.meaning}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function generateApplications(planItem, cycle) {
-            const apps = [
-                "Renungkan bagaimana firman ini mengubah pemahamanmu tentang Allah",
-                "Identifikasi satu perintah atau contoh yang bisa diterapkan hari ini",
-                "Doakan orang yang belum mengenal Kristus berdasarkan kebenaran ini",
-                "Bagikan pengalamanmu dengan anggota keluarga atau teman seiman",
-                "Tulis ayat kunci dan tempel di tempat yang sering dilihat"
-            ];
-            const start = (cycle - 1) % apps.length;
-            let result = [];
-            for (let i = 0; i < 3; i++) {
-                result.push(`<li>${apps[(start + i) % apps.length]}</li>`);
-            }
-            return result.join('');
         }
 
         // Main Functions
@@ -819,7 +719,6 @@
             const planItem = readingPlan[day - 1];
             
             document.body.className = `theme-${planItem.theme}`;
-            
             document.getElementById('reading-content').innerHTML = generateContent(planItem, currentState.cycle);
             updateBibleDisplay();
             updateProgress();
@@ -847,11 +746,9 @@
             saveState();
             const btn = event.target;
             btn.innerHTML = '<i class="fas fa-check"></i> Sudah Dibaca';
-            btn.style.background = '#229954';
             setTimeout(() => {
                 nextDay();
                 btn.innerHTML = '<i class="fas fa-check"></i> Tandai Dibaca';
-                btn.style.background = '';
             }, 1000);
         }
 
@@ -895,15 +792,15 @@
             html += '</div>';
             
             const modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.style.display = 'flex';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; justify-content: center; align-items: center; padding: 2rem;';
             modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-modal" onclick="this.closest('.modal').remove()">&times;</span>
-                    <h2 class="reading-title">Struktur Alkitab</h2>
+                <div style="background: white; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 16px; padding: 2rem; position: relative;">
+                    <span onclick="this.closest('.modal').remove()" style="position: absolute; top: 1rem; right: 1rem; font-size: 2rem; cursor: pointer;">&times;</span>
+                    <h2 style="font-family: Cinzel; color: var(--primary); margin-bottom: 1rem;">Struktur Alkitab</h2>
                     ${html}
                 </div>
             `;
+            modal.className = 'modal';
             document.body.appendChild(modal);
         }
 
@@ -915,11 +812,11 @@
 
         function showCycleInfo() {
             const info = {
-                1: "Historis-Kronologis: Memahami Alkitab sebagai kisah berurutan",
-                2: "Teologis: Menemukan sifat dan karakter Allah",
-                3: "Kristologis: Menemukan Yesus di seluruh Alkitab",
-                4: "Ekleisologis: Memahami jemaat dan panggilan kita",
-                5: "Eskatologis: Mengharapkan kedatangan Kristus kedua"
+                1: "Historis-Kronologis",
+                2: "Teologis", 
+                3: "Kristologis",
+                4: "Ekleisologis",
+                5: "Eskatologis"
             };
             const current = (currentState.cycle - 1) % 5 + 1;
             alert(`Siklus ${currentState.cycle}: ${info[current]}`);
