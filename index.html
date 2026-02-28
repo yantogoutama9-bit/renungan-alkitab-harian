@@ -3,835 +3,475 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Renungan Harian - Alkitab</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Renungan Harian - Alkitab 1 Tahun (Alpha BIOY)</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #d4af37;
-            --accent: #8b4513;
-            --bg: #f5f1e8;
-            --text: #2c3e50;
-            --card: #ffffff;
-            --shadow: rgba(0,0,0,0.1);
-            --success: #27ae60;
-            --sabda: #1e5799;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        :root {
+            --primary: #2c3e50; --secondary: #3498db; --accent: #e74c3c;
+            --bg: #f5f6fa; --card: #ffffff; --text: #2c3e50;
+            --pl-color: #9b59b6; --pb-color: #3498db; --wisdom-color: #27ae60;
+        }
+        .dark {
+            --bg: #1a1a2e; --card: #16213e; --text: #eaeaea;
+            --primary: #0f3460; --secondary: #e94560;
+        }
         body {
-            font-family: 'Lora', serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg); color: var(--text); line-height: 1.6;
+            transition: all 0.3s ease;
         }
-
-        .theme-creation { --primary: #1a3a3a; --secondary: #d4af37; --accent: #2e8b57; }
-        .theme-exodus { --primary: #191970; --secondary: #ffd700; --accent: #4169e1; }
-        .theme-wilderness { --primary: #8b7355; --secondary: #f4a460; --accent: #d2691e; }
-        .theme-kingdom { --primary: #4a0080; --secondary: #ffd700; --accent: #800080; }
-        .theme-wisdom { --primary: #2f4f4f; --secondary: #c0c0c0; --accent: #4682b4; }
-        .theme-prophetic { --primary: #4a0000; --secondary: #ff4500; --accent: #8b0000; }
-        .theme-gospel { --primary: #1e3a5f; --secondary: #87ceeb; --accent: #4682b4; }
-        .theme-church { --primary: #8b4513; --secondary: #ff6347; --accent: #cd853f; }
-        .theme-epistle { --primary: #2c3e50; --secondary: #ecf0f1; --accent: #34495e; }
-        .theme-apocalyptic { --primary: #1a1a2e; --secondary: #e94560; --accent: #16213e; }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 20px var(--shadow);
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 30px 20px; text-align: center;
+            position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        .header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .nav-container {
-            background: var(--card);
-            padding: 1rem;
-            box-shadow: 0 2px 10px var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px var(--shadow);
-            background: var(--accent);
-        }
-
-        .btn-sabda {
-            background: var(--sabda);
-            color: white;
-        }
-
-        .btn-sabda:hover {
-            background: #144a7c;
-        }
-
-        .btn-success { background: var(--success); }
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        .btn-secondary:hover { background: var(--primary); color: white; }
-
-        .progress-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .progress-bar {
-            background: #e0e0e0;
-            height: 12px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .reader-panel {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 40px var(--shadow);
-            border-top: 5px solid var(--sabda);
-        }
-
-        .reader-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .reader-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            color: var(--sabda);
-        }
-
-        .reader-actions {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .bible-display {
-            background: #fafafa;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 2rem;
-            min-height: 200px;
-        }
-
-        .reading-card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 40px var(--shadow);
-            border-left: 5px solid var(--secondary);
-        }
-
-        .scripture-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .book-badge {
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-        }
-
-        .reading-title {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .theme-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-family: 'Inter', sans-serif;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
-            font-family: 'Cinzel', serif;
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-left: 4px solid var(--secondary);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .language-section {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e0e0e0;
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-        }
-
-        .word-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .word-card {
-            background: rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .original-word {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .application-box {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-top: 2rem;
-        }
-
-        .nav-footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 3rem;
-            gap: 1rem;
-        }
-
-        .cycle-badge {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--primary);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .hidden { display: none !important; }
-
-        .sabda-info {
-            background: #e3f2fd;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--sabda);
-        }
-
-        @media (max-width: 768px) {
-            .header h1 { font-size: 1.8rem; }
-            .reader-actions { justify-content: center; }
-            .nav-footer { flex-direction: column; }
-        }
+        h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .subtitle { font-size: 0.95em; opacity: 0.9; }
+        .controls { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+        button, input { padding: 10px 20px; border: none; border-radius: 8px; background: var(--secondary); color: white; cursor: pointer; font-size: 14px; transition: all 0.3s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .day-selector { background: var(--card); padding: 15px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .reading-card { background: var(--card); border-radius: 16px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .day-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--bg); }
+        .day-number { font-size: 2.2em; font-weight: bold; color: var(--secondary); }
+        .day-date { font-size: 0.9em; opacity: 0.7; }
+        .reading-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.1em; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .pl-title { color: var(--pl-color); } .pb-title { color: var(--pb-color); } .wisdom-title { color: var(--wisdom-color); }
+        .passage-box { background: var(--bg); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid; }
+        .pl-box { border-color: var(--pl-color); } .pb-box { border-color: var(--pb-color); } .wisdom-box { border-color: var(--wisdom-color); }
+        .passage-ref { font-size: 1.2em; font-weight: bold; margin-bottom: 8px; }
+        .passage-desc { font-size: 0.9em; opacity: 0.8; margin-bottom: 10px; }
+        .btn-read { display: inline-block; padding: 6px 14px; background: var(--secondary); color: white; text-decoration: none; border-radius: 6px; font-size: 0.85em; }
+        .reflection-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-top: 20px; }
+        .reflection-title { font-size: 1.3em; margin-bottom: 15px; font-weight: bold; }
+        .reflection-content { line-height: 1.8; margin-bottom: 15px; }
+        .original-word { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin: 15px 0; text-align: center; }
+        .hebrew-text { font-size: 2em; font-family: 'Times New Roman', serif; margin-bottom: 8px; }
+        .transliteration { font-size: 1.1em; font-weight: bold; margin-bottom: 5px; }
+        .word-meaning { font-size: 0.95em; opacity: 0.95; }
+        .application-box { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-top: 15px; }
+        .application-title { font-weight: bold; margin-bottom: 8px; }
+        .prayer-box { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin-top: 15px; font-style: italic; }
+        .progress-section { margin: 20px 0; }
+        .progress-bar { width: 100%; height: 12px; background: #ddd; border-radius: 6px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--secondary), var(--accent)); transition: width 0.3s; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
+        .check-complete { width: 28px; height: 28px; border: 3px solid #27ae60; border-radius: 50%; cursor: pointer; display: inline-block; }
+        .check-complete.checked { background: #27ae60; position: relative; }
+        .check-complete.checked::after { content: '✓'; color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; }
+        @media (max-width: 600px) { h1 { font-size: 1.4em; } .day-number { font-size: 1.8em; } .hebrew-text { font-size: 1.6em; } }
     </style>
 </head>
-<body class="theme-creation">
-
-    <header class="header">
-        <h1><i class="fas fa-book-open"></i> Renungan Harian Alkitab</h1>
-        <p>Memahami Firman dari Kejadian sampai Wahyu • Siklus <span id="cycle-number">1</span></p>
+<body>
+    <header>
+        <h1>📖 Renungan Harian Alkitab</h1>
+        <div class="subtitle">365 Hari - PL | PB | Wisdom (Model Alpha)</div>
+        <div class="subtitle" style="margin-top: 5px; font-size: 0.85em;">Kejadian → Wahyu dalam 1 Tahun</div>
     </header>
-
-    <nav class="nav-container">
-        <div class="nav-content">
-            <div>
-                <input type="date" id="reading-date" style="padding: 0.5rem; border-radius: 8px; border: 2px solid var(--primary);">
-                <button class="btn" onclick="loadToday()"><i class="fas fa-calendar-day"></i> Hari Ini</button>
+    <div class="container">
+        <div class="controls">
+            <button onclick="toggleDarkMode()">🌓 Mode Gelap</button>
+            <button onclick="goToToday()">📅 Hari Ini</button>
+            <button onclick="resetProgress()">🔄 Reset</button>
+        </div>
+        <div class="day-selector">
+            <label><strong>Hari ke:</strong></label>
+            <input type="number" id="dayInput" min="1" max="365" value="1" onchange="loadDay(this.value)" style="width: 80px;">
+            <span>/ 365</span>
+            <button onclick="previousDay()">←</button>
+            <button onclick="nextDay()">→</button>
+        </div>
+        <div class="progress-section">
+            <div class="progress-bar"><div class="progress-fill" id="progressBar" style="width: 0%"></div></div>
+            <div style="text-align: center; margin-top: 8px; font-size: 0.9em;">
+                <span id="progressText">0%</span> selesai | <span id="completedCount">0</span> hari | Sisa: <span id="remainingCount">365</span> hari
             </div>
-            <div>
-                <button class="btn btn-secondary" onclick="showOverview()"><i class="fas fa-list"></i> Ikhtisar</button>
-                <button class="btn btn-secondary" onclick="showProgress()"><i class="fas fa-chart-line"></i> Progres</button>
-            </div>
         </div>
-    </nav>
-
-    <div class="progress-container">
-        <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill"></div>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-family: 'Inter', sans-serif; font-size: 0.9rem;">
-            <span id="progress-detail">Memuat...</span>
-            <span id="days-remaining">...</span>
-        </div>
+        <div id="readingContent"></div>
     </div>
-
-    <main class="container">
-        <!-- Panel Bacaan Alkitab -->
-        <div class="reader-panel" id="reader-panel">
-            <div class="reader-header">
-                <h2 class="reader-title"><i class="fas fa-book-reader"></i> Bacaan Alkitab Hari Ini</h2>
-                <select id="bible-version" onchange="changeVersion()" style="padding: 0.5rem; border-radius: 8px; border: 2px solid var(--sabda);">
-                    <option value="tb">Terjemahan Baru (TB)</option>
-                    <option value="tl">Terjemahan Lama (TL)</option>
-                    <option value="fayh">Bahasa Kita</option>
-                    <option value="bis">Bahasa Indonesia Sehari-hari</option>
-                    <option value="net">NET Bible (Inggris)</option>
-                    <option value="av">King James (Inggris)</option>
-                </select>
-            </div>
-            
-            <div class="reader-actions">
-                <button class="btn btn-sabda btn-large" onclick="openSabda()">
-                    <i class="fas fa-external-link-alt"></i> Baca di Alkitab SABDA
-                </button>
-                <button class="btn btn-secondary" onclick="toggleBiblePanel()">
-                    <i class="fas fa-eye-slash"></i> Sembunyikan
-                </button>
-                <button class="btn btn-secondary" onclick="copyReference()">
-                    <i class="fas fa-copy"></i> Salin Referensi
-                </button>
-            </div>
-
-            <div id="bible-display" class="bible-display">
-                <div class="sabda-info">
-                    <strong><i class="fas fa-info-circle"></i> Tersedia Versi Bahasa Indonesia Lengkap</strong><br>
-                    TB (Terjemahan Baru), TL (Terjemahan Lama), Bahasa Kita, BIS, dan banyak lagi.<br>
-                    <small>PL dan PB tersedia dalam bahasa Indonesia.</small>
-                </div>
-                <p style="color: #666; text-align: center;">
-                    <i class="fas fa-book fa-2x" style="color: var(--sabda); margin-bottom: 1rem;"></i><br>
-                    Klik tombol <strong>"Baca di Alkitab SABDA"</strong> untuk membaca teks lengkap<br>
-                    <small>alkitab.sabda.org</small>
-                </p>
-            </div>
-        </div>
-
-        <button class="btn btn-secondary hidden" id="show-reader-btn" onclick="toggleBiblePanel()" style="margin-bottom: 2rem; width: 100%;">
-            <i class="fas fa-eye"></i> Tampilkan Panel Bacaan Alkitab
-        </button>
-
-        <!-- Konten Renungan -->
-        <div id="reading-content"></div>
-
-        <div class="nav-footer">
-            <button class="btn btn-secondary" onclick="previousDay()">
-                <i class="fas fa-arrow-left"></i> Sebelumnya
-            </button>
-            <button class="btn btn-success" onclick="markAsRead()">
-                <i class="fas fa-check"></i> Tandai Dibaca
-            </button>
-            <button class="btn btn-secondary" onclick="nextDay()">
-                Berikutnya <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-    </main>
-
-    <div class="cycle-badge" onclick="showCycleInfo()">
-        <i class="fas fa-sync-alt"></i> Siklus <span id="cycle-badge-num">1</span>
-    </div>
-
     <script>
-        // Data Alkitab dengan kode SABDA
-        const bibleStructure = [
-            { book: "Kejadian", chapters: 50, theme: "creation", category: "Taurat", sabdaCode: "Gen" },
-            { book: "Keluaran", chapters: 40, theme: "exodus", category: "Taurat", sabdaCode: "Exo" },
-            { book: "Imamat", chapters: 27, theme: "wilderness", category: "Taurat", sabdaCode: "Lev" },
-            { book: "Bilangan", chapters: 36, theme: "wilderness", category: "Taurat", sabdaCode: "Num" },
-            { book: "Ulangan", chapters: 34, theme: "wilderness", category: "Taurat", sabdaCode: "Deu" },
-            { book: "Yosua", chapters: 24, theme: "conquest", category: "Sejarah", sabdaCode: "Jos" },
-            { book: "Hakim-hakim", chapters: 21, theme: "conquest", category: "Sejarah", sabdaCode: "Jdg" },
-            { book: "Rut", chapters: 4, theme: "conquest", category: "Sejarah", sabdaCode: "Rut" },
-            { book: "1 Samuel", chapters: 31, theme: "kingdom", category: "Sejarah", sabdaCode: "1Sa" },
-            { book: "2 Samuel", chapters: 24, theme: "kingdom", category: "Sejarah", sabdaCode: "2Sa" },
-            { book: "1 Raja-raja", chapters: 22, theme: "kingdom", category: "Sejarah", sabdaCode: "1Ki" },
-            { book: "2 Raja-raja", chapters: 25, theme: "kingdom", category: "Sejarah", sabdaCode: "2Ki" },
-            { book: "1 Tawarikh", chapters: 29, theme: "kingdom", category: "Sejarah", sabdaCode: "1Ch" },
-            { book: "2 Tawarikh", chapters: 36, theme: "kingdom", category: "Sejarah", sabdaCode: "2Ch" },
-            { book: "Ezra", chapters: 10, theme: "kingdom", category: "Sejarah", sabdaCode: "Ezr" },
-            { book: "Nehemia", chapters: 13, theme: "kingdom", category: "Sejarah", sabdaCode: "Neh" },
-            { book: "Ester", chapters: 10, theme: "kingdom", category: "Sejarah", sabdaCode: "Est" },
-            { book: "Ayub", chapters: 42, theme: "wisdom", category: "Ketuvim", sabdaCode: "Job" },
-            { book: "Mazmur", chapters: 150, theme: "wisdom", category: "Ketuvim", sabdaCode: "Psa" },
-            { book: "Amsal", chapters: 31, theme: "wisdom", category: "Ketuvim", sabdaCode: "Pro" },
-            { book: "Pengkhotbah", chapters: 12, theme: "wisdom", category: "Ketuvim", sabdaCode: "Ecc" },
-            { book: "Kidung Agung", chapters: 8, theme: "wisdom", category: "Ketuvim", sabdaCode: "Son" },
-            { book: "Yesaya", chapters: 66, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Isa" },
-            { book: "Yeremia", chapters: 52, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Jer" },
-            { book: "Ratapan", chapters: 5, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Lam" },
-            { book: "Yehezkiel", chapters: 48, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Eze" },
-            { book: "Daniel", chapters: 12, theme: "prophetic", category: "Nabi-nabi Besar", sabdaCode: "Dan" },
-            { book: "Hosea", chapters: 14, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Hos" },
-            { book: "Yoel", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Joe" },
-            { book: "Amos", chapters: 9, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Amo" },
-            { book: "Obaja", chapters: 1, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Oba" },
-            { book: "Yunus", chapters: 4, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Jon" },
-            { book: "Mikha", chapters: 7, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Mic" },
-            { book: "Nahum", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Nah" },
-            { book: "Habakuk", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Hab" },
-            { book: "Zefanya", chapters: 3, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Zep" },
-            { book: "Hagai", chapters: 2, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Hag" },
-            { book: "Zakharia", chapters: 14, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Zec" },
-            { book: "Maleakhi", chapters: 4, theme: "prophetic", category: "Nabi-nabi Kecil", sabdaCode: "Mal" },
-            { book: "Matius", chapters: 28, theme: "gospel", category: "Injil", sabdaCode: "Mat" },
-            { book: "Markus", chapters: 16, theme: "gospel", category: "Injil", sabdaCode: "Mar" },
-            { book: "Lukas", chapters: 24, theme: "gospel", category: "Injil", sabdaCode: "Luk" },
-            { book: "Yohanes", chapters: 21, theme: "gospel", category: "Injil", sabdaCode: "Joh" },
-            { book: "Kisah Para Rasul", chapters: 28, theme: "church", category: "Sejarah", sabdaCode: "Act" },
-            { book: "Roma", chapters: 16, theme: "epistle", category: "Surat Paulus", sabdaCode: "Rom" },
-            { book: "1 Korintus", chapters: 16, theme: "epistle", category: "Surat Paulus", sabdaCode: "1Co" },
-            { book: "2 Korintus", chapters: 13, theme: "epistle", category: "Surat Paulus", sabdaCode: "2Co" },
-            { book: "Galatia", chapters: 6, theme: "epistle", category: "Surat Paulus", sabdaCode: "Gal" },
-            { book: "Efesus", chapters: 6, theme: "epistle", category: "Surat Paulus", sabdaCode: "Eph" },
-            { book: "Filipi", chapters: 4, theme: "epistle", category: "Surat Paulus", sabdaCode: "Phl" },
-            { book: "Kolose", chapters: 4, theme: "epistle", category: "Surat Paulus", sabdaCode: "Col" },
-            { book: "1 Tesalonika", chapters: 5, theme: "epistle", category: "Surat Paulus", sabdaCode: "1Th" },
-            { book: "2 Tesalonika", chapters: 3, theme: "epistle", category: "Surat Paulus", sabdaCode: "2Th" },
-            { book: "1 Timotius", chapters: 6, theme: "epistle", category: "Surat Paulus", sabdaCode: "1Ti" },
-            { book: "2 Timotius", chapters: 4, theme: "epistle", category: "Surat Paulus", sabdaCode: "2Ti" },
-            { book: "Titus", chapters: 3, theme: "epistle", category: "Surat Paulus", sabdaCode: "Tit" },
-            { book: "Filemon", chapters: 1, theme: "epistle", category: "Surat Paulus", sabdaCode: "Phm" },
-            { book: "Ibrani", chapters: 13, theme: "epistle", category: "Surat Umum", sabdaCode: "Heb" },
-            { book: "Yakobus", chapters: 5, theme: "epistle", category: "Surat Umum", sabdaCode: "Jas" },
-            { book: "1 Petrus", chapters: 5, theme: "epistle", category: "Surat Umum", sabdaCode: "1Pe" },
-            { book: "2 Petrus", chapters: 3, theme: "epistle", category: "Surat Umum", sabdaCode: "2Pe" },
-            { book: "1 Yohanes", chapters: 5, theme: "epistle", category: "Surat Umum", sabdaCode: "1Jo" },
-            { book: "2 Yohanes", chapters: 1, theme: "epistle", category: "Surat Umum", sabdaCode: "2Jo" },
-            { book: "3 Yohanes", chapters: 1, theme: "epistle", category: "Surat Umum", sabdaCode: "3Jo" },
-            { book: "Yudas", chapters: 1, theme: "epistle", category: "Surat Umum", sabdaCode: "Jud" },
-            { book: "Wahyu", chapters: 22, theme: "apocalyptic", category: "Wahyu", sabdaCode: "Rev" }
-        ];
-
-        // Generate reading plan
-        function generateReadingPlan() {
-            let plan = [];
-            let day = 1;
-            
-            for (let book of bibleStructure) {
-                let remainingChapters = book.chapters;
-                let currentChapter = 1;
-                
-                while (remainingChapters > 0) {
-                    let chaptersToRead = Math.min(3, remainingChapters);
-                    let endChapter = currentChapter + chaptersToRead - 1;
-                    
-                    plan.push({
-                        day: day,
-                        book: book.book,
-                        sabdaCode: book.sabdaCode,
-                        startChapter: currentChapter,
-                        endChapter: endChapter,
-                        theme: book.theme,
-                        category: book.category,
-                        reference: `${book.book} ${currentChapter}${chaptersToRead > 1 ? '-' + endChapter : ''}`
-                    });
-                    
-                    currentChapter += chaptersToRead;
-                    remainingChapters -= chaptersToRead;
-                    day++;
-                }
-            }
-            return plan;
-        }
-
-        const readingPlan = generateReadingPlan();
-        const totalDays = readingPlan.length;
-
-        // State
-        let currentState = {
-            currentDay: 1,
-            cycle: 1,
-            readDays: new Set(),
-            lastDate: new Date().toISOString().split('T')[0],
-            bibleVersion: 'tb'
-        };
-
-        // Initialize
-        function init() {
-            loadState();
-            document.getElementById('reading-date').value = currentState.lastDate;
-            document.getElementById('bible-version').value = currentState.bibleVersion;
-            loadReading(currentState.currentDay);
-        }
-
-        function loadState() {
-            const saved = localStorage.getItem('bibleReadingState');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                currentState = { ...currentState, ...parsed };
-                if (parsed.readDays) currentState.readDays = new Set(parsed.readDays);
-            }
-            updateCycleDisplay();
-        }
-
-        function saveState() {
-            const toSave = { ...currentState, readDays: Array.from(currentState.readDays) };
-            localStorage.setItem('bibleReadingState', JSON.stringify(toSave));
-        }
-
-        function updateCycleDisplay() {
-            document.getElementById('cycle-number').textContent = currentState.cycle;
-            document.getElementById('cycle-badge-num').textContent = currentState.cycle;
-        }
-
-        // SABDA Functions
-        function openSabda() {
-            const planItem = readingPlan[currentState.currentDay - 1];
-            const version = document.getElementById('bible-version').value;
-            
-            // Build SABDA URL
-            // Format: https://alkitab.sabda.org/?passage=Gen+1-3&version=tb
-            const passage = `${planItem.sabdaCode}+${planItem.startChapter}${planItem.startChapter !== planItem.endChapter ? '-' + planItem.endChapter : ''}`;
-            const url = `https://alkitab.sabda.org/?passage=${passage}&version=${version}`;
-            
-            window.open(url, '_blank', 'width=1200,height=800,scrollbars=yes');
-        }
-
-        function changeVersion() {
-            currentState.bibleVersion = document.getElementById('bible-version').value;
-            saveState();
-            updateBibleDisplay();
-        }
-
-        function updateBibleDisplay() {
-            const planItem = readingPlan[currentState.currentDay - 1];
-            const display = document.getElementById('bible-display');
-            const version = document.getElementById('bible-version').value.toUpperCase();
-            
-            const versionNames = {
-                'tb': 'Terjemahan Baru',
-                'tl': 'Terjemahan Lama',
-                'fayh': 'Bahasa Kita',
-                'bis': 'BIS (Bahasa Indonesia Sehari-hari)',
-                'net': 'NET Bible',
-                'av': 'King James Version'
+        // DATA RENUNGAN 365 HARI - FORMAT RINGKAS
+        const readingPlan = {};
+        
+        // Helper function untuk membuat data hari
+        function addDay(day, plRef, plDesc, pbRef, pbDesc, wRef, wDesc, title, reflection, hebrew, trans, meaning, application, prayer) {
+            readingPlan[day] = {
+                pl: { ref: plRef, desc: plDesc },
+                pb: { ref: pbRef, desc: pbDesc },
+                wisdom: { ref: wRef, desc: wDesc },
+                title: title,
+                reflection: reflection,
+                original: { lang: "ibrani", word: hebrew, transliteration: trans, meaning: meaning },
+                application: application,
+                prayer: prayer
             };
-            
-            display.innerHTML = `
-                <div class="sabda-info">
-                    <strong><i class="fas fa-book-open"></i> Hari ${currentState.currentDay}</strong><br>
-                    <strong>${planItem.reference}</strong><br>
-                    <small>Versi: ${versionNames[version]} | Kategori: ${planItem.category}</small>
-                </div>
-                <p style="color: #666; text-align: center; margin-top: 2rem;">
-                    <i class="fas fa-external-link-alt fa-2x" style="color: var(--sabda); margin-bottom: 1rem;"></i><br>
-                    Klik tombol <strong>"Baca di Alkitab SABDA"</strong> untuk membaca teks lengkap<br>
-                    <small style="display: block; margin-top: 1rem; color: var(--sabda);">
-                        <i class="fas fa-check-circle"></i> PL & PB tersedia dalam bahasa Indonesia
-                    </small>
-                </p>
-            `;
         }
 
-        function toggleBiblePanel() {
-            const panel = document.getElementById('reader-panel');
-            const btn = document.getElementById('show-reader-btn');
-            
-            if (panel.classList.contains('hidden')) {
-                panel.classList.remove('hidden');
-                btn.classList.add('hidden');
-            } else {
-                panel.classList.add('hidden');
-                btn.classList.remove('hidden');
-            }
+        // BULAN 1: KEJADIAN - KELUARAN (Hari 1-30)
+        addDay(1, "Kejadian 1:1-2:25", "Ciptaan langit, bumi, manusia, dan Hari Sabat", "Matius 1:1-17", "Silsilah Yesus Kristus, anak Daud, anak Abraham", "Mazmur 1:1-6", "Kebahagiaan orang yang delight dalam hukum Tuhan", "Dalam Permulaan - Awal Segala Sesuatu", "Hari pertama membawa kita kembali ke awal segala sesuatu. Dalam Kejadian, kita melihat Tuhan yang berbicara dan ciptaan menjadi nyata. Di Matius, kita melihat awal baru dalam Kristus - silsilah yang menghubungkan janji-janji Lama dengan pemenuhan di Yesus. Mazmur 1 mengingatkan kita untuk menaruh delight kita dalam Firman Tuhan, bukan dalam nasihat orang fasik.", "בראשית", "Beresyt", "Dalam permulaan - bukti bahwa Tuhan adalah Alpha, permulaan dari segala sesuatu yang ada", "Mulailah tahun ini dengan menaruh 'delight' (kesenangan) membaca Firman Tuhan setiap hari. Jadikan hukum-Nya sebagai renungan siang dan malammu.", "Ya Bapa, terima kasih karena Engkau adalah permulaan segala sesuatu. Bantu saya memulai setiap hari dengan Firman-Mu. Amin.");
+        
+        addDay(2, "Kejadian 3:1-4:26", "Kejatuhan manusia, pengusiran dari Taman Eden, Kain dan Habel", "Matius 1:18-25", "Kelahiran Yesus Kristus, Yusuf yang adil", "Mazmur 2:1-12", "Tuhan bertatah di Sion, Anak-Nya yang diurapi", "Anugerah di Tengah Kejatuhan", "Kejatuhan manusia membawa dosa dan kematian, tetapi bahkan dalam pengusiran, Tuhan memberikan janji (3:15). Di Matius, kita melihat pemenuhan janji itu - Yesus yang lahir untuk menyelamatkan umat-Nya dari dosa. Mazmur 2 memperlihatkan bahwa meski bangsa-bangsa berontak, Tuhan tetap berdaulat dan Anak-Nya akan memerintah.", "זרע", "Zera", "Benih - janji bahwa keturunan wanita akan menghancurkan kepala ular", "Meski kamu pernah jatuh dalam dosa, ingatlah anugerah Tuhan yang lebih besar. Yesus adalah pemenuhan setiap janji keselamatan.", "Tuhan, terima kasih untuk anugerah yang melampaui dosa saya. Bantu saya hidup dalam kemenangan janji-Mu. Amin.");
+        
+        addDay(3, "Kejadian 5:1-6:22", "Silsilah Adam sampai Nuh, kejahatan manusia, penyesalan Tuhan", "Matius 2:1-12", "Kedatangan orang-orang majus, bintang di timur", "Mazmur 3:1-8", "Doa Daud ketika lari dari Absalom", "Pencarian dan Penyelamatan", "Kejadian 5-6 menunjukkan spiral ke bawah kejahatan manusia, tetapi Tuhan melihat Nuh sebagai orang benar. Di Matius 2, orang-orang majus dari timur mencari Raja Yahudi - gambaran bahwa keselamatan adalah untuk semua bangsa. Mazmur 3 menunjukkan bahwa meski dikelilingi musuh, Tuhan adalah perisai dan kemuliaan kita.", "חנ", "Chen", "Anugerah - Nuh menemukan anugerah di mata Tuhan meski dunia penuh kejahatan", "Carilah Tuhan seperti orang majus mencari bintang. Meski dunia gelap, jadilah terang yang menemukan anugerah di mata Tuhan.", "Ya Tuhan, bantu saya menemukan kasih karunia-Mu di tengah kegelapan dunia ini. Amin.");
+        
+        addDay(4, "Kejadian 7:1-8:22", "Air bah, Nuh di bahtera, air surut, perjanjian baru", "Matius 2:13-23", "Pelarian ke Mesir, pembunuhan anak-anak, kembali ke Nazaret", "Mazmur 4:1-8", "Jawaban atas doa, tidur dengan damai", "Air Bah dan Pembaptisan Baru", "Air bah adalah penghakiman atas dosa, tetapi juga pemulihan. Air membawa kematian tetapi juga kehidupan baru. Yesus melalui 'air bah' sendiri - pelarian ke Mesir dan kembali, menggenapi 'Dari Mesir Kupanggil Anak-Ku'. Mazmur 4 mengingatkan kita untuk tidur dengan damai karena Tuhan yang membuat kita diam dengan tentram.", "תבה", "Tevah", "Bahtera - tempat keselamatan yang Tuhan sediakan di tengah penghakiman", "Di tengah 'air bah' masalah hidupmu, carilah bahtera keselamatan dalam Kristus. Hanya di Dia ada keamanan yang sejati.", "Tuhan, terima kasih karena Engkau bahteraku di tengah badai kehidupan. Amin.");
+        
+        addDay(5, "Kejadian 9:1-11:32", "Perjanjian dengan Nuh, menara Babel, panggilan Abram", "Matius 3:1-12", "Yohanes Pembaptis, pertobatan, pembaptisan", "Mazmur 5:1-12", "Doa pagi, pengharapan pada Tuhan", "Panggilan untuk Jadi Berkat", "Dari kehancuran Babel, Tuhan memanggil Abram untuk menjadi berkat bagi semua bangsa. Yohanes Pembaptis datang menyiapkan jalan dengan pertobatan. Mazmur 5 mengajarkan kita untuk berdoa di pagi hari dan menaruh pengharapan pada Tuhan yang melindungi orang yang taat.", "ברך", "Barak", "Memberkati - panggilan Abram untuk menjadi saluran berkat bagi semua bangsa", "Terimalah panggilan untuk menjadi berkat. Mulailah hari dengan doa seperti Mazmur 5, dan jadilah saluran berkat bagi orang lain.", "Ya Tuhan, jadikan saya berkat di mana pun saya berada. Bantu saya memulai setiap hari dengan doa. Amin.");
+        
+        addDay(6, "Kejadian 12:1-14:24", "Abram pergi ke Kanaan, di Mesir, pembagian dengan Lot, perang raja-raja", "Matius 3:13-4:11", "Pembaptisan Yesus, pencobaan di padang gurun", "Mazmur 6:1-10", "Doa orang yang dihukum, kesedihan akan dosa", "Iman yang Diuji", "Abram diuji untuk meninggalkan tanah airnya, diuji di Mesir (kebohongan tentang Sarai), dan diuji dalam perang. Yesus diuji di padang gurun dengan tiga pencobaan klasik: daging (roti), kebanggaan (menara), dan kekuasaan (kerajaan dunia). Mazmur 6 menunjukkan bahwa pengakuan dosa adalah awal dari pemulihan.", "האמן", "He'emin", "Dia percaya - iman Abram yang diperhitungkan sebagai kebenaran", "Ketika diuji, peganglah imanmu seperti Abram. Akui dosa dengan cepat seperti Mazmur 6, dan lawan pencobaan dengan Firman seperti Yesus.", "Tuhan, perkuat iman saya di tengah pencobaan. Bantu saya mengandalkan Firman-Mu. Amin.");
+        
+        addDay(7, "Kejadian 15:1-17:27", "Perjanjian dengan Abram, Sarai dan Hagar, tanda sunat", "Matius 4:12-25", "Yesus di Galilea, panggilan murid-murid pertama", "Mazmur 7:1-17", "Doa pembelaan dari penganiayaan", "Perjanjian yang Diteguhkan", "Tuhan mengadakan perjanjian dengan Abram (dengan potongan binatang yang mengerikan), meneguhkan janji keturunan meski Abram mencoba 'membantu' Tuhan melalui Hagar. Yesus memulai pelayanan-Nya dengan panggilan sederhana: 'Ikutlah Aku'. Mazmur 7 menunjukkan bahwa kita bisa berlari kepada Tuhan saat dianiaya.", "ברית", "Berit", "Perjanjian - ikatan yang tidak bisa diputuskan, didasarkan pada kepercayaan", "Percayalah janji Tuhan meski tampak mustahil. Jangan mencoba 'membantu' Tuhan dengan cara duniawi. Ikuti panggilan-Nya dengan sederhana.", "Ya Tuhan, teguhkan perjanjian-Mu dalam hidup saya. Bantu saya mengandalkan janji-Mu, bukan pengertian saya sendiri. Amin.");
+        
+        addDay(8, "Kejadian 18:1-19:38", "Kunjungan tiga orang, doa untuk Sodom, kehancuran, Lot dan anak-anaknya", "Matius 5:1-16", "Khotbah di bukit: Beatitud", "Mazmur 8:1-9", "Kebesaran Tuhan dan kehormatan manusia", "Keadilan dan Kemurahan", "Abraham berintervensi untuk Sodom (meski gagal), menunjukkan hati yang sejalan dengan Tuhan. Yesus mengajarkan beatitud - karakter kerajaan yang berbeda dari dunia. Mazmur 8 mengagumi kebesaran Tuhan yang peduli pada manusia yang hina. Keadilan Tuhan tidak menghapus kemurahan-Nya.", "צדקה", "Tzedakah", "Keadikan - Abraham yang memohon keadikan untuk Sodom, mencerminkan hati Tuhan", "Mililiki hati yang peduli pada orang lain seperti Abraham. Hidupi nilai-nilai kerajaan (beatitud) meski bertentangan dengan dunia.", "Tuhan, bentuk hati saya seperti hati-Mu yang adil namun penuh kemurahan. Amin.");
+        
+        addDay(9, "Kejadian 20:1-22:24", "Abraham dan Abimelekh, kelahiran Ishak, pengorbanan Ishak", "Matius 5:17-48", "Hukum yang digenapi, cinta kepada musuh", "Mazmur 9:1-20", "Syukur atas kemenangan, Tuhan hakim yang adil", "Ketaatan yang Diuji", "Puncak iman Abraham adalah ketika dia siap mengorbankan Ishak - anak yang ditunggu-tunggu. Ini adalah gambaran dari pengorbanan Bapa yang lebih besar: memberikan Anak-Nya yang tunggal. Yesus menggenapi hukum dan menaikkannya ke level yang lebih tinggi: bukan hanya tidak membunuh, tetapi tidak marah; bukan hanya tidak berzinah, tetapi tidak berahi.", "ירא", "Yare", "Takut (dalam arti ketaatan) - Abraham yang takut akan Tuhan lebih dari segalanya, bahkan lebih dari anak yang ditunggu-tunggu", "Apakah ada 'Ishak' dalam hidupmu yang harus diletakkan di mezbah? Ketaatan sejati adalah mencintai Tuhan lebih dari berkat-Nya.", "Ya Tuhan, berikan saya iman seperti Abraham yang mengasihi-Mu lebih dari segalanya. Amin.");
+        
+        addDay(10, "Kejadian 23:1-25:18", "Kematian Sarai, pengiriman untuk Ishak, kematian Abraham, keturunan Ismael", "Matius 6:1-18", "Pemberian, doa, puasa - dengan hati yang benar", "Mazmur 10:1-18", "Mengapa Tuhan berdiri jauh? Doa untuk orang lemah", "Kehidupan yang Berpusat pada Tuhan", "Abraham membeli tanah di Kanaan sebagai tanda iman bahwa keturunannya akan memiliki negeri itu. Yesus mengajarkan praktik rohani (pemberian, doa, puasa) yang harus dilakukan dengan hati yang benar, bukan untuk pamer. Mazmur 10 adalah doa yang jujur tentang keadilan yang tertunda, tetapi tetap mempercayai Tuhan yang melihat.", "שׁכן", "Shachan", "Tinggal - Abraham yang menjadi pendatang asing yang menetap di tanah perjanjian", "Jadilah 'pendatang' di dunia ini dengan hati yang berpusat pada kerajaan sorga. Lakukan ibadah dengan tulus, bukan untuk dilihat orang.", "Tuhan, ajar saya hidup sebagai pendatang yang berharap pada kerajaan-Mu. Amin.");
+        
+        // HARI 11-20: YAKUB & KELUARGANYA
+	addDay(11, "Kejadian 25:19-26:35", "Esau dan Yakub, hak kesulungan, Yakub menipu Ishak", "Matius 6:19-34", "Harta di sorga, mata badan, jangan kuatir", "Mazmur 11:1-7", "Tuhan di bait suci-Nya, mata-Nya mengawasi", "Perebutan dan Pemilihan", "Yakub merebut hak kesulungan dengan cara yang tidak jujur, tetapi Tuhan dalam rencana-Nya memilih Yakub (bukan karena kebenarannya, tetapi karena pemilihan kasih karunia). Yesus mengingatkan kita untuk mengumpulkan harta di sorga dan tidak kuatir akan hidup. Mazmur 11 mengatakan bahwa Tuhan mengawasi dari bait suci-Nya - ada tempat perlindungan yang aman.", "עקב", "Akev", "Tumit - Yakub yang menggenggam tumit Esau, nama yang menjadi Israel (bergumul dengan Allah)", "Jangan gunakan cara duniawi untuk mendapatkan berkat rohani. Percayalah pemeliharaan Tuhan dan jangan kuatir. Carilah kerajaan-Nya dahulu.", "Ya Tuhan, bantu saya mencari kerajaan-Mu dahulu dan percaya pada pemeliharaan-Mu. Amin.");
+
+	addDay(12, "Kejadian 27:1-28:22", "Yakub mendapat berkat, pelarian ke Haran, tangga di Betel", "Matius 7:1-29", "Jangan menghakimi, dua jalan, fondasi batu", "Mazmur 12:1-8", "Kesetiaan yang lenyap, janji Tuhan yang murni", "Tangga ke Sorga", "Yakub yang melarikan diri bertemu dengan Tuhan di Betel melalui tangga yang menjulang ke sorga - gambaran bahwa meski kita jauh, ada jalan komunikasi dengan Tuhan. Yesus mengakhiri khotbah-Nya dengan peringatan tentang dua jalan dan pentingnya fondasi yang kokoh. Mazmur 12 mengeluhkan ketidaksetiaan manusia tetapi memuji keteguhan Firman Tuhan.", "סלם", "Sulam", "Tangga - jembatan antara langit dan bumi, tempat malaikat naik turun, Yesus adalah tangga sejati (Yohanes 1:51)", "Meski kamu merasa jauh dari Tuhan seperti Yakub, ingatlah ada 'tangga' - Yesus adalah jalan ke Bapa. Bangun hidupmu di atas fondasi batu (Firman).", "Tuhan, terima kasih karena Yesus adalah tangga ke sorga. Bantu saya membangun hidup di atas fondasi-Mu. Amin.");
+
+	addDay(13, "Kejadian 29:1-30:43", "Yakub di Haran, Rahel dan Lea, anak-anak Yakub", "Matius 8:1-17", "Penyembuhan orang kusta, hamba perwira, ibu mertua Petrus", "Mazmur 13:1-6", "Berapa lama ya Tuhan? Pengharapan dalam kesesakan", "Kesabaran dalam Pengkhianatan", "Yakub bekerja 14 tahun untuk Rahel karena dicurangi Laban - gambaran kesabaran dalam pengkhianatan. Yesus menyembuhkan orang kusta (yang diasingkan), hamba perwira (orang asing), dan ibu mertua Petrus - menunjukkan kasih yang melampaui batas. Mazmur 13 adalah doa yang jujur tentang kesesakan yang berkepanjangan, tetapi berakhir dengan pengharapan.", "שׂכר", "Sachar", "Upah - Yakub yang bekerja dengan kesetiaan meski dikhianati berkali-kali", "Kesetiaan dalam pengkhianatan adalah bukti iman yang dewasa. Tuhan melihat kesabaranmu dan akan membalas pada waktunya.", "Ya Tuhan, berikan saya kesabaran seperti Yakub dan iman seperti hamba perwira. Amin.");
+
+	addDay(14, "Kejadian 31:1-32:32", "Kepergian dari Haran, Laban mengejar, perselisihan, bergumul dengan Allah", "Matius 8:18-34", "Murid-murid mengikut, badai di danau, setan-setan di Gadara", "Mazmur 14:1-7", "Orang bodoh menyangkal Allah, tidak ada yang berbuat baik", "Bergumul dan Menyerah", "Yakub bergumul dengan Allah (dan manusia) sepanjang malam dan keluar dengan nama baru: Israel. Yesus menenangkan badai dan mengusir setan - menunjukkan kuasa-Nya atas alam dan roh. Mazmur 14 menggambarkan kebodohan manusia yang menyangkal Allah, tetapi ada harapan bagi Israel yang berasal dari Tuhan.", "ישׂראל", "Yisrael", "Israel - dia yang bergumul dengan Allah, nama baru yang diberikan setelah pertarungan rohani", "Jangan takut untuk 'bergumul' dengan Tuhan dalam doa. Dia bisa menangani kejujuranmu. Keluarlah dari pergumulan dengan identitas baru.", "Tuhan, ajar saya bergumul dengan-Mu dalam doa dan keluar dengan kemenangan. Amin.");
+
+	addDay(15, "Kejadian 33:1-35:29", "Pertemuan dengan Esau, pembelian tanah di Sikhem, kematian Rahel, kematian Ishak", "Matius 9:1-17", "Orang lumpuh diampuni, Matius dipanggil, puasa dan perayaan", "Mazmur 15:1-5", "Siapa yang boleh diam di gunung-Mu?", "Pengampunan dan Rekonsiliasi", "Yakub bertemu Esau dengan hati yang takut, tetapi Esau berlari menyambutnya dengan pelukan - gambaran pengampunan yang mengalahkan kebencian. Yesus mengampuni orang lumpuh (dan menyembuhkannya), memanggil pemungut cukai Matius, dan mengajarkan bahwa murid-murid-Nya adalah pengantin yang tidak berpuasa sementara Mempelai ada. Mazmur 15 menggambarkan karakter orang yang boleh tinggal di hadirat Tuhan.", "סלח", "Salach", "Mengampuni - Esau yang mengampuni Yakub setelah bertahun-tahun, bayangan dari pengampunan ilahi", "Berilah peluang untuk rekonsiliasi. Pengampunan bisa mengubah sejarah keluarga. Hidupilah karakter Mazmur 15 untuk diam di hadirat Tuhan.", "Tuhan, berikan saya hati yang mengampuni seperti Esau dan menerima pengampunan seperti orang lumpuh. Amin.");
+
+	addDay(16, "Kejadian 36:1-37:36", "Keturunan Esau, Yusuf dan mimpi-mimpinya, dijual ke Mesir", "Matius 9:18-38", "Anak perempuan bangkit, wanita sakit pendarahan, buta, bisu, lahan yang banyak", "Mazmur 16:1-11", "Tuhan bagian yang ditentukan, jalan kehidupan", "Mimpi dan Pengkhianatan", "Yusuf memiliki mimpi besar (yang membuat saudara-saudaranya iri), dijual oleh saudara-saudaranya sendiri, tetapi Tuhan menyertainya ke Mesir. Yesus membangkitkan anak perempuan, menyembuhkan wanita yang sakit 12 tahun, dan mengusir setan - menunjukkan kuasa-Nya atas kematian, kronis, dan roh jahat. Mazmur 16 adalah keyakinan bahwa Tuhan adalah bagian yang ditentukan yang indah.", "חלום", "Chalom", "Mimpi - Yusuf yang mendapat mimpi dari Tuhan, meski penggenapannya memerlukan pengkhianatan dan penderitaan", "Jangan takut bermimpi besar jika dari Tuhan. Meski jalan menuju penggenapan melalui pengkhianatan, Tuhan menyertai. Tuhan adalah bagian terindahmu.", "Ya Tuhan, percayakan saya pada rencana-Mu meski melalui lembah kekelaman. Amin.");
+
+	addDay(17, "Kejadian 38:1-39:23", "Yehuda dan Tamar, Yusuf di rumah Potifar, ditolak isteri Potifar, di penjara", "Matius 10:1-23", "Dua belas rasul diutus, instruksi untuk pelayanan", "Mazmur 17:1-15", "Doa orang benar, melihat wajah-Mu", "Kesucian dalam Pencobaan", "Yusuf menolak godaan isteri Potifar meski berakhir di penjara - kesucian yang mahal. Yesus mengutus dua belas murid dengan instruksi yang detail tentang pelayanan yang penuh risiko. Mazmur 17 adalah doa orang yang diuji tetapi tetap berjalan dalam kemurnian, dengan pengharapan untuk melihat wajah Tuhan.", "צדק", "Tzedek", "Benar - Yusuf yang tetap benar meski dikhianati, dijual, difitnah, dan dipenjara", "Kesucian adalah pilihan meski berakhir 'di penjara'. Integritas lebih berharga dari kemudahan. Berjalanlah dalam kemurnian untuk melihat wajah Tuhan.", "Tuhan, berikan saya kekuatan untuk tetap benar meski mahal harganya. Amin.");
+
+	addDay(18, "Kejadian 40:1-41:57", "Mimpi juru minuman dan juru roti, mimpi Firaun, Yusuf menjadi pembesar", "Matius 10:24-42", "Murid tidak di atas guru, penghargaan bagi yang menerima", "Mazmur 18:1-50", "Cinta kepada Tuhan yang menyelamatkan dari musuh", "Waktu Tuhan yang Sempurna", "Yusuf menunggu 13 tahun (dijual umur 17, melayani Firaun umur 30) sebelum penggenapan mimpi. Tuhan mengingat Yusuf tepat pada waktunya. Yesus mengajarkan murid-murid tentang biaya murid-muridan: tidak di atas guru, salib yang harus dipikul, tetapi ada penghargaan bagi yang menerima mereka. Mazmur 18 adalah syukur atas penyelamatan dari segala bahaya.", "פתר", "Patar", "Menafsirkan - karunia yang diberikan Tuhan kepada Yusuf untuk menafsirkan mimpi, yang membebaskannya dari penjara", "Percayalah waktu Tuhan, meski harus menunggu bertahun-tahun. Karunia yang diberikan-Nya akan digunakan pada waktunya. Jangan menyerah.", "Ya Tuhan, ajar saya menunggu waktu-Mu dengan setia. Gunakan karunia saya untuk kemuliaan-Mu. Amin.");
+
+	addDay(19, "Kejadian 42:1-43:34", "Saudara-saudara pergi ke Mesir, pertama dan kedua perjalanan, Benyamin ikut", "Matius 11:1-19", "Yohanes dalam penjara, Yesus dan Yohanes, generasi ini", "Mazmur 19:1-14", "Ciptaan dan hukum menyatakan kemuliaan Tuhan", "Pengakuan dan Pemeriksaan Hati", "Saudara-saudara Yusuf diuji untuk melihat apakah mereka telah berubah dari masa mereka menjual Yusuf. Benyamin (anak kesayangan ayah) menjadi ujian kesetiaan mereka. Yesus mengatakan Yohanes adalah Elijah yang akan datang, tetapi generasi ini seperti anak-anak yang tidak puas. Mazmur 19 menyatakan kemuliaan Tuhan melalui ciptaan (umum) dan hukum (khusus).", "בחן", "Bachan", "Menguji - Yusuf yang menguji hati saudara-saudaranya untuk melihat pertobatan mereka yang sejati", "Tuhan sering menguji hati kita untuk melihat kematangan rohani. Terimalah pengujian sebagai pemurnian. Responsmu menunjukkan pertobatan sejati atau belum.", "Tuhan, uji hati saya dan tunjukkan area yang perlu diubahkan. Amin.");
+
+	addDay(20, "Kejadian 44:1-45:28", "Piala Perak, Yehuda memohon, Yusuf menyatakan diri, keluarga dipanggil ke Mesir", "Matius 11:20-30", "Celaka atas kota-kota, datanglah kepada-Ku, kuk yang ringan", "Mazmur 20:1-9", "Tuhan menjawab di hari kesesakan", "Pengampunan yang Mengubah", "Yusuf tidak bisa menahan diri lagi ketika melihat kesediaan Yehuda mengorbankan diri untuk Benyamin. Pengampunan Yusuf yang besar mengubah sejarah keluarga. Yesus menawarkan istirahat bagi yang letih lesu - kuk yang ringan dan beban yang enteng. Mazmur 20 adalah keyakinan bahwa Tuhan akan menjawab dan membela umat-Nya.", "סלח", "Salach", "Mengampuni - Yusuf yang mengampuni pengkhianatan mendalam dan menyelamatkan keluarganya dari kelaparan", "Pengampunan yang besar bisa mengubah sejarah. Jadilah Yusuf yang mengampuni, bukan yang membalas dendam. Terimalah istirahat yang ditawarkan Yesus.", "Tuhan, berikan saya hati yang mengampuni seperti Yusuf dan mau beristirahat dalam Yesus. Amin.");
+
+	addDay(21, "Kejadian 46:1-47:31", "Yakub pergi ke Mesir, bertemu Firaun, Yusuf membeli tanah", "Matius 12:1-21", "Tuhan atas hari Sabat, hamba yang terpilih, tidak akan memadamkan", "Mazmur 21:1-13", "Raja bersukacita dalam kekuatan Tuhan", "Penyertaan dalam Pembuangan", "Yakub meninggalkan tanah perjanjian untuk Mesir, tetapi Tuhan menyertainya dalam mimpi di Beersheba. Yusuf membeli seluruh tanah Mesir untuk Firaun, menyelamatkan bangsa itu. Yesus adalah Tuhan atas hari Sabat, hamba yang lemah lembut yang tidak akan memadamkan api yang hampir padam. Mazmur 21 adalah sukacita raja atas kemenangan yang diberikan Tuhan.", "ירד", "Yarad", "Turun - Yakub yang turun ke Mesir, tetapi Tuhan turun bersamanya dalam mimpi", "Meski kamu harus 'turun' ke tempat yang tidak kau inginkan, percayalah Tuhan menyertai. Jadilah hamba yang lemah lembut seperti Yesus.", "Ya Tuhan, turunlah bersama saya ke mana pun saya pergi. Amin.");
+
+	addDay(22, "Kejadian 48:1-50:26", "Yakub memberkati anak-anak Yusuf, berkat untuk dua belas suku, kematian Yakub dan Yusuf", "Matius 12:22-50", "Setan yang dibuang, dosa menghujat, tanda Yunus, ibu dan saudara-saudara", "Mazmur 22:1-31", "Allah-Ku, Allah-Ku, mengapa Kau tinggalkan aku?", "Janji yang Melampaui Kematian", "Yakub meminta tulang-belulangnya dibawa kembali ke Kanaan - iman bahwa janji Tuhan melampaui kematian. Yusuf juga meminta tulang-belulangnya dibawa keluar, yakin akan penggenapan janji. Yesus menghadapi tuduhan menghujat Roh Kudus dan menolak minta tanda, menawarkan tanda Yunus (kematian dan kebangkitan). Mazmur 22 adalah mazmur penderitaan yang digenapi di kayu salib.", "אסף", "Asaf", "Mengumpulkan - Yusuf yang meminta tulang-belulangnya dikumpulkan kembali ke tanah perjanjian", "Iman sejati melihat melampaui kematian. Percayalah janji Tuhan yang tidak pernah gagal, meski penggenapannya melampaui hidupmu.", "Tuhan, berikan saya iman yang melihat janji-Mu yang melampaui kematian. Amin.");
+
+	addDay(23, "Keluaran 1:1-2:25", "Bangsa Israel diperbudak, kelahiran Musa, dipelihara di istana", "Matius 13:1-23", "Perumpamaan tentang penabur, tanah yang berbagai macam", "Mazmur 23:1-6", "Tuhan Gembala-Ku", "Pemeliharaan dalam Penindasan", "Meski bangsa Israel diperbudak dengan kejam, Tuhan memelihara Musa di istana Firaun untuk menyelamatkan umat-Nya. Yesus mengajarkan perumpamaan penabur - Firman jatuh di berbagai tanah, hanya tanah yang baik yang berbuah. Mazmur 23 adalah keyakinan paling indah tentang pemeliharaan Tuhan sebagai Gembala.", "רעה", "Ra'ah", "Menggembalakan - Tuhan yang menggembalakan umat-Nya meski dalam lembah kekelaman", "Percayalah pemeliharaan Tuhan meski dalam penindasan. Jadikan hatimu 'tanah yang baik' untuk Firman Tuhan agar berbuah tiga puluh, enam puluh, seratus kali lipat.", "Ya Gembala-Ku, terima kasih memelihara saya di lembah yang gelap. Amin.");
+
+	addDay(24, "Keluaran 3:1-4:31", "Semak yang menyala, panggilan Musa, tongkat menjadi ular, pembebasan dijanjikan", "Matius 13:24-43", "Lalang di antara gandum, biji sesawi, ragi, harta dalam ladang", "Mazmur 24:1-10", "Tuhan pemilik bumi, siapa boleh naik ke gunung Tuhan?", "Panggilan yang Tidak Ditolak", "Musa mencari alasan untuk menolak panggilan (aku tidak cakap bicara), tetapi Tuhan memberikan apa yang diperlukan (Harun sebagai pembicara). Yesus mengajarkan kerajaan sorga seperti lalang yang dibiarkan tumbuh bersama gandum sampai waktu panen, seperti biji sesawi kecil yang menjadi besar, seperti ragi yang meragi adonan. Mazmur 24 bertanya siapa yang boleh berdiri di hadirat Tuhan: mereka yang berjiwa bersih.", "שׁלח", "Shalach", "Mengutus - Musa yang diutus meski merasa tidak cakap, karena kuasa ada pada yang mengutus", "Jangan tolak panggilan Tuhan karena perasaan tidak cakap. Kuasa ada pada yang mengutus, bukan pada yang diutus. Siapkanlah hatimu untuk hadirat Tuhan.", "Tuhan, pakailah saya meski saya merasa tidak cakap. Bersihkan hatiku untuk hadirat-Mu. Amin.");
+
+	addDay(25, "Keluaran 5:1-6:27", "Musa menghadap Firaun, beban bertambah berat, janji pembebasan kembali", "Matius 13:44-58", "Mutiara yang berharga, jala, perumpamaan ditolak di Nazaret", "Mazmur 25:1-22", "Doa untuk pengajaran dan ampunan", "Ketika Keadaan Bertambah Buruk", "Setelah Musa berbicara dengan Firaun, beban bangsa Israel bertambah berat - mereka harus mengumpulkan jerami sendiri. Tetapi Tuhan menguatkan janji-Nya dengan perjanjian yang lebih jelas. Yesus mengajarkan kerajaan sorga seperti mutiara berharga yang dijual segala sesuatu untuk membelinya. Mazmur 25 adalah doa untuk belajar jalan Tuhan dan menerima ampunan.", "ידע", "Yada", "Mengenal - permohonan untuk mengenal jalan-jalan Tuhan dan belajar dari-Nya", "Ketika keadaan bertambah buruk setelah kau taat, jangan menyerah. Tuhan sedang bekerja di balik layar. Hargailah kerajaan sorga seperti mutiara yang tak ternilai.", "Ya Tuhan, ajar saya jalan-Mu meski keadaan tampak bertambah buruk. Amin.");
+
+	addDay(26, "Keluaran 6:28-9:35", "Tongkat menjadi ular, tulah-tulah, darah, katak, nyamuk, lalat, penyakit hewan", "Matius 14:1-21", "Yohanes dibunuh, lima roti dua ikan, Yesus berjalan di atas air", "Mazmur 26:1-12", "Memeriksa jalan, berjalan dalam ketulusan", "Kuasa yang Mengalahkan Dewa-dewa", "Sepuluh tulah adalah penghakiman atas dewa-dewa Mesir (Nile, katak, matahari, dll). Setiap tulah menunjukkan kekuasaan Tuhan atas alam. Yesus memberi makan lima ribu orang dengan lima roti dua ikan - memenuhi kebutuhan fisik dan spiritual. Mazmur 26 adalah pemeriksaan diri untuk berjalan dalam ketulusan.", "יד", "Yad", "Tangan - tangan Tuhan yang berkuasa atas Mesir dan tangan yang memberi makan lima ribu orang", "Percayalah kuasa Tuhan atas setiap 'dewa' yang kamu takuti. Dia bisa memenuhi kebutuhanmu secara ajaib. Periksa jalanmu untuk berjalan dalam ketulusan.", "Tuhan, tunjukkan kuasa-Mu atas setiap ketakutan saya. Bantu saya berjalan dalam ketulusan. Amin.");
+
+	addDay(27, "Keluaran 10:1-12:51", "Belalang, kegelapan, kematian anak sulung, Paskah, keluar dari Mesir", "Matius 14:22-36", "Yesus berjalan di atas air, Petrus tenggelam, penyembuhan di Genesaret", "Mazmur 27:1-14", "Tuhan terang dan keselamatanku", "Lewatkan Anak Domba", "Paskah adalah perayaan pembebasan melalui darah anak domba yang tak bernoda - bayangan akan Kristus, Anak Domba Allah. Yesus berjalan di atas air untuk menemui murid-murid yang berjuang, dan Petrus berjalan sebentar sebelum tenggelam karena melihat angin. Mazmur 27 adalah keyakinan bahwa Tuhan adalah terang dalam kegelapan.", "פסח", "Pesach", "Lewatkan - Tuhan yang melewatkan rumah-rumah yang berdarah anak domba, bayangan karya salib", "Terimalah pembebasan melalui darah Anak Domba. Jangan fokus pada 'angin' masalah seperti Petrus, tetapi pada Yesus yang memanggilmu.", "Anak Domba Allah, terima kasih melewatkan saya dalam penghakiman. Amin.");
+
+	addDay(28, "Keluaran 13:1-15:27", "Anak sulung dikhususkan, tiang awan dan api, laut Teberau, nyanyian kemenangan", "Matius 15:1-28", "Tradisi manusia, yang keluar dari mulut, iman perempuan Kanaan", "Mazmur 28:1-9", "Tuhan kekuatan dan perisai", "Laut yang Terbelah", "Tuhan membuka laut untuk umat-Nya dan menutupnya untuk musuh - pembebasan total. Nyanyian Musa dan Miryam merayakan kemenangan besar ini. Yesus menghadapi Farisi tentang tradisi yang menggantikan Firman, dan memuji iman perempuan Kanaan yang tidak menyerah. Mazmur 28 adalah seruan kepada Tuhan yang mendengar dan memberi kekuatan.", "ים", "Yam", "Laut - laut Teberau yang terbelah, jalan keluar yang mustahil menjadi mungkin", "Tuhan bisa membuka jalan di tempat yang tampak tertutup. Jangan biarkan tradisi menggantikan hubungan yang hidup. Miliki iman yang gigih seperti perempuan Kanaan.", "Ya Tuhan, belahlah laut masalah saya dan buat jalan keluar. Amin.");
+
+	addDay(29, "Keluaran 16:1-18:27", "Manna dan burung puyuh, air dari batu, perang dengan Amalek, Yitro memberi nasihat", "Matius 15:29-16:12", "Penyembuhan banyak orang, tujuh roti, ragi Farisi dan Saduki", "Mazmur 29:1-11", "Suara Tuhan di atas air", "Pemeliharaan di Padang Gurun", "Tuhan memberikan manna setiap hari dan air dari batu - pemeliharaan ajaib di padang gurun. Yitro memberi nasihat bijak tentang delegasi. Yesus memberi makan empat ribu orang dengan tujuh roti, dan memperingatkan murid-murid tentang ragi Farisi (hipokrisi) dan Saduki (rasionalisme). Mazmur 29 mengagumi suara Tuhan yang berkuasa atas air.", "מן", "Man", "Manna - roti dari sorga yang diberikan setiap hari, bayangan Yesus roti hidup", "Terimalah 'manna' harian dari Firman Tuhan setiap pagi. Waspadai 'ragi' yang merusak: hipokrisi dan rasionalisme yang dingin.", "Tuhan, berikan saya manna harian dan air hidup setiap hari. Amin.");
+
+	addDay(30, "Keluaran 19:1-21:36", "Di Sinai, sepuluh perintah, mezbah, hamba dan budak, kekerasan", "Matius 16:13-28", "Petrus mengaku Yesus, Yesus meramalkan penderitaan, ambil salib", "Mazmur 30:1-12", "Engkau mengangkat aku dari dalam kubur", "Perjanjian dan Pengorbanan", "Tuhan membuat perjanjian dengan Israel di Sinai, memberikan hukum sebagai pedoman hidup. Yesus bertanya siapa yang orang kata Dia, dan Petrus mengaku Dia adalah Mesias, Anak Allah yang hidup. Yesus langsung meramalkan penderitaan dan memanggil murid-murid untuk mengambil salib. Mazmur 30 adalah syukur atas penyelamatan dari maut.", "עדות", "Edut", "Kesaksian - sepuluh perintah sebagai kesaksian perjanjian, standar kekudusan Tuhan", "Hukum Tuhan adalah cermin untuk melihat dosa dan pedoman untuk hidup. Tetapi keselamatan datang melalui pengakuan seperti Petrus dan pengambilan salib.", "Ya Tuhan, aku mengaku Engkau adalah Mesias. Bantu saya mengambil salib setiap hari. Amin.");
+
+	addDay(31, "Keluaran 22:1-24:18", "Hukum-hukum sosial, tiga pesta tahunan, perjanjian di Sinai", "Matius 17:1-27", "Yesus dimuliakan, roh yang bisu, Yesus membayar upeti", "Mazmur 31:1-24", "Engkau tempat perlindunganku", "Hukum yang Mengasihi", "Hukum-hukum dalam Keluaran 22-24 menunjukkan kepedulian Tuhan pada yang lemah: janda, yatim piatu, orang asing. Yesus dimuliakan di gunung, menunjukkan kemuliaan-Nya sebagai Anak Allah. Mazmur 31 adalah doa kepada Tuhan yang menjadi tempat perlindungan dan benteng.", "גר", "Ger", "Orang asing - hukum yang melindungi orang asing menunjukkan hati Tuhan yang peduli pada yang terpinggirkan", "Hukum Tuhan adalah ungkapan kasih-Nya. Lihatlah kemuliaan Yesus dan jadilah pelindung bagi yang lemah seperti yang Tuhan perintahkan.", "Tuhan, bantu saya melihat hukum-Mu sebagai ungkapan kasih dan menjadi pelindung bagi yang lemah. Amin.");
+
+	addDay(32, "Keluaran 25:1-27:21", "Persembahan untuk kemah, tabut perjanjian, mezbah, pelita", "Matius 18:1-35", "Siapa yang terbesar, domba yang hilang, mengampuni sampai tujuh kali tujuh puluh kali", "Mazmur 32:1-11", "Berbahagia orang yang diampuni", "Kemah di Tengah Umat", "Tuhan memerintahkan pembuatan kemah suci agar Dia bisa diam di tengah umat-Nya. Yesus mengajarkan tentang kerendahan hati (seperti anak kecil), mencari domba yang hilang, dan mengampuni tanpa batas. Mazmur 32 mengatakan berbahagia orang yang diampuni dan tidak menutupi dosanya.", "שׁכן", "Shekin", "Diam - kemah suci sebagai tempat Tuhan berdiam di tengah umat-Nya", "Tuhan ingin diam di tengah hidupmu. Miliki kerendahan hati anak kecil, kejar yang hilang, dan ampuni tanpa menghitung.", "Ya Tuhan, diamlah di tengah hidup saya dan ajar saya mengampuni seperti Engkau mengampuni saya. Amin.");
+
+	addDay(33, "Keluaran 28:1-29:46", "Pakaian imam, pengurunan Harun dan anak-anaknya", "Matius 19:1-30", "Perceraian, anak-anak, orang kaya, apa yang mustahil bagi manusia", "Mazmur 33:1-22", "Firman Tuhan menciptakan, melihat segala manusia", "Imam Besar yang Kudus", "Imam besar memakai pakaian khusus dengan batu permata yang melambangkan dua belas suku Israel di atas hatinya. Yesus mengajarkan tentang arti pernikahan sejati, menerima anak-anak, dan bahwa yang mustahil bagi manusia mungkin bagi Allah. Mazmur 33 mengagumi kuasa Firman Tuhan yang menciptakan dan melihat segala yang dilakukan manusia.", "כהן", "Cohen", "Imam - yang menjadi perantara antara Tuhan dan umat, bayangan imamat Yesus yang sempurna", "Yesus adalah Imam Besar kita yang sempurna. Hargailah pernikahan, terimalah kerajaan sorga seperti anak kecil, dan percayalah bahwa Tuhan bisa melakukan yang mustahil.", "Ya Imam Besar, terima kasih menjadi perantara saya. Bantu saya mempercayai yang mustahil. Amin.");
+
+	addDay(34, "Keluaran 30:1-31:18", "Mezbah dupa, pencucian, minyak urapan, dua lempeng batu", "Matius 20:1-34", "Pekerja di kebun anggur, Yesus meramalkan penderitaan, permintaan Yakobus dan Yohanes, buta di Yerikho", "Mazmur 34:1-22", "Rasakan dan lihatlah bahwa Tuhan itu baik", "Kasih Karunia yang Sama", "Mezbah dupa mewakili doa umat yang naik ke hadirat Tuhan. Yesus mengajarkan bahwa kerajaan sorga seperti pekerja di kebun anggur yang menerima upah yang sama meski bekerja pada waktu berbeda - kasih karunia bukan penghargaan prestasi. Mazmur 34 mengajak kita untuk merasakan kebaikan Tuhan.", "חן", "Chen", "Kasih karunia - bukan berdasarkan prestasi tetapi pemberian cuma-cuma", "Kerajaan sorga adalah kasih karunia, bukan upah atas prestasi. Terimalah dengan syukur dan bagikan kepada yang lain. Rasakan kebaikan Tuhan dalam hidupmu.", "Ya Tuhan, terima kasih untuk kasih karunia-Mu yang tidak berdasarkan prestasi saya. Amin.");
+
+	addDay(35, "Keluaran 32:1-33:23", "Anak lembu emas, kemurkaan Tuhan, Musa memohon, kemuliaan Tuhan", "Matius 21:1-22", "Masuk Yerusalem, membersihkan bait suci, pohon ara yang dikutuk", "Mazmur 35:1-28", "Berjuanglah ya Tuhan dengan mereka yang berjuang dengan aku", "Pembela dan Hakim", "Bangsa Israel menyembah anak lembu emas meski baru saja melihat kuasa Tuhan. Musa memohon dengan memohonkan nama Tuhan. Yesus masuk Yerusalem sebagai Raja Damai, membersihkan bait suci dari perdagangan, dan mengutuk pohon ara yang tidak berbuah. Mazmur 35 adalah doa untuk pembelaan Tuhan terhadap penindas.", "סלח", "Selach", "Mengampuni - Tuhan yang mengampuni meski umat-Nya berdosa besar dengan anak lembu emas", "Meski kita sering gagal seperti Israel dengan anak lembu emas, Tuhan adalah pengampun. Jadilah buah-buahan rohani, bukan pohon ara yang hanya daun.", "Ya Tuhan, ampuni dosa-dosa saya dan jadikan saya berbuah untuk kemuliaan-Mu. Amin.");
+
+	addDay(36, "Keluaran 34:1-35:29", "Lempeng batu baru, karakter Tuhan, wajah Musa bersinar, persembahan sukarela", "Matius 21:23-46", "Pertanyaan tentang kuasa, perumpamaan dua anak, perumpamaan penjaga kebun anggur", "Mazmur 36:1-12", "Kasih setia Tuhan sampai ke langit", "Karakter Tuhan yang Terang", "Tuhan menyatakan karakter-Nya kepada Musa: pengasih, penyayang, panjang sabar, berlimpah kasih setia dan kebenaran. Wajah Musa bersinar setelah bertemu Tuhan. Yesus menghadapi pertanyaan tentang kuasa dan mengajarkan bahwa kerajaan akan diambil dari yang tidak berbuah. Mazmur 36 memuji kasih setia Tuhan yang tak terbatas.", "רחום", "Rachum", "Penyayang - karakter dasar Tuhan yang penuh kasih dan pengampunan", "Bertemulah dengan Tuhan sehingga wajahmu bersinar dengan karakter-Nya. Berbuahlah dalam kerajaan-Nya atau risiko kehilangan kesempatan.", "Ya Tuhan, bentuk karakter saya menurut gambar-Mu yang penuh kasih. Amin.");
+
+	addDay(37, "Keluaran 36:1-38:31", "Bezalel dan Aholiab, pembangunan kemah", "Matius 22:1-46", "Perumpamaan pesta pernikahan, uang pajak, hukum yang terbesar, Kristus anak Daud", "Mazmur 37:1-40", "Jangan marah karena orang yang berbuat jahat", "Roh Kudus dan Keterampilan", "Tuhan mengisi Bezalel dan Aholiab dengan Roh Kudus untuk membuat kemah suci. Yesus mengajarkan tentang kerajaan sorga sebagai pesta pernikahan, kewajiban pajak, dan hukum terbesar: kasih kepada Allah dan sesama. Mazmur 37 mengajarkan untuk tidak iri pada orang jahat karena mereka akan lenyap.", "חכמה", "Chokmah", "Hikmat - karunia dari Tuhan untuk bekerja dengan skill dan keahlian", "Roh Kudus memberikan keterampilan untuk melayani. Gunakan talentamu untuk membangun 'kemah suci' di mana Tuhan dapat diam.", "Ya Tuhan, isi saya dengan Roh-Mu untuk melayani dengan keterampilan. Amin.");
+
+	addDay(38, "Keluaran 39:1-40:38", "Penyelesaian kemah, kemuliaan Tuhan turun", "Matius 23:1-39", "Celaka atas ahli-ahli Taurit, Yerusalem yang membunuh nabi-nabi", "Mazmur 38:1-22", "Doa orang berdosa yang menyesal", "Kemuliaan di Tengah Umat", "Setelah selesai dibangun, kemuliaan Tuhan turun dan mengisi kemah suci. Yesus menegur ahli-ahli Taurat karena hipokrisi mereka dan meratapi Yerusalem yang menolak nabi-nabi. Mazmur 38 adalah doa pengakuan dosa dari orang yang merasa berat karena pelanggarannya.", "כבוד", "Kavod", "Kemuliaan - kehadiran nyata Tuhan yang memenuhi tempat kudus", "Persiapkan hatimu sebagai kemah suci sehingga kemuliaan Tuhan dapat turun dan mengisinya.", "Ya Tuhan, turunlah kemuliaan-Mu dan penuhilah hidup saya. Amin.");
+
+	addDay(39, "Imamat 1:1-3:17", "Korban bakaran, korban sajian, korban keselamatan", "Matius 24:1-31", "Kehancuran bait suci, tanda kedatangan, pengawasan", "Mazmur 39:1-13", "Mengingat kesenangan adalah sia-sia", "Korban yang Menerima", "Imamat mengajarkan berbagai korban sebagai ungkasan kasih, keselamatan, dan pengakuan dosa. Yesus meramalkan kehancuran bait suci dan kedatangan-Nya yang kedua. Mazmur 39 mengingatkan bahwa hidup ini singkat dan kesenangan duniawi sia-sia.", "קרב", "Qarab", "Mendekat - korban sebagai cara mendekat kepada Tuhan yang kudus", "Yesus adalah korban sempurna yang membuat kita bisa mendekat kepada Tuhan. Hargailah pengorbanan-Nya.", "Ya Tuhan, terima kasih untuk korban sempurna Yesus yang mendekatkan saya kepada-Mu. Amin.");
+
+	addDay(40, "Imamat 4:1-5:26", "Korban penghapus dosa, korban penebus salah", "Matius 24:32-25:46", "Pohon ara, perumpamaan penjaga, perumpamaan talenta, penghakiman", "Mazmur 40:1-17", "Aku menunggu dengan sabar Tuhan", "Pengampunan dan Pertobatan", "Korban penghapus dosa menunjukkan kebutuhan akan pengampunan. Yesus mengajarkan untuk selalu waspada karena tidak tahu waktu kedatangan-Nya, dan menggunakan talenta yang diberikan. Mazmur 40 adalah kesaksian bahwa Tuhan mendengar doa orang yang menunggu.", "סליחה", "Selichah", "Pengampunan - korban sebagai jalan pengampunan dosa", "Terimalah pengampunan melalui Yesus dan gunakan 'talenta' hidupmu untuk kemuliaan Tuhan. Jangan sia-siakan waktu.", "Ya Tuhan, aku menunggu dengan sabar. Gunakan talenta yang Kau berikan. Amin.");
+
+	addDay(41, "Imamat 6:1-7:38", "Korban tambahan, korban bersalah, korban korban bakaran", "Matius 26:1-30", "Rencana untuk membunuh Yesus, perjamuan terakhir", "Mazmur 41:1-13", "Berbahagia orang yang memperhatikan orang lemah", "Kesucian dalam Pelayanan", "Hukum-hukum korban mengajarkan kesucian dalam pelayanan kepada Tuhan. Yesus merayakan perjamuan terakhir dengan murid-murid, menetapkan perjamuan kudus. Mazmur 41 mengatakan berbahagia orang yang memperhatikan orang lemah, meski dikhianati oleh teman.", "קדשׁ", "Kadosh", "Kudus - panggilan untuk hidup terpisah dan suci dalam pelayanan", "Hidupilah kesucian dalam pelayanan. Perjamuan kudus adalah peringatan akan pengorbanan Yesus. Perhatikan orang lemah.", "Ya Tuhan, kuduskan pelayanan saya dan bantu saya memperhatikan yang lemah. Amin.");
+
+	addDay(42, "Imamat 8:1-10:20", "Pengurunan Harun, anak-anak Harun berbuat salah", "Matius 26:31-75", "Yesus meramalkan penyangkalan Petrus, di Getsemani, ditangkap, dihadapkan imam besar", "Mazmur 42:1-11", "Rusa yang merindukan sungai", "Panggilan dan Kegagalan", "Harun dan anak-anaknya diurapi untuk pelayanan kudus, tetapi Nadab dan Abihu mati karena perbuatan mereka yang arogan. Yesus menghadapi penyangkalan Petrus dan penangkapan-Nya dengan ketenangan. Mazmur 42 menggambarkan kerinduan jiwa akan Tuhan seperti rusa merindukan air.", "משׁח", "Mashach", "Mengurapi - pengurapan untuk pelayanan kudus yang memerlukan kesucian", "Panggilan rohani memerlukan kesucian. Jangan seperti Nadab yang arogan, tetapi rendah hati seperti Yesus yang menghadapi penderitaan.", "Ya Tuhan, ajar saya rendah hati dalam pelayanan yang Kau urapi. Amin.");
+
+	addDay(43, "Imamat 11:1-12:8", "Hewan yang tahir dan najis, kelahiran", "Matius 27:1-26", "Yesus dihadapkan Pilatus, ditolak oleh orang banyak, Barabas dibebaskan", "Mazmur 43:1-5", "Kirimkanlah terang-Mu dan kebenaran-Mu", "Kehidupan yang Tahir", "Hukum tentang makanan dan kelahiran mengajarkan tentang kekudusan dalam kehidupan sehari-hari. Yesus dihadapkan Pilatus dan ditolak oleh orang banyak yang memilih Barabas. Mazmur 43 adalah doa untuk Tuhan mengirim terang dan kebenaran-Nya.", "טהור", "Tahor", "Tahir - kehidupan yang bersih dan terpisah untuk Tuhan", "Hidupilah kekudusan dalam hal-hal kecil. Pilih Yesus, bukan 'Barabas' duniawi. Mintalah terang Tuhan menuntunmu.", "Ya Tuhan, bantu saya memilih Yesus dan hidup tahir untuk-Mu. Amin.");
+
+	addDay(44, "Imamat 13:1-14:57", "Penyakit kulit, pemeriksaan, pentahiran", "Matius 27:27-56", "Yesus disiksa, disalibkan, mati, dimakamkan", "Mazmur 44:1-26", "Kami mendengar dengan telinga kami", "Penderitaan dan Pengharapan", "Hukum tentang penyakit kulit mengajarkan tentang isolasi dan pemulihan. Yesus menanggung penderitaan, penyaliban, dan kematian yang kita layak terima. Mazmur 44 mengingatkan perbuatan-perbuatan Tuhan di masa lalu meski kini menghadapi kekalahan.", "צרעת", "Tsara'at", "Penyakit kulit - kondisi yang memerlukan pemeriksaan dan pentahiran oleh imam", "Yesus menjadi 'najis' di kayu salib agar kita dinyatakan tahir. Dalam penderitaan, ingatlah kesetiaan Tuhan di masa lalu.", "Ya Tuhan, terima kasih menjadi najis untuk membuat saya tahir. Amin.");
+
+	addDay(45, "Imamat 15:1-16:34", "Hukum tentang ketidaktahiran, pengadilan pada Hari Pendamaian", "Matius 27:57-28:20", "Yesus dimakamkan, bangkit, penampakan kepada perempuan-perempuan", "Mazmur 45:1-17", "Raja yang paling elok dari antara anak-anak manusia", "Pendamaian dan Kebangkitan", "Hari Pendamaian adalah hari paling kudus di mana imam besar masuk ke ruang mahakudus. Yesus mati dan bangkit sebagai pendamaian sempurna. Mazmur 45 adalah nyanyian pujian untuk raja yang memiliki kecantikan dan kekuatan.", "כפר", "Kafar", "Mendamaikan - pengampunan dosa melalui darah yang ditumpahkan", "Yesus adalah Imam Besar dan Korban yang sempurna. Kebangkitan-Nya membuktikan pendamaian diterima. Sembah Dia sebagai Raja yang elok.", "Ya Tuhan, terima kasih untuk pendamaian sempurna melalui Yesus. Amin.");
+
+	addDay(46, "Imamat 17:1-18:30", "Darah tidak boleh dimakan, hukum-hukum moral", "Matius 28:16-20", "Amanat Agung, Yesus naik ke sorga", "Mazmur 46:1-11", "Allah bagi kita tempat perlindungan dan kekuatan", "Darah yang Berharga", "Darah tidak boleh dimakan karena darah adalah nyawa. Yesus memberikan amanat agung untuk memuridkan semua bangsa sebelum naik ke sorga. Mazmur 46 adalah keyakinan bahwa Tuhan adalah benteng dan kekuatan dalam kesesakan.", "דם", "Dam", "Darah - nyawa yang berharga dan tidak boleh dinodai, bayangan darah Yesus", "Hargailah darah Yesus yang memberi nyawa kekal. Jalankan amanat agung: jadikan murid, baptis, ajar taati. Tuhan adalah bentengmu.", "Ya Tuhan, terima kasih untuk darah Yesus. Bantu saya menjalankan amanat agung. Amin.");
+
+	addDay(47, "Imamat 19:1-20:27", "Hukum kekudusan, hukum-hukum moral dan ritual", "Markus 1:1-20", "Yohanes Pembaptis, Yesus dibaptis, panggilan murid-murid pertama", "Mazmur 47:1-9", "Bersorak-soraklah bagi Allah", "Kudus Seperti Tuhan", "Imamat 19 memerintahkan: 'Kuduslah sebab Aku, TUHAN, Allahmu, kudus.' Yesus memulai pelayanan-Nya dengan pembaptisan dan panggilan murid-murid. Mazmur 47 adalah panggilan untuk bersorak bagi Allah yang adalah Raja atas seluruh bumi.", "קדושׁים", "Kedoshim", "Orang-orang kudus - panggilan untuk menjadi umat yang terpisah untuk Tuhan", "Kuduslah seperti Tuhan kudus. Ikuti Yesus dalam pembaptisan dan panggilan. Bersoraklah bagi Raja atas seluruh bumi.", "Ya Tuhan, kuduskan saya seperti Engkau kudus. Amin.");
+
+	addDay(48, "Imamat 21:1-22:33", "Kesucian imam, korban yang tidak boleh diterima", "Markus 1:21-45", "Yesus mengajar dengan kuasa, mengusir setan, menyembuhkan banyak orang", "Mazmur 48:1-14", "Gunung Sion yang indah, kota Allah yang agung", "Kesucian dalam Pelayanan", "Imam dipanggil untuk standar kesucian yang lebih tinggi. Yesus mengajar dengan kuasa otoritatif, mengusir setan, dan menyembuhkan. Mazmur 48 memuji keindahan dan kekuatan Sion, kota Allah.", "כהנים", "Cohanim", "Imam-imam - dipanggil untuk standar kesucian yang tinggi dalam pelayanan", "Jika kamu dipanggil untuk pelayanan, hidupilah kesucian yang lebih tinggi. Yesus memiliki kuasa atas setan dan penyakit. Sembah Dia di Sion.", "Ya Tuhan, kuduskan saya untuk pelayanan yang Kau panggil. Amin.");
+
+	addDay(49, "Imamat 23:1-25:55", "Pesta-pesta Tuhan, tahun Sabat, Tahun Yobel", "Markus 2:1-28", "Orang lumpuh diampuni, Levi dipanggil, hari Sabat adalah untuk manusia", "Mazmur 49:1-20", "Jangan takut karena orang kaya", "Waktu yang Dikuduskan", "Pesta-pesta Tuhan (Paskah, Pentakosta, Pondok Daun) mengingatkan perbuatan-perbuatan besar Tuhan. Tahun Yobel adalah pembebasan total. Yesus mengampuni orang lumpuh dan mengajarkan bahwa hari Sabat dibuat untuk manusia. Mazmur 49 mengingatkan bahwa kekayaan tidak dapat menebus nyawa.", "יובל", "Yobel", "Yobel - tahun terompet, pembebasan, pengembalian tanah, pengampunan utang", "Rayakan 'pesta-pesta' rohani: pengampunan, pencurahan Roh, pengharapan surgawi. Yesus membawa pembebasan Yobel yang sejati. Jangan percaya pada kekayaan.", "Ya Tuhan, bantu saya merayakan pembebasan di dalam Yesus. Amin.");
+
+	addDay(50, "Imamat 26:1-27:34", "Berkat dan kutuk, nazir, nilai tukar orang", "Markus 3:1-35", "Orang yang bertangan kering disembuhkan, pemilihan dua belas rasul, ibu dan saudara-saudara", "Mazmur 50:1-23", "Allah yang berhak menghakimi", "Pilihan dan Konsekuensi", "Ketaatan membawa berkat, kemurtadan membawa kutuk. Nazir adalah pengabdian sukarela kepada Tuhan. Yesus menyembuhkan di hari Sabat dan memilih dua belas rasul. Mazmur 50 mengingatkan bahwa Allah tidak butuh korban karena segala sesuatu milik-Nya, tetapi menginginkan syukur dan penurutan.", "נדר", "Neder", "Nazir - pengabdian sukarela dengan menguduskan diri untuk Tuhan", "Pilihlah ketaatan dan berkat. Persembahkan diri sebagai 'nazir' sukarela untuk Tuhan. Syukurilah dan turutilah, itulah korban yang berkenan.", "Ya Tuhan, aku memilih ketaatan dan syukur. Terima pengabdian saya. Amin.");
+
+	addDay(51, "Bilangan 1:1-2:34", "Pencatatan tentara Israel, kedudukan suku-suku", "Markus 4:1-34", "Perumpamaan penabur, lilin, biji sesawi, ragi", "Mazmur 51:1-19", "Kasihanilah aku ya Allah menurut kasih setia-Mu", "Teratur dan Siap", "Israel diatur dengan teratur untuk perjalanan dan perang. Yesus mengajarkan perumpamaan tentang kerajaan sorga: penabur, lilin yang tidak ditutupi, biji sesawi yang kecil menjadi besar. Mazmur 51 adalah doa pengakuan dosa Daud setelah berbuat zinah.", "צבא", "Tsaba", "Tentara - Israel sebagai tentara Tuhan yang teratur dan siap", "Aturlah hidupmu dengan teratur untuk pelayanan. Biarkan Firman tumbuh seperti biji sesawi. Akui dosamu seperti Daud untuk menerima pengampunan.", "Ya Tuhan, kasihanilah saya dan bersihkan dari dosa. Amin.");
+
+	addDay(52, "Bilangan 3:1-4:49", "Orang Lewi dikhususkan, tugas-tugas suku Lewi", "Markus 4:35-5:43", "Yesus menenangkan badai, setan di Gadara, anak perempuan Yairus, wanita yang sakit pendarahan", "Mazmur 52:1-9", "Mengapa kamu memegahkan diri dengan kejahatan", "Pelayanan yang Dikhususkan", "Suku Lewi dikhususkan untuk pelayanan di kemah suci menggantikan anak-anak sulung Israel. Yesus menunjukkan kuasa-Nya atas alam, setan, dan kematian. Mazmur 52 menegur orang yang memegahkan diri dengan kejahatan dan memuji orang yang berharap pada kasih Allah.", "לוי", "Levi", "Lewi - suku yang dikhususkan untuk pelayanan di kemah suci", "Kuduskanlah dirimu untuk pelayanan seperti Lewi. Percayalah kuasa Yesus atas badai hidupmu. Jangan megah dengan kejahatan, tetapi harap pada kasih Allah.", "Ya Tuhan, kuduskan saya untuk pelayanan seperti Lewi. Amin.");
+
+	addDay(53, "Bilangan 5:1-6:27", "Orang najis diusir, korban penebus salah, nazir wanita", "Markus 6:1-29", "Yesus ditolak di Nazaret, mengutus dua demi dua, Yohanes Pembaptis dibunuh", "Mazmur 53:1-6", "Orang bodoh berkata dalam hatinya tidak ada Allah", "Kesucian dan Pengorbanan", "Kesucian dijaga dengan mengusir yang najis. Nazir wanita menunjukkan pengabdian tidak mengenal gender. Yesus ditolak di kampung halaman-Nya sendiri. Mazmur 53 mengulangi kebodohan orang yang menyangkal Allah.", "נזירה", "Nezirah", "Nazir wanita - pengabdian sukarela yang terbuka bagi laki-laki dan perempuan", "Jaga kesucian dengan mengusir 'najis' dari hidupmu. Pengabdian untuk Tuhan tidak mengenal gender. Yakinlah akan keberadaan Allah meski ditolak.", "Ya Tuhan, jaga kesucian saya dan terima pengabdian saya. Amin.");
+
+	addDay(54, "Bilangan 7:1-8:26", "Persembahan para pemuka, pentahbisan orang Lewi", "Markus 6:30-56", "Kembalinya dua belas rasul, lima roti dua ikan, Yesus berjalan di atas air", "Mazmur 54:1-7", "Selamatkanlah aku ya Allah oleh nama-Mu", "Persembahan dan Pelayanan", "Para pemuka membawa persembahan sukarela untuk kemah suci. Orang Lewi ditahbiskan untuk pelayanan. Yesus memberi makan lima ribu orang dan berjalan di atas air. Mazmur 54 adalah doa minta tolong kepada Allah yang menjadi penolong.", "נדבה", "Nedavah", "Persembahan sukarela - pemberian dengan hati yang rela, bukan terpaksa", "Berikan persembahan sukarela dengan hati yang rela. Layani dengan setia seperti Lewi. Percayalah Yesus bisa melimpahkan makanan dan berjalan di atas air.", "Ya Tuhan, terima persembahan sukarela saya dan pakailah dalam pelayanan. Amin.");
+
+	addDay(55, "Bilangan 9:1-10:36", "Paskah kedua, tiang awan, terompet perak", "Markus 7:1-37", "Tradisi manusia, yang najis, anak perempuan Sirofenisia, tuli dan bisu", "Mazmur 55:1-23", "Berilah perhatian kepada doaku ya Allah", "Mengikuti Tuntunan Tuhan", "Paskah bisa dirayakan di bulan kedua bagi yang tidak bisa di waktu yang tepat. Tiang awan menuntun perjalanan. Yesus menegur tradisi yang menggantikan Firman dan menyembuhkan orang asing. Mazmur 55 adalah doa orang yang dikhianati teman karib.", "ענן", "Anan", "Awan - tuntunan nyata Tuhan yang terlihat dan bergerak", "Ikutilah tuntunan Tuhan seperti tiang awan. Jangan biarkan tradisi menggantikan Firman. Serahkan bebanmu kepada Tuhan ketika dikhianati.", "Ya Tuhan, tuntun saya dengan awan-Mu dan bantu saya melepaskan beban. Amin.");
+
+	addDay(56, "Bilangan 11:1-13:33", "Mengeluh, tujuh puluh tua-tua, Miriam dan Harun mengeluh", "Markus 8:1-38", "Tujuh roti, Yesus meramalkan penderitaan, ambil salib", "Mazmur 56:1-13", "Allah memihak kepadaku", "Kontrol Diri dan Pengikutannya", "Mengeluh mengundang murka Tuhan. Tua-tua ditunjuk untuk membantu Musa. Miriam dan Harun dihukum karena mengeluh. Yesus memanggil untuk mengambil salib. Mazmur 56 adalah keyakinan bahwa Allah memihak meski dianiaya.", "אסף", "Asaf", "Mengumpulkan - mengumpulkan keluhan atau mengumpulkan iman untuk percaya", "Kontrollah keluhanmu. Ambil salib sebagai pengikut Yesus. Yakinlah Allah memihak kepadamu meski dalam kesesakan.", "Ya Tuhan, bantu saya mengumpulkan iman, bukan keluhan. Amin.");
+
+	addDay(57, "Bilangan 14:1-15:41", "Orang Israel mengeluh, dihukum 40 tahun, korban tambahan", "Markus 9:1-50", "Yesus dimuliakan, setan yang bisu, siapa yang terbesar, memotong anggota badan", "Mazmur 57:1-11", "Kasihanilah aku ya Allah, kasihanilah aku", "Konsekuensi Ketidakpercayaan", "Karena ketidakpercayaan, generasi keluaran Mesir tidak masuk Kanaan. Yesus dimuliakan di gunung dan mengajarkan tentang kerajaan. Mazmur 57 adalah doa dari dalam gua, memohon perlindungan sampai badai berlalu.", "אמן", "Amen", "Amin - konsekuensi ketidakpercayaan adalah ketinggalan janji, percayalah dengan 'amen' yang teguh", "Percayalah dengan 'amen' yang teguh agar tidak ketinggalan janji. Kejar kerajaan dengan serius. Berlindunglah dalam gua Tuhan sampai badai berlalu.", "Ya Tuhan, kasihanilah saya dan beri saya iman yang teguh. Amin.");
+
+	addDay(58, "Bilangan 16:1-18:32", "Pemberontakan Korah, tongkat Harun berbunga, tugas orang Lewi", "Markus 10:1-52", "Perceraian, anak-anak, orang kaya muda, buta di Yerikho", "Mazmur 58:1-11", "Sesungguhnya berbicaralah kamu yang adil", "Pemberontakan dan Otoritas", "Korah memberontak melawan otoritas Musa dan Harun. Tongkat Harun berbunga membuktikan pilihan Tuhan. Yesus mengajarkan tentang kerendahan hati seperti anak kecil. Mazmur 57 menegur para hakim yang tidak adil.", "מטה", "Mateh", "Tongkat - otoritas yang dibuktikan dengan buah, bukan kekerasan", "Hormati otoritas yang dibuktikan dengan buah. Kejar kerajaan dengan kerendahan hati seperti anak. Hakimilah dengan adil.", "Ya Tuhan, bantu saya menghormati otoritas-Mu dan hidup rendah hati. Amin.");
+
+	addDay(59, "Bilangan 19:1-20:29", "Sapi merah, Musa memukul batu, kematian Miriam dan Harun", "Markus 11:1-33", "Masuk Yerusalem, membersihkan bait suci, pohon ara yang dikutuk, otoritas Yesus", "Mazmur 59:1-17", "Selamatkanlah aku dari pada musuhku ya Allahku", "Pembersihan dan Ketaatan", "Sapi merah adalah cara pembersihan dari najis kematian. Musa dihukum karena tidak taat memukul batu. Yesus membersihkan bait suci. Mazmur 59 adalah doa minta tolong dari penganiayaan.", "פרה", "Parah", "Sapi - pembersihan dari najis kematian melalui pengorbanan", "Terimalah pembersihan dari 'kematian' dosa. Taatlah sepenuhnya, jangan setengah-setengah. Bersihkan 'bait suci' hidupmu.", "Ya Tuhan, bersihkan saya dari najis dosa dan bantu saya taat sepenuhnya. Amin.");
+
+	addDay(60, "Bilangan 21:1-22:1", "Kalahkan Arad, ular berapi, air dari batu, Sihon dan Og", "Markus 12:1-44", "Perumpamaan penjaga kebun anggur, uang pajak, hukum yang terbesar, persembahan janda", "Mazmur 60:1-12", "Ya Allah, Engkau telah menolak kami", "Kemenangan melalui Doa", "Israel menang melawan Arad melalui doa. Ular berapi adalah hukuman mengeluh, tetapi ada jalan keluar melalui iman. Yesus mengajarkan tentang kasih sebagai hukum terbesar. Mazmur 60 adalah doa bangkit dari kekalahan.", "נחשׁ", "Nachash", "Ular - hukuman yang menjadi jalan keselamatan melalui iman", "Lihatlah 'ular' Yesus di kayu salib untuk keselamatan. Kasihilah Allah dan sesama sepenuh hati. Doalah untuk bangkit dari kekalahan.", "Ya Tuhan, aku melihat Yesus di kayu salib untuk keselamatan saya. Amin.");
+
+	addDay(61, "Bilangan 22:2-24:25", "Bileam dan keledai, nubuat tentang Israel", "Markus 13:1-37", "Kehancuran bait suci, tanda kedatangan, berjaga-jaga", "Mazmur 61:1-8", "Dengarkanlah seruanku ya Allah", "Nubuat dan Kewaspadaan", "Bileam diminta mengutuk Israel tetapi hanya bisa memberkati. Keledai melihat malaikat yang tidak dilihat nabi. Yesus meramalkan kehancuran Yerusalem dan kedatangan-Nya yang kedua. Mazmur 61 adalah doa dari ujung bumi memohon perlindungan.", "ברך", "Barak", "Memberkati - kutuk manusia berubah menjadi berkat karena rencana Tuhan", "Biarlah 'kutuk' berubah menjadi berkat karena Tuhan. Miliki mata rohani seperti keledai. Berjaga-jagalah karena tidak tahu waktu kedatangan Tuhan.", "Ya Tuhan, ubahlah kutuk menjadi berkat dan bantu saya berjaga-jaga. Amin.");
+
+	addDay(62, "Bilangan 25:1-26:65", "Baal Peor, sensus kedua, hukum warisan", "Markus 14:1-72", "Rencana pembunuhan, perjamuan terakhir, penangkapan, penyangkalan Petrus", "Mazmur 62:1-12", "Hanya pada Allah saja aku tenang", "Iri hati dan Pengkhianatan", "Baal Peor adalah jebakan dosa dan kemurtadan. Pinehas menunjukkan iri hati yang benar. Yesus menghadapi pengkhianatan dan penyangkalan. Mazmur 62 adalah keyakinan bahwa hanya Allah adalah batu karang dan keselamatan.", "קנא", "Kana", "Iri hati - iri hati yang benar untuk kemuliaan Tuhan, bukan untuk diri sendiri", "Miliki iri hati yang benar untuk kemuliaan Tuhan. Hadapi pengkhianatan dengan tenang dalam Allah. Hanya Dialah batu karangmu.", "Ya Tuhan, hanya pada-Mu aku tenang. Bantu saya memiliki iri hati yang benar. Amin.");
+
+	addDay(63, "Bilangan 27:1-29:40", "Hukum warisan perempuan, Yosua ditunjuk, persembahan tetap", "Markus 15:1-47", "Yesus dihadapkan Pilatus, disalibkan, mati, dimakamkan", "Mazmur 63:1-11", "Ya Allah, Engkaulah Allahku", "Warisan dan Pengorbanan", "Putri-putri Zelafehad meminta warisan dan mendapatkannya. Yosua ditunjuk sebagai pengganti Musa. Yesus mati di kayu salib untuk warisan kekal. Mazmur 63 adalah kerinduan bagi Allah di padang gurun kering.", "נחלה", "Nachalah", "Warisan - hak milik yang tidak boleh hilang, dijamin oleh Tuhan", "Kejarlah warisan rohani yang tidak bisa hilang. Yesus mati agar kita mendapat warisan kekal. Rindukanlah Allah seperti di padang gurun kering.", "Ya Tuhan, Engkaulah warisan kekal saya. Amin.");
+
+	addDay(64, "Bilangan 30:1-32:42", "Nazarit perempuan, perang dengan Midian, suku Ruben dan Gad", "Markus 16:1-20", "Kebangkitan Yesus, penampakan, amanat agung", "Mazmur 64:1-10", "Dengarkanlah ya Allah suaraku dalam keluh kesahku", "Janji dan Kebangkitan", "Nazarit perempuan mengikat diri dengan janji. Suku Ruben dan Gad memilih tanah di seberang Yordan. Yesus bangkit dari kematian. Mazmur 64 adalah doa perlindungan dari rencana jahat musuh.", "שׁבעה", "Shevuah", "Sumpah/janji - mengikat diri dengan janji sukarela kepada Tuhan", "Penuhilah janji-janjimu kepada Tuhan. Kebangkitan Yesus menjamin janji-Nya. Percayalah perlindungan dari rencana jahat.", "Ya Tuhan, bantu saya memenuhi janji dan percaya pada kebangkitan-Mu. Amin.");
+
+	addDay(65, "Bilangan 33:1-36:13", "Perjalanan dari Mesir, batas-batas Kanaan, kota perlindungan", "Lukas 1:1-25", "Pengenalan, kelahiran Yohanes Pembaptis dijanjikan", "Mazmur 65:1-13", "Pujian kebajikan Allah di Sion", "Perjalanan dan Pengharapan", "Catatan perjalanan Israel mengingatkan perjalanan iman. Kota perlindungan untuk yang tidak sengaja membunuh. Yohanes Pembaptis dijanjikan sebagai penyiap jalan. Mazmur 65 adalah syukur atas pemeliharaan dan hasil bumi.", "מקלט", "Miklat", "Tempat perlindungan - kota perlindungan untuk yang mencari keadilan", "Ingatlah perjalanan imanmu. Larilah ke 'kota perlindungan' dalam Kristus. Bersyukurlah atas pemeliharaan dan hasil bumi.", "Ya Tuhan, terima kasih untuk tempat perlindungan dalam Kristus. Amin.");
+
+	addDay(66, "Ulangan 1:1-2:37", "Ulangan hukum, penolakan di Kadesh Barnea, perjalanan di padang gurun", "Lukas 1:26-56", "Keluhiran Yesus dijanjikan, kunjungan Maria kepada Elisabet, nyanyian Maria", "Mazmur 66:1-20", "Bersorak-soraklah bagi Allah", "Pengingat dan Pengharapan", "Ulangan mengingatkan kegagalan di Kadesh Barnea dan perjalanan panjang. Malaikat Gabriel memberitahu Maria tentang kelahiran Yesus. Mazmur 66 adalah syukur atas pembebasan dari penindasan.", "זכר", "Zakar", "Mengingat - mengingat kegagalan untuk belajar dan tidak mengulangi", "Ingatlah kegagalan masa lalu untuk belajar. Terimalah pengharapan Mesias yang dijanjikan. Bersoraklah atas pembebasan.", "Ya Tuhan, bantu saya belajar dari masa lalu dan bersorak atas pengharapan-Mu. Amin.");
+
+	addDay(67, "Ulangan 3:1-4:49", "Kemenangan atas Sihon dan Og, Musa dilarang masuk Kanaan, peringatan", "Lukas 1:57-80", "Kelahiran Yohanes Pembaptis, penyunatan, nyanyian Zakharia", "Mazmur 67:1-7", "Kirimkanlah berkat-Mu atas kami", "Kemenangan dan Peringatan", "Kemenangan besar atas raja-raja Amori. Musa hanya bisa melihat Kanaan dari jauh. Yohanes Pembaptis lahir dengan mujizat. Mazmur 67 adalah doa untuk berkat dan keselamatan bagi semua bangsa.", "שׁמע", "Shema", "Dengar - peringatan untuk mendengar dan taat agar berhasil", "Rayakan kemenangan dengan rendah hati. Dengarlah dan taatlah agar berhasil. Doakan berkat bagi semua bangsa.", "Ya Tuhan, kirimkanlah berkat-Mu atas saya dan semua bangsa. Amin.");
+
+	addDay(68, "Ulangan 5:1-6:25", "Sepuluh perintah, Shema, kasih kepada Tuhan", "Lukas 2:1-40", "Kelahiran Yesus, penyembahan gembala, Yesus dibawa ke bait suci", "Mazmur 68:1-35", "Bangkitlah Allah, bertebarlah musuh-musuh-Nya", "Hukum dan Kasih", "Ulangan kembali menyatakan sepuluh perintah dan Shema: Kasihilah Tuhan dengan segenap hatimu. Yesus lahir sebagai bayi di palungan. Mazmur 68 adalah kemenangan Allah yang bangkit untuk membela umat-Nya.", "אהב", "Ahav", "Kasih - kasih yang total dengan segenap hati, jiwa, dan kekuatan", "Kasihilah Tuhan dengan total. Sambutlah Yesus yang lahir sebagai bayi rendah. Rayakan kemenangan Allah yang bangkit.", "Ya Tuhan, kasihilah-Mu dengan segenap hati saya. Amin.");
+
+	addDay(69, "Ulangan 7:1-8:20", "Umat yang kudus, pemeliharaan di padang gurun, bahaya kebanggaan", "Lukas 2:41-52", "Yesus di bait suci umur 12 tahun", "Mazmur 69:1-36", "Air telah naik sampai ke leherku", "Kekudusan dan Kerendahan Hati", "Israel dipanggil sebagai umat yang kudus, dipilih karena kasih Tuhan bukan karena kebenaran mereka. Yesus muda menunjukkan kebijaksanaan di bait suci. Mazmur 69 adalah penderitaan hamba yang setia meski dicela.", "ענוה", "Anavah", "Kerendahan hati - mengingat bahwa segala sesuatu adalah karunia, bukan prestasi", "Hiduplah dalam kekudusan dengan kerendahan hati. Ingatlah semua adalah karunia. Tetap setia meski dicela seperti hamba yang menderita.", "Ya Tuhan, ajar saya kerendahan hati dan kesetiaan dalam penderitaan. Amin.");
+
+	addDay(70, "Ulangan 9:1-10:22", "Bukan karena kebenaran, anak lembu emas, kemurahan Tuhan", "Lukas 3:1-22", "Yohanes Pembaptis, pembaptisan Yesus", "Mazmur 70:1-5", "Ya Allah, cepatlah selamatkan aku", "Kasih Karunia dan Pembaptisan", "Israel dimasukkan ke Kanaan bukan karena kebenaran mereka tetapi karena kekejian bangsa-bangsa lain dan janji Tuhan. Yesus dibaptis untuk menggenapi kebenaran. Mazmur 70 adalah doa cepat minta tolong.", "חסד", "Chesed", "Kasih setia - kemurahan Tuhan yang tidak berdasarkan prestasi manusia", "Terimalah kasih karunia, bukan karena kebenaranmu sendiri. Ikuti contoh Yesus dalam pembaptisan. Serukan doa cepat dalam kesesakan.", "Ya Tuhan, selamatkan saya karena kasih setia-Mu, bukan prestasi saya. Amin.");
+
+	addDay(71, "Ulangan 11:1-12:32", "Kasih dan taat, berkat dan kutuk, tempat yang dipilih Tuhan", "Lukas 3:23-38", "Silsilah Yesus, anak Daud, anak Allah", "Mazmur 71:1-24", "Pada-Mu ya Tuhan aku berlindung", "Pilihan dan Perlindungan", "Berkat mengikuti ketaatan, kutuk mengikuti kemurtadan. Tuhan akan memilih tempat untuk nama-Nya. Silsilah Yesus menunjukkan Dia adalah Mesias yang dijanjikan. Mazmur 71 adalah doa orang tua yang percaya perlindungan sejak muda.", "בחר", "Bachar", "Memilih - Tuhan memilih tempat dan umat, bukan karena kelebihan mereka", "Taatlah untuk menerima berkat. Hormati 'tempat yang dipilih' Tuhan. Percayalah perlindungan sejak muda sampai tua.", "Ya Tuhan, aku berlindung pada-Mu sejak muda sampai selamanya. Amin.");
+
+	addDay(72, "Ulangan 13:1-14:29", "Nabi palsu, makanan yang haram, persembahan sepersepuluh", "Lukas 4:1-44", "Pencobaan di padang gurun, ditolak di Nazaret, pengusiran setan", "Mazmur 72:1-20", "Ya Allah, berikanlah hukum-Mu kepada raja", "Ujian dan Kemenangan", "Nabi palsu dan penggoda harus diuji dengan Firman. Persembahan sepersepuluh untuk orang Lewi, yatim, dan asing. Yesus menang dalam pencobaan. Mazmur 72 adalah doa untuk raja yang adil.", "נסה", "Nisah", "Mencobai/menguji - ujian untuk membuktikan ketulusan iman", "Uji segala nubuatan dengan Firman. Berikan persembahan dengan sukacita. Menangkan pencobaan seperti Yesus. Doakan pemimpin yang adil.", "Ya Tuhan, bantu saya menang dalam ujian dan menguji segala sesuatu dengan Firman. Amin.");
+
+	addDay(73, "Ulangan 15:1-16:22", "Tahun pembebasan, hamba Ibrani, pesta-pesta", "Lukas 5:1-39", "Panggilan murid-murid pertama, orang lumpuh diampuni, puasa dan perayaan", "Mazmur 73:1-28", "Tetapi baik bagi orang yang dekat kepada Allah", "Pembebasan dan Pengampunan", "Tahun pembebasan: pengampunan utang, pembebasan hamba, istirahat tanah. Yesus mengampuni orang lumpuh dan memanggil murid-murid. Mazmur 73 memproses kecemburuan pada orang jahat yang makmur.", "דרור", "Dror", "Pembebasan - kebebasan yang diumumkan untuk yang tertindas", "Rayakan 'tahun pembebasan' rohani dalam Kristus. Beritakan pembebasan kepada yang terikat. Jangan iri pada orang jahat yang makmur.", "Ya Tuhan, terima kasih untuk pembebasan dalam Kristus. Amin.");
+
+	addDay(74, "Ulangan 17:1-18:22", "Hakim yang adil, raja yang ditentukan, nabi yang seperti Musa", "Lukas 6:1-49", "Tuhan atas hari Sabat, dua belas rasul, khotbah di bukit", "Mazmur 74:1-23", "Ya Allah, mengapa Engkau menolak kami untuk selamanya", "Otoritas yang Benar", "Hakim, raja, dan nabi harus ditentukan Tuhan. Nabi yang seperti Musa adalah Mesias. Yesus memilih dua belas dan mengajarkan khotbah di bukit. Mazmur 74 adalah ratapan atas kehancuran bait suci.", "משׁפט", "Mishpat", "Hakim/keadilan - sistem keadilan yang didasarkan pada hukum Tuhan", "Hormati otoritas yang ditentukan Tuhan. Yesus adalah Nabi seperti Musa yang lebih besar. Ratap atas 'kehancuran' rohani dan doakan pemulihan.", "Ya Tuhan, bangkitlah membela dan memulihkan seperti dahulu kala. Amin.");
+
+	addDay(75, "Ulangan 19:1-21:23", "Kota perlindungan, saksi palsu, hukum perang", "Lukas 7:1-50", "Hamba perwira, anak yatim di Nain, perempuan berdosa meminyaki Yesus", "Mazmur 75:1-10", "Kami bersyukur kepada-Mu ya Allah", "Keadilan dan Kasih", "Kota perlindungan untuk keadilan, saksi palsu dihukum. Yesus menunjukkan kasih pada hamba perwira, membangkitkan anak yatim, mengampuni perempuan berdosa. Mazmur 75 adalah syukur atas penghakiman yang adil.", "עד", "Ed", "Saksi - kesaksian yang benar adalah dasar keadilan", "Jadilah saksi yang benar, bukan palsu. Percayalah kasih Yesus yang melampaui batas. Bersyukurlah atas penghakiman yang adil.", "Ya Tuhan, jadikan saya saksi yang benar dan bersyukur atas kasih-Mu. Amin.");
+
+	addDay(76, "Ulangan 22:1-24:22", "Hukum-hukum sosial, perkawinan, perceraian, buah sulung", "Lukas 8:1-56", "Perumpamaan penabur, tidak ditutupi, ibu dan saudara Yesus, badai, setan, anak perempuan, wanita sakit", "Mazmur 76:1-12", "Allah dikenal di Yehuda", "Hukum Kasih dan Kuasa", "Hukum-hukum sosial menunjukkan kasih pada sesama. Yesus mengajarkan dengan kuasa dan mengusir setan. Mazmur 76 memuji Allah yang dikenal di Israel dan yang menghancurkan senjata musuh.", "רעך", "Rea", "Sesama/teman - hukum kasih pada sesama sebagai ungkasan cinta kepada Tuhan", "Kasihilah sesama melalui hukum-hukum sosial. Percayalah kuasa Yesus atas badai dan setan. Pujilah Allah yang menghancurkan senjata musuh.", "Ya Tuhan, bantu saya mengasihi sesama dan percaya pada kuasa-Mu. Amin.");
+
+	addDay(77, "Ulangan 25:1-27:26", "Hukum-hukum sosial, persembahan di mezbah, berkat dan kutuk di gunung Ebal dan Gerizim", "Lukas 9:1-62", "Mengutus dua belas, lima roti dua ikan, Yesus dimuliakan, mengambil salib", "Mazmur 77:1-20", "Suaraku sampai kepada Allah dan Ia mendengarkanku", "Pilihan dan Murid-murid", "Berkat dan kutuk adalah pilihan yang ditawarkan. Yesus mengutus murid-murid dengan kuasa dan mengajarkan tentang pengambilan salib. Mazmur 77 adalah doa dalam kesesakan yang mengingat perbuatan-perbuatan besar Tuhan di masa lalu.", "ברכה", "Berakhah", "Berkat - pilihan untuk diberkati melalui ketaatan dan kasih", "Pilihlah berkat dengan ketaatan. Jadilah murid yang mengambil salib. Ingatlah perbuatan-perbuatan besar Tuhan dalam kesesakan.", "Ya Tuhan, aku memilih berkat dan mengambil salib sebagai murid-Mu. Amin.");
+
+	addDay(78, "Ulangan 28:1-29:1", "Berkat-berkat ketaatan, kutuk-kutuk kemurtadan", "Lukas 10:1-42", "Dua puluh tujuh puluh murid, orang Samaria yang baik hati, Marta dan Maria", "Mazmur 78:1-72", "Dengarkanlah pengajaranku hai umat-Ku", "Konsekuensi dan Kasih", "Berkat yang melimpah untuk ketaatan, kutuk yang mengerikan untuk kemurtadan. Yesus mengutus 70 murid dan mengajarkan tentang kasih pada sesama. Mazmur 78 adalah sejarah umat Israel yang sering melupakan perbuatan Tuhan.", "שׁמע", "Shema", "Dengar/taat - ketaatan yang membawa berkat, ketidaktaatan yang membawa kutuk", "Dengarlah dan taatlah untuk berkat. Kasihilah sesama tanpa memandang suku. Jangan ulangi kesalahan sejarah Israel.", "Ya Tuhan, aku mendengar dan taat untuk menerima berkat-Mu. Amin.");
+
+	addDay(79, "Ulangan 29:2-30:20", "Perjanjian di Moab, pilihan antara hidup dan mati", "Lukas 11:1-54", "Doa Bapa Kami, yang meminta menerima, Beelzebul, tanda Yunus", "Mazmur 79:1-13", "Ya Allah, bangsa-bangsa telah masuk ke milik-Mu", "Pilihan Hidup atau Mati", "Perjanjian di Moab mengingatkan perbuatan Tuhan dan menawarkan pilihan: hidup dan berkat, atau mati dan kutuk. Yesus mengajarkan doa Bapa Kami. Mazmur 79 adalah ratapan atas kehancuran Yerusalem dan permohonan pembalasan.", "חיים", "Chayim", "Hidup - pilihan untuk hidup yang berkelimpahan melalui ketaatan", "Pilihlah hidup dan berkat. Berdoalah seperti yang diajarkan Yesus. Doakan pemulihan dari 'kehancuran' rohani.", "Ya Tuhan, aku memilih hidup dalam ketaatan kepada-Mu. Amin.");
+
+	addDay(80, "Ulangan 31:1-32:52", "Yosua ditunjuk, nyanyian Musa, kematian Musa di Nebo", "Lukas 12:1-59", "Ragi Farisi, yang diakui di hadapan manusia, orang kaya yang bodoh, waspada", "Mazmur 80:1-19", "Gembalakanlah Israel yang berkembang biak seperti kawanan domba", "Pergantian dan Kewaspadaan", "Musa menyerahkan kepemimpinan kepada Yosua dan menyanyikan nyanyian peringatan. Musa mati di Nebo melihat Kanaan dari jauh. Yesus mengajarkan untuk waspada dan setia. Mazmur 80 adalah doa untuk Allah gembala Israel yang terserak.", "שׁיר", "Shir", "Nyanyian - nyanyian peringatan untuk mengingatkan generasi mendatang", "Tinggalkan warisan iman untuk generasi mendatang. Waspadalah dan setialah seperti yang diajarkan Yesus. Doakan penggembalaan Israel yang terserak.", "Ya Tuhan, gembalakanlah saya dan bangsa-Mu yang terserak. Amin.");
+
+	addDay(81, "Ulangan 33:1-34:12", "Berkat Musa atas suku-suku, kematian dan penguburan Musa", "Lukas 13:1-35", "Bertobat atau binasa, anak perempuan Abraham yang sakit, ratapan atas Yerusalem", "Mazmur 81:1-16", "Bersorak-soraklah bagi Allah yang kekuatan kita", "Warisan dan Pertobatan", "Musa memberkati setiap suku sebelum wafat. Kematian Musa menutup era besar. Yesus menyerukan pertobatan dan meratapi Yerusalem yang menolak. Mazmur 81 adalah seruan untuk bersorak dan peringatan untuk mendengar suara Tuhan.", "ברכת", "Berakhah", "Berkat - warisan berkat yang ditinggalkan untuk setiap suku", "Tinggalkan warisan berkat bagi keluargamu. Bertobatlah sebelum terlambat. Bersoraklah dan dengarkan suara Tuhan.", "Ya Tuhan, bantu saya meninggalkan warisan berkat dan bertobat sepenuh hati. Amin.");
+
+	addDay(82, "Yosua 1:1-2:24", "Yosua ditunjuk, pengintai ke Yerikho, Rahal menyembunyikan pengintai", "Lukas 14:1-35", "Menyembuhkan di hari Sabat, menjadi yang terkecil, perhitungan ongkos", "Mazmur 82:1-8", "Allah berdiri dalam dewan ilahi", "Keberanian dan Pengorbanan", "Yosua dipanggil untuk memimpin dengan keberanian. Rahal mempercayai Allah Israel dan menyembunyikan pengintai. Yesus mengajarkan tentang kerendahan hati dan menghitung ongkos murid-muridan. Mazmur 82 adalah penghakiman atas para hakim yang tidak adil.", "חזק", "Chazaq", "Kuat/berani - keberanian yang datang dari kehadiran Tuhan yang menyertai", "Mililiki keberanian karena Tuhan menyertai. Beranilah percaya seperti Rahal. Hitunglah ongkos dan jadilah murid yang setia.", "Ya Tuhan, berikan saya keberanian dan bantu saya menghitung ongkos murid-muridan. Amin.");
+
+	addDay(83, "Yosua 3:1-5:15", "Menyeberangi Yordan, batu-batu peringatan, sunat di Gilgal, panglima TUHAN", "Lukas 15:1-32", "Domba yang hilang, dirham yang hilang, anak yang hilang", "Mazmur 83:1-18", "Ya Allah, janganlah berdiam diri", "Mujizat dan Pemulihan", "Yordan terbelah seperti Laut Teberau. Batu-batu menjadi peringatan. Sunat Gilgal adalah pemulihan perjanjian. Yesus mengajarkan tentang sukacita atas yang hilang yang ditemukan. Mazmur 83 adalah doa untuk perlindungan dari musuh bersama.", "אות", "Ot", "Tanda - batu peringatan sebagai tanda nyata perbuatan Tuhan", "Buatlah 'batu peringatan' rohani untuk mengingat mujizat Tuhan. Rayakan pemulihan seperti anak yang hilang. Doakan perlindungan dari musuh.", "Ya Tuhan, bantu saya mengingat tanda-tanda-Mu dan merayakan pemulihan. Amin.");
+
+	addDay(84, "Yosua 6:1-8:35", "Yerikho jatuh, Achan berdosa, Ai dikalahkan, pembacaan hukum di gunung Ebal dan Gerizim", "Lukas 16:1-31", "Perumpamaan pengurus yang tidak jujur, orang Farisi dan orang saduki, orang kaya dan Lazarus", "Mazmur 84:1-12", "Betapa disenangi tempat kediaman-Mu", "Kemenangan dan Kekalahan", "Yerikho jatuh dengan mujizat, tetapi Ai dikalahkan karena dosa Achan. Yesus mengajarkan tentang kebijaksanaan duniawi dan bahaya kekayaan. Mazmur 84 adalah kerinduan untuk diam di bait Tuhan.", "חרם", "Cherem", "Kutuk/tahbisan - sesuatu yang dikhususkan untuk Tuhan atau untuk dimusnahkan", "Hormati 'kutuk' Tuhan, jangan ambil yang dikhususkan untuk Tuhan. Gunakan kebijaksanaan untuk kerajaan. Rindukanlah kediaman Tuhan.", "Ya Tuhan, aku rindu untuk diam di rumah-Mu sepanjang hidupku. Amin.");
+
+	addDay(85, "Yosua 9:1-10:43", "Perjanjian dengan orang Gibeon, matahari berhenti, kemenangan besar", "Lukas 17:1-37", "Tidak ada yang tidak berdosa, mengampuni, iman seperti biji sesawi, kedatangan Anak Manusia", "Mazmur 85:1-13", "Engkau telah berkenan kepada tanah-Mu", "Perjanjian dan Iman", "Orang Gibeon menipu untuk perjanjian damai. Matahari berhenti karena doa Yosua. Yesus mengajarkan tentang pengampunan dan iman kecil yang besar kuasanya. Mazmur 85 adalah doa untuk pemulihan dan kasih karunia.", "שׁמשׁ", "Shemesh", "Matahari - matahari berhenti karena iman dan doa yang berani", "Pegangilah perjanjian meski dibuat karena tipu daya. Miliki iman yang menghentikan 'matahari'. Doakan pemulihan dan kasih karunia.", "Ya Tuhan, berikan saya iman yang berani dan ampuni seperti yang Kau ajarkan. Amin.");
+
+	addDay(86, "Yosua 11:1-13:33", "Kemenangan di utara, daftar raja-raja yang dikalahkan, tanah yang belum ditaklukkan", "Lukas 18:1-43", "Perumpamaan janda yang tidak adil, Farisi dan pemungut cukai, Yesus memberkati anak-anak, orang kaya, buta di Yerikho", "Mazmur 86:1-17", "Condongkanlah telinga-Mu ya TUHAN, jawablah aku", "Kemenangan dan Ketergantungan", "Kemenangan besar di utara menyelesaikan penaklukan utama. Tetapi ada tanah yang belum ditaklukkan. Yesus mengajarkan ketekunan dalam doa dan kerendahan hati. Mazmur 86 adalah doa orang miskin yang bergantung pada Tuhan.", "נחלה", "Nachalah", "Warisan - tanah yang dijanjikan sebagai warisan yang harus ditaklukkan sepenuhnya", "Taklukkan 'tanah' janji sepenuhnya, jangan setengah-setengah. Tekunlah dalam doa dan rendahkan hati. Bergantunglah pada Tuhan dalam kemiskinan.", "Ya Tuhan, bantu saya menaklukkan warisan rohani sepenuhnya dan tekun dalam doa. Amin.");
+
+	addDay(87, "Yosua 14:1-17:18", "Tanah di sebelah barat Yordan, Kaleb meminta Hebron, tanah untuk suku Efraim dan Manasye", "Lukas 19:1-48", "Zakheus, perumpamaan mina, masuk Yerusalem, membersihkan bait suci", "Mazmur 87:1-7", "Yang dilahirkan di sana mengenal dia", "Warisan dan Transformasi", "Kaleb mendapat warisan karena imannya di Kadesh Barnea. Yesus mentransformasi Zakheus dan memasuki Yerusalem sebagai Raja. Mazmur 87 memuji Sion sebagai tempat kelahiran rohani bagi semua bangsa.", "אחזה", "Achazah", "Milik/warisan - hak milik yang diperoleh melalui iman dan ketekunan", "Kejarlah warisan rohani dengan iman seperti Kaleb. Biarlah Yesus mentransformasi hidupmu seperti Zakheus. Banggalah sebagai warga Sion.", "Ya Tuhan, berikan saya iman seperti Kaleb untuk menerima warisan-Mu. Amin.");
+
+	addDay(88, "Yosua 18:1-20:9", "Kemah Sion dipindahkan ke Silo, sisa tanah dibagi, kota perlindungan", "Lukas 20:1-47", "Otoritas Yesus dipertanyakan, perumpamaan penggarap kebun anggur, uang pajak, anak Daud, ahli-ahli Taurat", "Mazmur 88:1-18", "Ya TUHAN, Allah yang menyelamatkan aku", "Tempat Kudus dan Otoritas", "Kemah Sion dipindahkan ke Silo. Kota perlindungan ditetapkan untuk keadilan. Yesus menghadapi pertanyaan tentang otoritas-Nya. Mazmur 88 adalah ratapan dalam kesesakan yang paling gelap.", "מקלט", "Miklat", "Tempat perlindungan - tempat aman bagi yang mencari keadilan", "Cari 'tempat kudus' untuk bersekutu dengan Tuhan. Hormati otoritas Yesus yang ilahi. Bawalah ratapanmu kepada Tuhan meski dalam kegelapan.", "Ya Tuhan, Engkaulah tempat perlindunganku dalam kesesakan. Amin.");
+
+	addDay(89, "Yosua 21:1-22:34", "Kota-kota orang Lewi, mezbah besar di seberang Yordan", "Lukas 21:1-38", "Persembahan janda, kehancuran bait suci, tanda kedatangan, berjaga-jaga", "Mazmur 89:1-52", "Kasih setia TUHAN akan kunyanyikan selama-lamanya", "Pelayanan dan Kesaksian", "Orang Lewi menerima kota-kota untuk pelayanan. Mezbah besar menjadi kesaksian persekutuan. Yesus memuji persembahan janda dan mengajarkan tentang kedatangan-Nya. Mazmur 89 adalah refleksi atas perjanjian dengan Daud meski menghadapi kegagalan.", "עדות", "Edut", "Kesaksian - mezbah sebagai kesaksian persekutuan antara suku-suku", "Layani dengan setia seperti orang Lewi. Berikan persembahan dengan ikhlas seperti janda. Peganglah perjanjian Tuhan meski menghadapi kegagalan.", "Ya Tuhan, bantu saya melayani dengan setia dan bersembahkan yang terbaik. Amin.");
+
+	addDay(90, "Yosua 23:1-24:33", "Peringatan Yosua, perjanjian di Sikhem, kematian Yosua dan Eleazar", "Lukas 22:1-71", "Rencana pembunuhan, perjamuan terakhir, penangkapan, penyangkalan", "Mazmur 90:1-17", "Tuhan, Engkau telah menjadi tempat perteduhan bagi kami", "Pilihan dan Kesetiaan", "Yosua menantang umat untuk memilih siapa yang akan mereka layani. Yesus menghadapi pengkhianatan dan penyangkalan. Mazmur 90 adalah doa Musa untuk menghitung hari-hari dengan bijaksana.", "בחר", "Bachar", "Memilih - pilihan untuk melayani Tuhan meski yang lain memilih berhala", "Pilihlah hari ini untuk melayani Tuhan. Hadapi pengkhianatan dengan pengampunan. Hitunglah hari-harimu dengan bijaksana.", "Ya Tuhan, aku dan seisi rumahku akan melayani TUHAN. Amin.");
+
+	addDay(91, "Hakim-hakim 1:1-2:23", "Kemenangan setelah kematian Yosua, siklus dosa dan pembebasan", "Lukas 23:1-56", "Yesus dihadapkan Pilatus, disalibkan, mati, dimakamkan", "Mazmur 91:1-16", "Yang diam dalam naungan Yang Mahatinggi", "Siklus Dosa dan Keselamatan", "Siklus Hakim-hakim: dosa, penindasan, seruan, pembebasan. Yesus mati di kayu salib untuk memutus siklus dosa. Mazmur 91 adalah keyakinan perlindungan bagi yang berlindung dalam Tuhan.", "ישׁע", "Yasha", "Menyelamatkan - pembebasan yang datang dari Tuhan melalui hakim-hakim", "Yesus memutus siklus dosa dengan kematian-Nya. Berlindunglah dalam naungan Tuhan. Percayalah perlindungan ilahi dalam bahaya.", "Ya Tuhan, terima kasih memutus siklus dosa melalui Yesus. Amin.");
+
+	addDay(92, "Hakim-hakim 3:1-4:31", "Otniel, Ehud, Sanggar, Debora dan Barak", "Lukas 24:1-53", "Kebangkitan Yesus, di jalan ke Emaus, penampakan, kenaikan", "Mazmur 92:1-15", "Baik menyanyikan syukur kepada TUHAN", "Pembebasan dan Kebangkitan", "Hakim-hakim membebaskan umat dari penindasan. Yesus bangkit dan naik ke sorga. Mazmur 92 adalah syukur atas perbuatan-perbuatan besar Tuhan.", "שׁפט", "Shaphat", "Hakim - yang membebaskan umat dari penindasan asing", "Rayakan pembebasan rohani dalam Kristus. Saksikan kebangkitan Yesus dengan sukacita. Bersyukurlah atas perbuatan-perbuatan besar Tuhan.", "Ya Tuhan, terima kasih untuk pembebasan dan kebangkitan. Amin.");
+
+	addDay(93, "Hakim-hakim 5:1-6:40", "Nyanyian Debora, Gideon dipanggil, tanda-tanda dari Tuhan", "Yohanes 1:1-34", "Firman menjadi manusia, saksi Yohanes, Yesus Anak Domba Allah", "Mazmur 93:1-5", "TUHAN adalah Raja, Ia berpakaian keagungan", "Pembebasan dan Firman", "Debora dan Barak memenangkan kemenangan besar. Gideon dipanggil dengan tanda-tanda. Yesus adalah Firman yang menjadi manusia. Mazmur 93 memuji Tuhan sebagai Raja yang berkuasa atas air bah.", "אור", "Or", "Terang - Gideon dan terang yang menyinari, Yesus sebagai terang dunia", "Percayalah panggilan Tuhan meski merasa lemah. Yesus adalah terang yang datang ke dunia. Sembah Raja yang berkuasa atas kekacauan.", "Ya Tuhan, Firman telah menjadi daging dan diam di antara kami. Amin.");
+
+	addDay(94, "Hakim-hakim 7:1-8:35", "Gideon dengan 300 orang, pengejaran, pemerintahan Gideon, efora", "Yohanes 1:35-2:25", "Murid-murid pertama, perubahan air menjadi anggur, membersihkan bait suci", "Mazmur 94:1-23", "Ya Allah pembalas, ya TUHAN, ya Allah pembalas", "Kemenangan dan Kebanggaan", "Gideon menang dengan 300 orang melawan ribuan. Tetapi kebanggaan membawa penyembahan berhala. Yesus mengubah air menjadi anggur dan membersihkan bait suci. Mazmur 94 adalah doa untuk penghakiman atas orang jahat.", "מלחמה", "Milchamah", "Perang - kemenangan yang datang dari strategi Tuhan, bukan kekuatan manusia", "Menanglah dengan '300' iman, bukan kekuatan dunia. Waspadai kebanggaan setelah kemenangan. Serahkan penghakiman kepada Tuhan.", "Ya Tuhan, bantu saya menang dengan iman dan waspadai kebanggaan. Amin.");
+
+	addDay(95, "Hakim-hakim 9:1-10:18", "Abimelekh, Tolah, Yair, Yefta", "Yohanes 3:1-36", "Nikodemus, lahir baru, Anak Manusia ditinggikan, kasih Allah", "Mazmur 95:1-11", "Marilah kita bersorak-sorai bagi TUHAN", "Kepemimpinan dan Kelahiran Baru", "Abimelekh memimpin dengan kekerasan. Yefta membuat nazir yang tragis. Yesus mengajarkan tentang lahir baru dari air dan Roh. Mazmur 95 adalah seruan untuk bersorak dan peringatan untuk tidak keras hati.", "נולד", "Nolad", "Lahir - lahir baru yang diperlukan untuk melihat kerajaan Allah", "Kepemimpinan rohani harus dengan kerendahan hati, bukan kekerasan. Lahirlah baru dari air dan Roh. Bersoraklah dan jangan keras hati.", "Ya Tuhan, lahirkan saya baru agar bisa melihat kerajaan-Mu. Amin.");
+
+	addDay(96, "Hakim-hakim 11:1-12:15", "Yefta dan nazirnya, perang dengan Efraim", "Yohanes 4:1-54", "Perempuan Samaria, penyembahan yang benar, anak bangsawan, penyembuhan", "Mazmur 96:1-13", "Bernyanyilah bagi TUHAN, nyanyikanlah syukur", "Pengabdian dan Penyembahan", "Yefta memenuhi nazirnya dengan pengorbanan tragis. Yesus mengajarkan tentang penyembahan dalam roh dan kebenaran. Mazmur 96 adalah seruan untuk menyanyikan syukur baru bagi Tuhan.", "נדר", "Neder", "Nazir - pengabdian yang harus dipenuhi meski mahal harganya", "Penuhilah janji-janjimu kepada Tuhan meski mahal. Sembah dalam roh dan kebenaran. Nyanyikanlah syukur baru bagi Tuhan.", "Ya Tuhan, bantu saya memenuhi janji dan menyembah dalam roh. Amin.");
+
+	addDay(97, "Hakim-hakim 13:1-16:31", "Simson, nazir dari kandungan, kekuatan dan kelemahan", "Yohanes 5:1-47", "Orang sakit di kolam Betesda, Anak berkuasa, saksi-saksi Yesus", "Mazmur 97:1-12", "TUHAN adalah Raja, bersorak-soraklah hai bumi", "Kuasa dan Kelemahan", "Simson memiliki kuasa besar sebagai nazir tetapi kelemahan moral. Yesus menyembuhkan dan menunjukkan kuasa sebagai Anak Allah. Mazmur 97 memuji Tuhan sebagai Raja yang diikuti oleh awan dan kegelapan.", "שׁמשׁון", "Shimshon", "Simson - kuasa yang diberikan melalui nazir, yang rusak karena kelemahan moral", "Gunakan kuasa dengan bertanggung jawab. Jangan biarkan kelemahan moral merusak panggilan. Sembah Raja yang datang dengan awan.", "Ya Tuhan, berikan saya kuasa dengan kesucian untuk memuliakan-Mu. Amin.");
+
+	addDay(98, "Hakim-hakim 17:1-18:31", "Mikha dan berhala, suku Dan berpindah, orang Lewi di Dan", "Yohanes 6:1-71", "Lima roti dua ikan, berjalan di atas air, roti hidup, murid-murid meninggalkan Yesus", "Mazmur 98:1-9", "Nyanyikanlah nyanyian baru bagi TUHAN", "Berhala dan Roti Hidup", "Mikha membuat berhala sendiri dan orang Lewi melayaninya. Suku Dan menjadikan berhala sebagai penyembahan resmi. Yesus adalah roti hidup yang turun dari sorga. Mazmur 98 adalah nyanyian baru atas keselamatan.", "פסל", "Pesel", "Patung/berhala - buatan tangan manusia yang menjadi pengganti Tuhan", "Jadikan berhala apa pun dalam hidupmu. Yesus adalah roti hidup yang memuaskan. Nyanyikanlah nyanyian baru atas keselamatan-Nya.", "Ya Tuhan, Engkaulah roti hidupku, jangan biarkan saya menyembah berhala. Amin.");
+
+	addDay(99, "Hakim-hakim 19:1-21:25", "Kejahatan di Gibea, perang dengan Benyamin, perempuan-perempuan untuk Benyamin", "Yohanes 7:1-53", "Yesus ke pesta Pondok Daun, ajaran di bait suci, air hidup, perpecahan tentang Dia", "Mazmur 99:1-9", "TUHAN adalah Raja, gentarlah hai bangsa-bangsa", "Keadilan dan Air Hidup", "Kejahatan mengerikan di Gibea mengakibatkan perang saudara. Yesus menawarkan air hidup yang mengalir. Mazmur 99 memuji Tuhan sebagai Raja yang mengasihi keadilan.", "משׁפט", "Mishpat", "Keadilan - tuntutan Tuhan atas keadilan meski mengakibatkan konflik", "Kejarlah keadilan meski mahal harganya. Terimalah air hidup yang Yesus tawarkan. Sembah Raja yang mengasihi keadilan.", "Ya Tuhan, bantu saya mengejar keadilan dan minum air hidup dari-Mu. Amin.");
+
+	addDay(100, "Rut 1:1-4:22", "Rut dan Naomi, Boas, pewarisan, silsilah Daud", "Yohanes 8:1-59", "Perempuan yang berzinah, terang dunia, Anak Abraham, sebelum Abraham ada Aku", "Mazmur 100:1-5", "Bersorak-soraklah bagi TUHAN, hai seluruh bumi", "Kasih Setia dan Pemulihan", "Rut menunjukkan kasih setia pada Naomi dan menemukan pemulihan melalui Boas. Yesus adalah terang dunia yang ada sebelum Abraham. Mazmur 100 adalah seruan untuk bersorak dan masuk dengan syukur.", "חסד", "Chesed", "Kasih setia - kesetiaan yang melampaui kewajiban, seperti Rut kepada Naomi", "Praktikkan kasih setia yang melampaui kewajiban. Yesus adalah terang yang ada sejak kekal. Masuklah dengan syukur dan pujian.", "Ya Tuhan, ajar saya kasih setia seperti Rut dan terimalah syukur saya. Amin.");
+
+	addDay(101, "1 Samuel 1:1-2:36", "Hana berdoa, kelahiran Samuel, nyanyian Hana, dosa anak-anak Eli", "Yohanes 9:1-41", "Orang buta yang disembuhkan, pengakuan iman, orang Farisi buta", "Mazmur 101:1-8", "Aku akan menyanyikan kasih dan keadilan", "Doa dan Penglihatan", "Hana berdoa dengan penuh perasaan dan Samuel lahir. Yesus menyembuhkan orang buta secara fisik dan rohani. Mazmur 101 adalah komitmen untuk hidup dalam kekudusan.", "תפלה", "Tefillah", "Doa - doa yang didengar karena kerendahan hati dan ketulusan", "Berdoalah dengan hati yang tulus seperti Hana. Terimalah penglihatan rohani dari Yesus. Komitmen untuk hidup dalam kekudusan.", "Ya Tuhan, dengarkanlah doa saya seperti doa Hana dan bukalah mata saya. Amin.");
+
+	addDay(102, "1 Samuel 3:1-4:22", "Panggilan Samuel, kekalahan di Eben-Ezer, tabut ditangkap", "Yohanes 10:1-42", "Gembala yang baik, domba-domba-Ku mendengar suara-Ku, Aku dan Bapa adalah satu", "Mazmur 102:1-28", "Ya TUHAN, dengarkanlah doaku", "Panggilan dan Gembala", "Samuel dipanggil dalam malam. Tabut ditangkap karena dosa umat. Yesus adalah Gembala yang Baik yang mengenal domba-domba-Nya. Mazmur 102 adalah doa orang yang sengsara dalam kesesakan.", "קרא", "Qara", "Memanggil - panggilan yang datang dalam keheningan malam", "Dengarlah panggilan Tuhan dalam keheningan. Yesus adalah Gembala yang menjaga domba-domba-Nya. Bawalah kesesakanmu kepada Tuhan.", "Ya Tuhan, bantu saya mendengar panggilan-Mu dan mengikuti Gembala yang Baik. Amin.");
+
+	addDay(103, "1 Samuel 5:1-7:17", "Dagon jatuh, kematian orang Filistin, tabut dikembalikan, Samuel menjadi hakim", "Yohanes 11:1-57", "Lazarus mati, Yesus adalah kebangkitan dan hidup, Lazarus dibangkitkan", "Mazmur 103:1-22", "Pujilah TUHAN hai jiwaku", "Kuasa dan Kebangkitan", "Tuhan mempermalukan Dagon dan mengembalikan tabut. Yesus adalah kebangkitan dan hidup yang membangkitkan Lazarus. Mazmur 103 adalah pujian atas pengampunan dan kasih karunia Tuhan.", "קומה", "Qumah", "Bangkit - kebangkitan yang menunjukkan kuasa Tuhan atas kematian", "Percayalah kuasa Tuhan atas berhala apa pun. Yesus adalah kebangkitan dan hidup. Pujilah atas pengampunan dan kasih karunia.", "Ya Tuhan, Engkau adalah kebangkitan dan hidupku. Amin.");
+
+	addDay(104, "1 Samuel 8:1-10:27", "Israel minta raja, Saul diurapi, tanda-tanda, Saul menjadi raja", "Yohanes 12:1-50", "Maria meminyaki Yesus, masuk Yerusalem, gandum mati, yang percaya dan tidak percaya", "Mazmur 104:1-35", "Pujilah TUHAN hai jiwaku, TUHAN Allahku, Engkau sangat besar", "Raja dan Pengorbanan", "Israel menolak Tuhan sebagai Raja dan meminta raja manusia. Saul diurapi sebagai raja pertama. Yesus dinyatakan sebagai Raja yang akan mati seperti gandum. Mazmur 104 memuji kebesaran Tuhan sebagai Pencipta.", "מלך", "Melek", "Raja - pilihan untuk memiliki raja manusia menolak Raja surgawi", "Jangan tolak Tuhan sebagai Raja. Yesus adalah Raja yang mati untuk menyelamatkan. Pujilah Pencipta yang besar dan mulia.", "Ya Tuhan, Engkaulah Rajaku, jangan biarkan saya mencari pengganti. Amin.");
+
+	addDay(105, "1 Samuel 11:1-13:23", "Saul menyelamatkan Yabes, Saul ditolak, Yonatan menang di Mikmas", "Yohanes 13:1-38", "Yesus membasuh kaki, pengkhianatan yang diramalkan, perintah baru kasih", "Mazmur 105:1-45", "Bersyukurlah kepada TUHAN, serukanlah nama-Nya", "Kemenangan dan Kasih", "Saul memenangkan kemenangan awal tetapi kemudian ditolak karena ketidaktaatan. Yesus menunjukkan kasih melalui pelayanan membasuh kaki. Mazmur 105 mengingat perjanjian dan perbuatan-perbuatan Tuhan.", "אהבה", "Ahavah", "Kasih - kasih yang ditunjukkan melalui pelayanan dan pengorbanan", "Taatlah sepenuhnya, jangan setengah-setengah seperti Saul. Praktikkan kasih melalui pelayanan. Ingatlah perbuatan-perbuatan Tuhan.", "Ya Tuhan, ajar saya kasih melalui pelayanan seperti yang Yesus contohkan. Amin.");
+
+	addDay(106, "1 Samuel 14:1-52", "Yonatan menyerang, Saul mengutuk, makan dengan darah, kemenangan", "Yohanes 14:1-31", "Rumah Bapa banyak tempat, Aku adalah jalan, Roh Kudus, kasih dan ketaatan", "Mazmur 106:1-48", "Bersyukurlah kepada TUHAN, sebab Ia baik", "Iman dan Jalan", "Yonatan menang karena iman, Saul kalah karena ketidaktaatan. Yesus adalah jalan, kebenaran, dan hidup. Mazmur 106 mengingat kegagalan Israel di padang gurun meski kebaikan Tuhan.", "אמונה", "Emunah", "Iman - iman yang berani melawan keadaan seperti Yonatan", "Miliki iman yang berani meski keadaan bertentangan. Yesus adalah satu-satunya jalan ke Bapa. Bersyukurlah meski sering gagal.", "Ya Tuhan, berikan saya iman seperti Yonatan dan tunjukkan jalan kepada-Mu. Amin.");
+
+	addDay(107, "1 Samuel 15:1-17:37", "Saul ditolak, Samuel memilih Daud, Daud memainkan kecapi, Daud dan Goliat", "Yohanes 15:1-27", "Pokok anggur yang benar, kasih lebih besar dari pada ini, dunia membenci murid-murid", "Mazmur 107:1-43", "Bersyukurlah kepada TUHAN, sebab Ia baik", "Hati dan Buah", "Tuhan melihat hati, bukan penampilan luar. Daud mengalahkan Goliat dengan iman. Yesus adalah pokok anggur, kita adalah ranting-rantingnya. Mazmur 107 adalah syukur atas pembebasan dari berbagai bahaya.", "לב", "Lev", "Hati - yang dilihat Tuhan, bukan penampilan luar", "Perhatikanlah hati, bukan penampilan. Miliki iman seperti Daud melawan Goliat. Tinggallah dalam Yesus untuk berbuah.", "Ya Tuhan, perhatikanlah hati saya dan bantu saya tinggal dalam Yesus. Amin.");
+
+	addDay(108, "1 Samuel 17:38-19:24", "Daud membunuh Goliat, persahabatan dengan Yonatan, Saul cemburu, Daud melarikan diri", "Yohanes 16:1-33", "Roh akan datang, kesedihan akan berubah menjadi sukacita, kemenangan atas dunia", "Mazmur 108:1-13", "Bersiaplah hai jiwaku, aku mau bangun pagi", "Persahabatan dan Roh Kudus", "Persahabatan Daud dan Yonatan melampaui kematian. Saul cemburu dan mengejar Daud. Yesus menjanjikan Roh Kudus yang akan datang. Mazmur 108 adalah keyakinan kemenangan meski dalam kesesakan.", "רוח", "Ruach", "Roh - Roh Kudus yang dijanjikan untuk menuntun dan memberi kekuatan", "Hargailah persahabatan rohani yang tulus. Yakinlah Roh Kudus akan datang dan menuntun. Percayalah kemenangan dalam kesesakan.", "Ya Tuhan, kirimkanlah Roh Kudus-Mu dan bantu saya menghargai persahabatan rohani. Amin.");
+
+	addDay(109, "1 Samuel 20:1-21:15", "Perjanjian Daud dan Yonatan, Daud melarikan diri, Daud di Nob", "Yohanes 17:1-26", "Doa Imam Besar, kesatuan, dikirim ke dunia", "Mazmur 109:1-31", "Ya Allah, kepujian yang kunyanyikan, janganlah berdiam diri", "Kesatuan dan Doa", "Yonatan dan Daud membuat perjanjian kesetiaan. Daud melarikan diri dengan bantuan Yonatan. Yesus berdoa untuk kesatuan murid-murid. Mazmur 109 adalah doa orang yang difitnah dan dianiaya.", "אחד", "Echad", "Satu - kesatuan yang dikejar dalam perjanjian dan doa", "Kejarlah kesatuan dalam hubungan rohani. Yesus berdoa untuk kesatuan umat-Nya. Bawalah doa dalam penderitaan kepada Tuhan.", "Ya Tuhan, jadikanlah kami satu seperti Engkau dan Bapa adalah satu. Amin.");
+
+	addDay(110, "1 Samuel 22:1-24:22", "Daud di Adulam, dibunuhnya imam-imam, Daud di Horesh, Daud mengampuni Saul", "Yohanes 18:1-40", "Penangkapan di taman Getsemani, dihadapkan Hanas, dihadapkan Pilatus", "Mazmur 110:1-7", "Kata TUHAN kepada tuanku, duduklah di sebelah kanan-Ku", "Pengampunan dan Kerajaan", "Daud mengampuni Saul yang berusaha membunuhnya. Yesus ditangkap dan dihadapkan kepada para pemimpin. Mazmur 110 adalah nubuat tentang Mesias sebagai Raja dan Imam untuk selama-lamanya.", "מלכי צדק", "Malki-Tzedek", "Raja Salem - imam dan raja, bayangan Yesus sebagai Imam dan Raja", "Ampunilah musuhmu seperti Daud. Yesus adalah Imam dan Raja untuk selama-lamanya. Sembah Dia yang duduk di sebelah kanan Bapa.", "Ya Tuhan, ajar saya mengampuni seperti Daud dan sembah Yesus Raja dan Imamku. Amin.");
+
+	addDay(111, "1 Samuel 25:1-28:2", "Kematian Samuel, Daud dan Abigail, Daud mengampuni Saul lagi", "Yohanes 19:1-42", "Yesus disiksa, disalibkan, mati, dimakamkan", "Mazmur 111:1-10", "Bersyukurlah kepada TUHAN dengan segenap hati", "Hikmat dan Salib", "Abigail menunjukkan hikmat dalam mencegah pembunuhan. Daud mengampuni Saul lagi. Yesus mati di kayu salib. Mazmur 111 memuji perbuatan-perbuatan besar Tuhan dan permulaan hikmat adalah takut akan Tuhan.", "חכמה", "Chokmah", "Hikmat - hikmat yang mencegah konflik dan membangun perdamaian", "Gunakan hikmat untuk mencegah konflik. Lihatlah salib sebagai bukti kasih Allah. Takutlah akan Tuhan sebagai permulaan hikmat.", "Ya Tuhan, berikan saya hikmat seperti Abigail dan takut akan-Mu. Amin.");
+
+	addDay(112, "1 Samuel 28:3-31:13", "Saul dan perempuan tukang sihir di En-Dor, kekalahan di Gilboa, kematian Saul", "Yohanes 20:1-31", "Kebangkitan Yesus, penampakan kepada Maria, murid-murid, Thomas", "Mazmur 112:1-10", "Berbahagialah orang yang takut akan TUHAN", "Akhir dan Kebangkitan", "Saul berakhir tragis karena ketidaktaatan dan mencari bantuan tukang sihir. Yesus bangkit dan menampakkan diri. Mazmur 112 menggambarkan berkat bagi yang takut akan Tuhan.", "תחיה", "Techiyah", "Kebangkitan - kemenangan atas kematian yang membuka jalan baru", "Jangan berakhir seperti Saul yang mencari bantuan salah. Rayakan kebangkitan Yesus. Takutlah akan Tuhan untuk menerima berkat.", "Ya Tuhan, terima kasih untuk kebangkitan-Mu yang memberi pengharapan. Amin.");
+
+	addDay(113, "2 Samuel 1:1-2:32", "Daud meratapi Saul dan Yonatan, Daud menjadi raja, perang antara Daud dan Isyboset", "Yohanes 21:1-25", "Penampakan di pantai Tiberias, gembalakan domba-domba-Ku, Petrus yang dikasihi", "Mazmur 113:1-9", "Pujilah hai hamba-hamba TUHAN", "Kesetiaan dan Penggembalaan", "Daud meratapi musuhnya Saul dengan kesetiaan. Daud menjadi raja atas Yehuda. Yesus memanggil Petrus untuk menggembalakan domba-domba-Nya. Mazmur 113 memuji Tuhan yang meninggikan yang rendah.", "אמת", "Emet", "Kesetiaan/kebenaran - kesetiaan Daud meski Saul berusaha membunuhnya", "Miliki kesetiaan meski kepada musuh. Jadilah penggembala seperti yang dipanggil Yesus. Pujilah Tuhan yang meninggikan yang rendah.", "Ya Tuhan, ajar saya kesetiaan seperti Daud dan gembalakan domba-domba-Mu. Amin.");
+
+	addDay(114, "2 Samuel 3:1-5:25", "Perang saudara, Daud menjadi raja atas seluruh Israel, Daud merebut Yerusalem", "Kisah Para Rasul 1:1-26", "Kenaikan Yesus, menunggu di Yerusalem, pemilihan Matias", "Mazmur 114:1-8", "Ketika Israel keluar dari Mesir", "Persatuan dan Kenaikan", "Daud menyatukan Israel dan Yehuda. Yerusalem menjadi kota Daud. Yesus naik ke sorga dan murid-murid menunggu di Yerusalem. Mazmur 114 menggambarkan alam bereaksi ketika Israel keluar dari Mesir.", "אחדות", "Achdut", "Persatuan - kesatuan yang dicapai melalui kepemimpinan yang adil", "Kejarlah persatuan dalam tubuh Kristus. Tunggulah di 'Yerusalem' rohani untuk pencurahan Roh. Lihatlah alam bereaksi terhadap kuasa Tuhan.", "Ya Tuhan, satukanlah umat-Mu dan bantu saya menunggu pencurahan Roh. Amin.");
+
+	addDay(115, "2 Samuel 6:1-7:29", "Tabut dibawa ke Yerusalem, Daud menari, perjanjian dengan Daud", "Kisah Para Rasul 2:1-47", "Pentakosta, pencurahan Roh Kudus, pengajaran para rasul, gereja mula-mula", "Mazmur 115:1-18", "Bukan kepada kami ya TUHAN, bukan kepada kami", "Kehadiran dan Roh Kudus", "Daud membawa tabut dengan sukacita dan menari. Tuhan menolak Daud membangun bait suci tetapi memberikan perjanjian keturunan. Roh Kudus dicurahkan di Pentakosta. Mazmur 115 menolak kemuliaan diri dan mengarahkan kepada Tuhan.", "שׁכינה", "Shekinah", "Kehadiran - kehadiran Tuhan yang turun dan memenuhi umat-Nya", "Sambutlah kehadiran Tuhan dengan sukacita seperti Daud. Terimalah pencurahan Roh Kudus. Arahkanlah kemuliaan hanya kepada Tuhan.", "Ya Tuhan, penuhilah saya dengan Roh Kudus seperti Pentakosta. Amin.");
+
+	addDay(116, "2 Samuel 8:1-10:19", "Kemenangan-kemenangan Daud, Daud dan Mefiboset, Daud mengalahkan bangsa-bangsa", "Kisah Para Rasul 3:1-26", "Penyembuhan orang lumpuh, pengajaran di Bait Suci, nubuat tentang Mesias", "Mazmur 116:1-19", "Aku cinta kepada TUHAN, sebab Ia mendengar suaraku", "Kasih dan Kesaksian", "Daud menunjukkan kasih pada Mefiboset karena Yonatan. Kemenangan-kemenangan militer. Petrus menyembuhkan orang lumpuh atas nama Yesus. Mazmur 116 adalah syukur atas penyelamatan dari maut.", "חסד", "Chesed", "Kasih setia - kasih yang melampaui kewajiban karena perjanjian", "Praktikkan kasih setia yang melampaui kewajiban. Saksikan kuasa nama Yesus. Syukurlah atas penyelamatan dari maut.", "Ya Tuhan, aku cinta kepada-MU karena Engkau mendengar suaraku. Amin.");
+
+	addDay(117, "2 Samuel 11:1-12:31", "Daud dan Batsyeba, nubuat Natan, Daud bertobat, Salomo lahir", "Kisah Para Rasul 4:1-37", "Petrus dan Yohanes dihadapkan majelis, doa untuk keberanian, kehidupan bersama", "Mazmur 117:1-2", "Pujilah TUHAN hai segala bangsa", "Tobat dan Pengampunan", "Daud berbuat dosa besar tetapi bertobat ketika dihadapkan. Yesaya adalah hasil tobat. Gereja mula-mula berdoa untuk keberanian. Mazmur 117 adalah mazmur terpendek yang memanggil semua bangsa untuk memuji.", "תשׁובה", "Teshuvah", "Tobat - kembali kepada Tuhan dengan pengakuan dan perubahan hati", "Jangan takut bertobat meski dosa besar. Tuhan menerima tobat yang tulus. Pujilah Tuhan bersama segala bangsa.", "Ya Tuhan, terima tobat saya seperti Engkau menerima tobat Daud. Amin.");
+
+	addDay(118, "2 Samuel 13:1-14:33", "Amnon dan Tamar, Absalom membunuh Amnon, Absalom kembali dari pembuangan", "Kisah Para Rasul 5:1-42", "Ananias dan Safira, tanda-tanda dan mujizat, para rasul di penjara, Gamaliel", "Mazmur 118:1-29", "Bersyukurlah kepada TUHAN, sebab Ia baik", "Konsekuensi dan Kebenaran", "Dosa Amnon membawa pembalasan Absalom dan perpecahan keluarga. Dosa tidak pernah hanya mempengaruhi satu orang, tetapi merembet ke seluruh keluarga dan bangsa. Yoakim mencoba memperbaiki dengan cara manusiawi, tetapi hati Absalom tetap pahit. Di PB, kita melihat kejujuran yang diperlukan dalam komunitas percaya - Ananias dan Safira menipu Roh Kudus dan mati. Tetapi para rasul lainnya menghadapi penganiayaan dengan sukacita karena dianggap layak menderita untuk Nama Yesus. Gamaliel memberikan nasihat bijak untuk tidak melawan rencana Tuhan. Mazmur 118 adalah mazmur kemenangan yang sering dipakai pada perayaan Paskah - batu yang dibuang para tukang bangunan telah menjadi batu penjuru.", "אמת", "Emet", "Kebenaran/kejujuran - kejujuran dalam komunitas dan kebenaran yang membebaskan", "Hindari dosa yang merembet seperti Amnon. Praktikkan kejujuran penuh dalam komunitas percaya. Rayakan bahwa 'batu yang dibuang' Yesus telah menjadi batu penjuru keselamatan.", "Ya Tuhan, ajar saya kejujuran dan bantu saya melihat konsekuensi dosa. Terima kasih Yesus adalah batu penjuru saya. Amin.");
+
+	addDay(119, "2 Samuel 15:1-16:23", "Absalom memberontak, Daud melarikan diri, Simei mengutuk Daud, Husai menipu Absalom", "Kisah Para Rasul 6:1-15", "Pemilihan tujuh pelayan, Stefanus penuh dengan iman dan kuasa, tuduhan palsu", "Mazmur 119:1-176", "Berbahagialah orang yang hidupnya tidak bercela", "Pemberontakan dan Kesaksian", "Absalom menggunakan pesona dan janji-janji palsu untuk merebut tahta. Daud melarikan diri dengan penuh penghinaan - Simei mengutuk dan melemparinya dengan batu, tetapi Daud menerima ini sebagai hukuman dari Tuhan. Husai setia pada Daud dan menipu Absalom dengan nasihat yang tampak bijak tetapi sebenarnya merusak. Di PB, gereja menghadapi masalah administrasi tetapi menyelesaikannya dengan bijaksana. Stefanus dipilih karena penuh dengan Roh Kudus dan hikmat, tetapi kemudian menjadi martir pertama. Mazmur 119 adalah mazmur terpanjang yang memuji Firman Tuhan dalam setiap bagian kehidupan - dari aleph sampai taw, dari awal sampai akhir.", "נוע", "Noa", "Bergerak/melarikan diri - Daud yang melarikan diri tetapi tetap percaya perlindungan Tuhan", "Ketika 'Absalom' dalam hidupmu memberontak, percayalah rencana Tuhan meski harus 'melarikan diri' sementara. Terimalah penghinaan sebagai pemurnian. Peganglah Firman Tuhan dari A sampai Z sebagai penuntun hidup.", "Ya Tuhan, bantu saya percaya rencana-Mu meski dalam pemberontakan dan pengucilan. Amin.");
+
+	addDay(120, "2 Samuel 17:1-18:33", "Nasihat Ahitophel dan Husai, Daud diselamatkan, Absalom terbunuh, ratapan Daud", "Kisah Para Rasul 6:15-7:60", "Pertama martir Stefanus, penglihatan kemuliaan Yesus, batu sampai mati", "Mazmur 120:1-7", "Aku berseru kepada TUHAN dalam kesesakanku", "Pengkhianatan dan Pengampunan", "Ahitophel memberikan nasihat yang sangat baik - jika diikuti pasti Daud akan mati - tetapi Tuhan membuat Husai mengalahkan nasihat Ahitophel dengan cara yang tidak masuk akal. Absalom terbunuh dengan tragis - rambutnya yang congkak tersangkut pada pohon. Daud meratapi anaknya meski Absalom ingin membunuhnya - 'Hai anakku Absalom, anakku, anakku Absalom! Andai saja aku mati menggantikan engkau!' Di PB, Stefanus menjadi martir pertama dengan penuh kemuliaan - melihat Yesus berdiri di sebelah kanan Allah, dan mengampuni mereka yang melemparinya. Mazmur 120 adalah doa orang yang tinggal di antara orang-orang yang membenci damai.", "אב", "Av", "Bapa - ratapan bapa yang tetap mengasihi meski anak berontak", "Percayalah bahwa nasihat Tuhan akan mengalahkan nasihat 'Ahitophel' apapun. Miliki hati bapa yang mengasihi meski dikhianati. Mengampunilah seperti Stefanus yang melihat kemuliaan Yesus meski sedang disiksa.", "Ya Tuhan, berikan saya hati yang mengasihi seperti Daud dan mengampuni seperti Stefanus. Amin.");
+
+        let currentDay = 1;
+        let completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
         }
 
-        function copyReference() {
-            const planItem = readingPlan[currentState.currentDay - 1];
-            navigator.clipboard.writeText(planItem.reference).then(() => {
-                alert('Referensi disalin: ' + planItem.reference);
-            });
-        }
-
-        // Content Generation (sama seperti sebelumnya, dipersingkat untuk kejelasan)
-        function generateContent(planItem, cycle) {
-            const themes = {
-                creation: {
-                    title: "Ciptaan yang Sempurna",
-                    hebrew: [
-                        { word: "בְּרֵאשִׁית", translit: "Beresyt", meaning: "Dalam permulaan - Menunjukkan awal dari segala sesuatu" },
-                        { word: "בָּרָא", translit: "Bara", meaning: "Menciptakan - Kata khusus untuk penciptaan ilahi" }
-                    ]
-                },
-                gospel: {
-                    title: "Injil Keselamatan",
-                    greek: [
-                        { word: "ἀγάπη", translit: "Agape", meaning: "Kasih ilahi - Cinta tanpa syarat" },
-                        { word: "σωτηρία", translit: "Soteria", meaning: "Keselamatan - Pembebasan menyeluruh" }
-                    ]
-                }
-            };
-            
-            const theme = themes[planItem.theme] || themes.creation;
-            const isPL = !["Injil", "Surat Paulus", "Surat Umum", "Wahyu"].includes(planItem.category);
-            
-            let langSection = '';
-            if (isPL && theme.hebrew) {
-                langSection = `
-                    <div class="language-section">
-                        <h3 style="color: var(--secondary); font-family: Cinzel; text-align: center; margin-bottom: 1rem;">Kata Kunci Bahasa Ibrani</h3>
-                        <div class="word-grid">
-                            ${theme.hebrew.map(w => `
-                                <div class="word-card">
-                                    <div class="original-word">${w.word}</div>
-                                    <div style="font-style: italic; color: #aaa;">${w.translit}</div>
-                                    <div>${w.meaning}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            } else if (theme.greek) {
-                langSection = `
-                    <div class="language-section">
-                        <h3 style="color: var(--secondary); font-family: Cinzel; text-align: center; margin-bottom: 1rem;">Kata Kunci Bahasa Yunani Koiné</h3>
-                        <div class="word-grid">
-                            ${theme.greek.map(w => `
-                                <div class="word-card">
-                                    <div class="original-word">${w.word}</div>
-                                    <div style="font-style: italic; color: #aaa;">${w.translit}</div>
-                                    <div>${w.meaning}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            return `
-                <div class="reading-card">
-                    <div class="scripture-header">
-                        <span class="book-badge">${planItem.category}</span>
-                        <span style="font-weight: 600; color: var(--accent);">${planItem.reference}</span>
-                    </div>
-                    
-                    <h2 class="reading-title">${theme.title}</h2>
-                    <span class="theme-tag">Siklus ${cycle} • ${planItem.theme}</span>
-
-                    <div style="margin-bottom: 2rem;">
-                        <h3 class="section-title">Renungan</h3>
-                        <div class="highlight-box">
-                            <p>Bacaan hari ini mencakup ${planItem.reference}. 
-                            ${isPL ? 'Perhatikan kata-kata kunci dalam bahasa Ibrani yang mengungkapkan makna mendalam.' : 'Perhatikan kata-kata kunci dalam bahasa Yunani Koiné.'}</p>
-                        </div>
-                    </div>
-
-                    ${langSection}
-
-                    <div class="application-box">
-                        <h3 style="font-family: Cinzel; margin-bottom: 1rem;">Aplikasi Hidup</h3>
-                        <ul style="list-style: none;">
-                            <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
-                                <span style="position: absolute; left: 0; color: var(--secondary);">→</span>
-                                Renungkan kebenaran firman ini dalam kehidupanmu hari ini.
-                            </li>
-                            <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
-                                <span style="position: absolute; left: 0; color: var(--secondary);">→</span>
-                                Bagikan dengan orang lain apa yang Tuhan sampaikan kepadamu.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Main Functions
-        function loadReading(day) {
+        function loadDay(day) {
+            day = parseInt(day);
             if (day < 1) day = 1;
-            if (day > totalDays) {
-                completeCycle();
-                return;
-            }
+            if (day > 365) day = 365;
+            currentDay = day;
+            document.getElementById('dayInput').value = day;
             
-            currentState.currentDay = day;
-            const planItem = readingPlan[day - 1];
+            const data = readingPlan[day];
+            if (!data) return;
             
-            document.body.className = `theme-${planItem.theme}`;
-            document.getElementById('reading-content').innerHTML = generateContent(planItem, currentState.cycle);
-            updateBibleDisplay();
+            const content = document.getElementById('readingContent');
+            const isCompleted = completedDays.includes(day);
+            
+            content.innerHTML = `
+                <div class="reading-card">
+                    <div class="day-header">
+                        <div>
+                            <div class="day-number">Hari ${day}</div>
+                            <div class="day-date">${new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                        </div>
+                        <div class="check-complete ${isCompleted ? 'checked' : ''}" onclick="toggleComplete(${day})" title="Tandai selesai"></div>
+                    </div>
+                    <h2 style="margin-bottom: 20px; color: var(--secondary);">${data.title}</h2>
+                    <div class="reading-section">
+                        <div class="section-title pl-title">📜 Perjanjian Lama</div>
+                        <div class="passage-box pl-box">
+                            <div class="passage-ref">${data.pl.ref}</div>
+                            <div class="passage-desc">${data.pl.desc}</div>
+                            <a href="https://alkitab.me/search?q=${encodeURIComponent(data.pl.ref)}" target="_blank" class="btn-read">Baca Seluruh Pasal</a>
+                        </div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="section-title pb-title">📖 Perjanjian Baru</div>
+                        <div class="passage-box pb-box">
+                            <div class="passage-ref">${data.pb.ref}</div>
+                            <div class="passage-desc">${data.pb.desc}</div>
+                            <a href="https://alkitab.me/search?q=${encodeURIComponent(data.pb.ref)}" target="_blank" class="btn-read">Baca Seluruh Pasal</a>
+                        </div>
+                    </div>
+                    <div class="reading-section">
+                        <div class="section-title wisdom-title">🕊️ Mazmur / Amsal</div>
+                        <div class="passage-box wisdom-box">
+                            <div class="passage-ref">${data.wisdom.ref}</div>
+                            <div class="passage-desc">${data.wisdom.desc}</div>
+                            <a href="https://alkitab.me/search?q=${encodeURIComponent(data.wisdom.ref)}" target="_blank" class="btn-read">Baca Seluruh Pasal</a>
+                        </div>
+                    </div>
+                    <div class="reflection-box">
+                        <div class="reflection-title">💡 Renungan</div>
+                        <div class="reflection-content">${data.reflection}</div>
+                        <div class="original-word">
+                            <div class="hebrew-text">${data.original.word}</div>
+                            <div class="transliteration">${data.original.transliteration}</div>
+                            <div class="word-meaning">(${data.original.lang}) ${data.original.meaning}</div>
+                        </div>
+                        <div class="application-box">
+                            <div class="application-title">🎯 Aplikasi</div>
+                            <div>${data.application}</div>
+                        </div>
+                        <div class="prayer-box">
+                            <div style="font-weight: bold; margin-bottom: 8px;">🙏 Doa</div>
+                            <div>${data.prayer}</div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button onclick="previousDay()">← Hari Sebelumnya</button>
+                        <button onclick="nextDay()">Hari Berikutnya →</button>
+                    </div>
+                </div>
+            `;
             updateProgress();
-            saveState();
         }
 
-        function completeCycle() {
-            currentState.cycle++;
-            currentState.currentDay = 1;
-            currentState.readDays.clear();
-            alert(`Selamat! Anda menyelesaikan Siklus ${currentState.cycle - 1}. Memulai Siklus ${currentState.cycle} dengan perspektif baru!`);
-            updateCycleDisplay();
-            loadReading(1);
+        function toggleComplete(day) {
+            const index = completedDays.indexOf(day);
+            if (index > -1) completedDays.splice(index, 1);
+            else completedDays.push(day);
+            localStorage.setItem('completedDays', JSON.stringify(completedDays));
+            loadDay(day);
+        }
+
+        function previousDay() { if (currentDay > 1) loadDay(currentDay - 1); }
+        function nextDay() { if (currentDay < 365) loadDay(currentDay + 1); }
+        
+        function goToToday() {
+            const startDate = new Date('2025-01-01');
+            const today = new Date();
+            const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
+            loadDay(Math.min(diffDays, 365));
+        }
+
+        function resetProgress() {
+            if (confirm('Apakah Anda yakin ingin mereset semua progress?')) {
+                completedDays = [];
+                localStorage.removeItem('completedDays');
+                updateProgress();
+                loadDay(currentDay);
+            }
         }
 
         function updateProgress() {
-            const progress = (currentState.currentDay / totalDays) * 100;
-            document.getElementById('progress-fill').style.width = progress + '%';
-            document.getElementById('progress-detail').textContent = `Hari ${currentState.currentDay} dari ${totalDays} (${Math.round(progress)}%)`;
-            document.getElementById('days-remaining').textContent = `${totalDays - currentState.currentDay} hari lagi`;
+            const percentage = Math.round((completedDays.length / 365) * 100);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = percentage + '%';
+            document.getElementById('completedCount').textContent = completedDays.length;
+            document.getElementById('remainingCount').textContent = 365 - completedDays.length;
         }
 
-        function markAsRead() {
-            currentState.readDays.add(currentState.currentDay);
-            saveState();
-            const btn = event.target;
-            btn.innerHTML = '<i class="fas fa-check"></i> Sudah Dibaca';
-            setTimeout(() => {
-                nextDay();
-                btn.innerHTML = '<i class="fas fa-check"></i> Tandai Dibaca';
-            }, 1000);
-        }
-
-        function nextDay() {
-            loadReading(currentState.currentDay + 1);
-        }
-
-        function previousDay() {
-            loadReading(currentState.currentDay - 1);
-        }
-
-        function loadToday() {
-            const today = new Date();
-            const startDate = new Date(localStorage.getItem('startDate') || today);
-            if (!localStorage.getItem('startDate')) {
-                localStorage.setItem('startDate', today.toISOString());
-            }
-            const diffTime = Math.abs(today - startDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            loadReading((diffDays % totalDays) || 1);
-        }
-
-        function showOverview() {
-            const categories = {};
-            bibleStructure.forEach(book => {
-                if (!categories[book.category]) categories[book.category] = [];
-                categories[book.category].push(book);
-            });
-            
-            let html = '<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">';
-            for (let [cat, books] of Object.entries(categories)) {
-                html += `
-                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
-                        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">${cat}</h3>
-                        <ul style="list-style: none; font-size: 0.85rem;">
-                            ${books.map(b => `<li>${b.book} (${b.chapters})</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            }
-            html += '</div>';
-            
-            const modal = document.createElement('div');
-            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; justify-content: center; align-items: center; padding: 2rem;';
-            modal.innerHTML = `
-                <div style="background: white; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 16px; padding: 2rem; position: relative;">
-                    <span onclick="this.closest('.modal').remove()" style="position: absolute; top: 1rem; right: 1rem; font-size: 2rem; cursor: pointer;">&times;</span>
-                    <h2 style="font-family: Cinzel; color: var(--primary); margin-bottom: 1rem;">Struktur Alkitab</h2>
-                    ${html}
-                </div>
-            `;
-            modal.className = 'modal';
-            document.body.appendChild(modal);
-        }
-
-        function showProgress() {
-            const readCount = currentState.readDays.size;
-            const percentage = ((readCount / totalDays) * 100).toFixed(1);
-            alert(`Progres Anda:\n\n• Hari dibaca: ${readCount} dari ${totalDays}\n• Persentase: ${percentage}%\n• Siklus: ${currentState.cycle}\n• Hari ini: ${readingPlan[currentState.currentDay - 1].reference}`);
-        }
-
-        function showCycleInfo() {
-            const info = {
-                1: "Historis-Kronologis",
-                2: "Teologis", 
-                3: "Kristologis",
-                4: "Ekleisologis",
-                5: "Eskatologis"
-            };
-            const current = (currentState.cycle - 1) % 5 + 1;
-            alert(`Siklus ${currentState.cycle}: ${info[current]}`);
-        }
-
-        // Event Listeners
-        document.getElementById('reading-date').addEventListener('change', function(e) {
-            const selected = new Date(e.target.value);
-            const start = new Date(localStorage.getItem('startDate') || new Date());
-            const diff = Math.ceil(Math.abs(selected - start) / (1000 * 60 * 60 * 24));
-            loadReading((diff % totalDays) + 1);
-        });
-
-        // Start
-        init();
+        if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+        const savedDay = localStorage.getItem('currentDay');
+        loadDay(savedDay ? parseInt(savedDay) : 1);
+        window.addEventListener('beforeunload', () => localStorage.setItem('currentDay', currentDay));
     </script>
 </body>
 </html>
