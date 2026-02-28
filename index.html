@@ -352,126 +352,189 @@
 
 	addDay(120, "2 Samuel 17:1-18:33", "Nasihat Ahitophel dan Husai, Daud diselamatkan, Absalom terbunuh, ratapan Daud", "Kisah Para Rasul 6:15-7:60", "Pertama martir Stefanus, penglihatan kemuliaan Yesus, batu sampai mati", "Mazmur 120:1-7", "Aku berseru kepada TUHAN dalam kesesakanku", "Pengkhianatan dan Pengampunan", "Ahitophel memberikan nasihat yang sangat baik - jika diikuti pasti Daud akan mati - tetapi Tuhan membuat Husai mengalahkan nasihat Ahitophel dengan cara yang tidak masuk akal. Absalom terbunuh dengan tragis - rambutnya yang congkak tersangkut pada pohon. Daud meratapi anaknya meski Absalom ingin membunuhnya - 'Hai anakku Absalom, anakku, anakku Absalom! Andai saja aku mati menggantikan engkau!' Di PB, Stefanus menjadi martir pertama dengan penuh kemuliaan - melihat Yesus berdiri di sebelah kanan Allah, dan mengampuni mereka yang melemparinya. Mazmur 120 adalah doa orang yang tinggal di antara orang-orang yang membenci damai.", "אב", "Av", "Bapa - ratapan bapa yang tetap mengasihi meski anak berontak", "Percayalah bahwa nasihat Tuhan akan mengalahkan nasihat 'Ahitophel' apapun. Miliki hati bapa yang mengasihi meski dikhianati. Mengampunilah seperti Stefanus yang melihat kemuliaan Yesus meski sedang disiksa.", "Ya Tuhan, berikan saya hati yang mengasihi seperti Daud dan mengampuni seperti Stefanus. Amin.");
 
-        let currentDay = 1;
-        let completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+        // ============================================================
+// FUNGSI DAN VARIABEL GLOBAL - TARUH SETELAH addDay(365, ...)
+// ============================================================
 
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+// Fungsi untuk membuat link langsung ke ayat di alkitab.me
+function getBibleLink(ref) {
+    const kitabMap = {
+        'Kejadian': 'Gen', 'Keluaran': 'Exod', 'Imamat': 'Lev', 'Bilangan': 'Num',
+        'Ulangan': 'Deut', 'Yosua': 'Josh', 'Hakim-hakim': 'Judg', 'Rut': 'Ruth',
+        '1 Samuel': '1Sam', '2 Samuel': '2Sam', '1 Raja-raja': '1Kgs', '2 Raja-raja': '2Kgs',
+        '1 Tawarikh': '1Chr', '2 Tawarikh': '2Chr', 'Ezra': 'Ezra', 'Nehemia': 'Neh',
+        'Ester': 'Esth', 'Ayub': 'Job', 'Mazmur': 'Ps', 'Amsal': 'Prov',
+        'Pengkhotbah': 'Eccl', 'Kidung Agung': 'Song', 'Yesaya': 'Isa', 'Yeremia': 'Jer',
+        'Ratapan': 'Lam', 'Yehezkiel': 'Ezek', 'Daniel': 'Dan', 'Hosea': 'Hos',
+        'Yoel': 'Joel', 'Amos': 'Amos', 'Obaja': 'Obad', 'Yunus': 'Jonah',
+        'Mikha': 'Mic', 'Nahum': 'Nah', 'Habakuk': 'Hab', 'Zefanya': 'Zeph',
+        'Hagai': 'Hag', 'Zakharia': 'Zech', 'Maleakhi': 'Mal', 'Matius': 'Matt',
+        'Markus': 'Mark', 'Lukas': 'Luke', 'Yohanes': 'John', 'Kisah Para Rasul': 'Acts',
+        'Roma': 'Rom', '1 Korintus': '1Cor', '2 Korintus': '2Cor', 'Galatia': 'Gal',
+        'Efesus': 'Eph', 'Filipi': 'Phil', 'Kolose': 'Col', '1 Tesalonika': '1Thess',
+        '2 Tesalonika': '2Thess', '1 Timotius': '1Tim', '2 Timotius': '2Tim',
+        'Titus': 'Titus', 'Filemon': 'Phlm', 'Ibrani': 'Heb', 'Yakobus': 'Jas',
+        '1 Petrus': '1Pet', '2 Petrus': '2Pet', '1 Yohanes': '1John', '2 Yohanes': '2John',
+        '3 Yohanes': '3John', 'Yudas': 'Jude', 'Wahyu': 'Rev'
+    };
+    
+    let cleanRef = ref.trim();
+    let kitabIndo = '';
+    let ayat = '';
+    
+    for (let [indo, eng] of Object.entries(kitabMap)) {
+        if (cleanRef.startsWith(indo)) {
+            kitabIndo = indo;
+            ayat = cleanRef.substring(indo.length).trim();
+            break;
         }
+    }
+    
+    if (!kitabIndo) return 'https://alkitab.me';
+    
+    const kitabEng = kitabMap[kitabIndo];
+    let urlAyat = ayat.replace(/:/g, '.');
+    
+    if (urlAyat.includes('-')) {
+        const [awal, akhir] = urlAyat.split('-');
+        if (!akhir.includes('.')) {
+            const pasalAwal = awal.split('.')[0];
+            urlAyat = `${awal}--${pasalAwal}.${akhir}`;
+        } else {
+            urlAyat = `${awal}--${akhir}`;
+        }
+    }
+    
+    return `https://alkitab.me/${kitabEng}.${urlAyat}`;
+}
 
-        function loadDay(day) {
-            day = parseInt(day);
-            if (day < 1) day = 1;
-            if (day > 365) day = 365;
-            currentDay = day;
-            document.getElementById('dayInput').value = day;
-            
-            const data = readingPlan[day];
-            if (!data) return;
-            
-            const content = document.getElementById('readingContent');
-            const isCompleted = completedDays.includes(day);
-            
-            content.innerHTML = `
-                <div class="reading-card">
-                    <div class="day-header">
-                        <div>
-                            <div class="day-number">Hari ${day}</div>
-                            <div class="day-date">${new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                        </div>
-                        <div class="check-complete ${isCompleted ? 'checked' : ''}" onclick="toggleComplete(${day})" title="Tandai selesai"></div>
-                    </div>
-                    <h2 style="margin-bottom: 20px; color: var(--secondary);">${data.title}</h2>
-                    <div class="reading-section">
-                        <div class="section-title pl-title">📜 Perjanjian Lama</div>
-                        <div class="passage-box pl-box">
-                            <div class="passage-ref">${data.pl.ref}</div>
-                            <div class="passage-desc">${data.pl.desc}</div>
-                            <a href="https://alkitab.me/search?q=${encodeURIComponent(data.pl.ref)}" target="_blank" class="btn-read">Baca Seluruh Pasal</a>
-                        </div>
-                    </div>
-                    <div class="reading-section">
-                        <div class="section-title pb-title">📖 Perjanjian Baru</div>
-                        <div class="passage-box pb-box">
-                            <div class="passage-ref">${data.pb.ref}</div>
-                            <div class="passage-desc">${data.pb.desc}</div>
-                            <a href="https://alkitab.me/search?q=${encodeURIComponent(data.pb.ref)}" target="_blank" class="btn-read">Baca Seluruh Pasal</a>
-                        </div>
-                    </div>
-                    <div class="reading-section">
-                        <div class="section-title wisdom-title">🕊️ Mazmur / Amsal</div>
-                        <div class="passage-box wisdom-box">
-                            <div class="passage-ref">${data.wisdom.ref}</div>
-                            <div class="passage-desc">${data.wisdom.desc}</div>
-                            <a href="https://alkitab.me/search?q=${encodeURIComponent(data.wisdom.ref)}" target="_blank" class="btn-read">Baca Seluruh Pasal</a>
-                        </div>
-                    </div>
-                    <div class="reflection-box">
-                        <div class="reflection-title">💡 Renungan</div>
-                        <div class="reflection-content">${data.reflection}</div>
-                        <div class="original-word">
-                            <div class="hebrew-text">${data.original.word}</div>
-                            <div class="transliteration">${data.original.transliteration}</div>
-                            <div class="word-meaning">(${data.original.lang}) ${data.original.meaning}</div>
-                        </div>
-                        <div class="application-box">
-                            <div class="application-title">🎯 Aplikasi</div>
-                            <div>${data.application}</div>
-                        </div>
-                        <div class="prayer-box">
-                            <div style="font-weight: bold; margin-bottom: 8px;">🙏 Doa</div>
-                            <div>${data.prayer}</div>
-                        </div>
-                    </div>
-                    <div class="nav-buttons">
-                        <button onclick="previousDay()">← Hari Sebelumnya</button>
-                        <button onclick="nextDay()">Hari Berikutnya →</button>
-                    </div>
+let currentDay = 1;
+let completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+}
+
+function loadDay(day) {
+    day = parseInt(day);
+    if (day < 1) day = 1;
+    if (day > 365) day = 365;
+    currentDay = day;
+    document.getElementById('dayInput').value = day;
+    
+    const data = readingPlan[day];
+    if (!data) return;
+    
+    const content = document.getElementById('readingContent');
+    const isCompleted = completedDays.includes(day);
+    
+    const plLink = getBibleLink(data.pl.ref);
+    const pbLink = getBibleLink(data.pb.ref);
+    const wLink = getBibleLink(data.wisdom.ref);
+    
+    content.innerHTML = `
+        <div class="reading-card">
+            <div class="day-header">
+                <div>
+                    <div class="day-number">Hari ${day}</div>
+                    <div class="day-date">${new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
                 </div>
-            `;
-            updateProgress();
-        }
+                <div class="check-complete ${isCompleted ? 'checked' : ''}" onclick="toggleComplete(${day})" title="Tandai selesai"></div>
+            </div>
+            <h2 style="margin-bottom: 20px; color: var(--secondary);">${data.title}</h2>
+            <div class="reading-section">
+                <div class="section-title pl-title">📜 Perjanjian Lama</div>
+                <div class="passage-box pl-box">
+                    <div class="passage-ref">${data.pl.ref}</div>
+                    <div class="passage-desc">${data.pl.desc}</div>
+                    <a href="${plLink}" target="_blank" class="btn-read">📖 Baca Ayat</a>
+                </div>
+            </div>
+            <div class="reading-section">
+                <div class="section-title pb-title">📖 Perjanjian Baru</div>
+                <div class="passage-box pb-box">
+                    <div class="passage-ref">${data.pb.ref}</div>
+                    <div class="passage-desc">${data.pb.desc}</div>
+                    <a href="${pbLink}" target="_blank" class="btn-read">📖 Baca Ayat</a>
+                </div>
+            </div>
+            <div class="reading-section">
+                <div class="section-title wisdom-title">🕊️ Mazmur / Amsal</div>
+                <div class="passage-box wisdom-box">
+                    <div class="passage-ref">${data.wisdom.ref}</div>
+                    <div class="passage-desc">${data.wisdom.desc}</div>
+                    <a href="${wLink}" target="_blank" class="btn-read">📖 Baca Ayat</a>
+                </div>
+            </div>
+            <div class="reflection-box">
+                <div class="reflection-title">💡 Renungan</div>
+                <div class="reflection-content">${data.reflection}</div>
+                <div class="original-word">
+                    <div class="hebrew-text">${data.original.word}</div>
+                    <div class="transliteration">${data.original.transliteration}</div>
+                    <div class="word-meaning">(${data.original.lang}) ${data.original.meaning}</div>
+                </div>
+                <div class="application-box">
+                    <div class="application-title">🎯 Aplikasi</div>
+                    <div>${data.application}</div>
+                </div>
+                <div class="prayer-box">
+                    <div style="font-weight: bold; margin-bottom: 8px;">🙏 Doa</div>
+                    <div>${data.prayer}</div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button onclick="previousDay()">← Hari Sebelumnya</button>
+                <button onclick="nextDay()">Hari Berikutnya →</button>
+            </div>
+        </div>
+    `;
+    updateProgress();
+}
 
-        function toggleComplete(day) {
-            const index = completedDays.indexOf(day);
-            if (index > -1) completedDays.splice(index, 1);
-            else completedDays.push(day);
-            localStorage.setItem('completedDays', JSON.stringify(completedDays));
-            loadDay(day);
-        }
+function toggleComplete(day) {
+    const index = completedDays.indexOf(day);
+    if (index > -1) completedDays.splice(index, 1);
+    else completedDays.push(day);
+    localStorage.setItem('completedDays', JSON.stringify(completedDays));
+    loadDay(day);
+}
 
-        function previousDay() { if (currentDay > 1) loadDay(currentDay - 1); }
-        function nextDay() { if (currentDay < 365) loadDay(currentDay + 1); }
-        
-        function goToToday() {
-            const startDate = new Date('2025-01-01');
-            const today = new Date();
-            const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
-            loadDay(Math.min(diffDays, 365));
-        }
+function previousDay() { if (currentDay > 1) loadDay(currentDay - 1); }
+function nextDay() { if (currentDay < 365) loadDay(currentDay + 1); }
 
-        function resetProgress() {
-            if (confirm('Apakah Anda yakin ingin mereset semua progress?')) {
-                completedDays = [];
-                localStorage.removeItem('completedDays');
-                updateProgress();
-                loadDay(currentDay);
-            }
-        }
+function goToToday() {
+    const startDate = new Date('2025-01-01');
+    const today = new Date();
+    const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
+    loadDay(Math.min(diffDays, 365));
+}
 
-        function updateProgress() {
-            const percentage = Math.round((completedDays.length / 365) * 100);
-            document.getElementById('progressBar').style.width = percentage + '%';
-            document.getElementById('progressText').textContent = percentage + '%';
-            document.getElementById('completedCount').textContent = completedDays.length;
-            document.getElementById('remainingCount').textContent = 365 - completedDays.length;
-        }
+function resetProgress() {
+    if (confirm('Apakah Anda yakin ingin mereset semua progress?')) {
+        completedDays = [];
+        localStorage.removeItem('completedDays');
+        updateProgress();
+        loadDay(currentDay);
+    }
+}
 
-        if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
-        const savedDay = localStorage.getItem('currentDay');
-        loadDay(savedDay ? parseInt(savedDay) : 1);
-        window.addEventListener('beforeunload', () => localStorage.setItem('currentDay', currentDay));
+function updateProgress() {
+    const percentage = Math.round((completedDays.length / 365) * 100);
+    document.getElementById('progressBar').style.width = percentage + '%';
+    document.getElementById('progressText').textContent = percentage + '%';
+    document.getElementById('completedCount').textContent = completedDays.length;
+    document.getElementById('remainingCount').textContent = 365 - completedDays.length;
+}
+
+if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+
+const savedDay = localStorage.getItem('currentDay');
+if (savedDay) loadDay(parseInt(savedDay));
+else goToToday();
+
+window.addEventListener('beforeunload', () => localStorage.setItem('currentDay', currentDay));
     </script>
 </body>
 </html>
