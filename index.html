@@ -352,36 +352,35 @@
 
 	addDay(120, "2 Samuel 17:1-18:33", "Nasihat Ahitophel dan Husai, Daud diselamatkan, Absalom terbunuh, ratapan Daud", "Kisah Para Rasul 6:15-7:60", "Pertama martir Stefanus, penglihatan kemuliaan Yesus, batu sampai mati", "Mazmur 120:1-7", "Aku berseru kepada TUHAN dalam kesesakanku", "Pengkhianatan dan Pengampunan", "Ahitophel memberikan nasihat yang sangat baik - jika diikuti pasti Daud akan mati - tetapi Tuhan membuat Husai mengalahkan nasihat Ahitophel dengan cara yang tidak masuk akal. Absalom terbunuh dengan tragis - rambutnya yang congkak tersangkut pada pohon. Daud meratapi anaknya meski Absalom ingin membunuhnya - 'Hai anakku Absalom, anakku, anakku Absalom! Andai saja aku mati menggantikan engkau!' Di PB, Stefanus menjadi martir pertama dengan penuh kemuliaan - melihat Yesus berdiri di sebelah kanan Allah, dan mengampuni mereka yang melemparinya. Mazmur 120 adalah doa orang yang tinggal di antara orang-orang yang membenci damai.", "אב", "Av", "Bapa - ratapan bapa yang tetap mengasihi meski anak berontak", "Percayalah bahwa nasihat Tuhan akan mengalahkan nasihat 'Ahitophel' apapun. Miliki hati bapa yang mengasihi meski dikhianati. Mengampunilah seperti Stefanus yang melihat kemuliaan Yesus meski sedang disiksa.", "Ya Tuhan, berikan saya hati yang mengasihi seperti Daud dan mengampuni seperti Stefanus. Amin.");
 
-        // ============================================================
-// FUNGSI DAN VARIABEL GLOBAL - TARUH SETELAH addDay(365, ...)
-// ============================================================
-
-// Fungsi untuk membuat link langsung ke ayat di alkitab.me
+        // Fungsi untuk membuat link langsung ke ayat di alkitab.me VERSI BAHASA INDONESIA
 function getBibleLink(ref) {
+    // Mapping nama kitab Indonesia ke format URL alkitab.me (bahasa Indonesia)
+    // Format: https://alkitab.me/tb/Kej.1.1--2.25 atau https://alkitab.me/tb/Kej%201:1-2:25
     const kitabMap = {
-        'Kejadian': 'Gen', 'Keluaran': 'Exod', 'Imamat': 'Lev', 'Bilangan': 'Num',
-        'Ulangan': 'Deut', 'Yosua': 'Josh', 'Hakim-hakim': 'Judg', 'Rut': 'Ruth',
-        '1 Samuel': '1Sam', '2 Samuel': '2Sam', '1 Raja-raja': '1Kgs', '2 Raja-raja': '2Kgs',
-        '1 Tawarikh': '1Chr', '2 Tawarikh': '2Chr', 'Ezra': 'Ezra', 'Nehemia': 'Neh',
-        'Ester': 'Esth', 'Ayub': 'Job', 'Mazmur': 'Ps', 'Amsal': 'Prov',
-        'Pengkhotbah': 'Eccl', 'Kidung Agung': 'Song', 'Yesaya': 'Isa', 'Yeremia': 'Jer',
-        'Ratapan': 'Lam', 'Yehezkiel': 'Ezek', 'Daniel': 'Dan', 'Hosea': 'Hos',
-        'Yoel': 'Joel', 'Amos': 'Amos', 'Obaja': 'Obad', 'Yunus': 'Jonah',
-        'Mikha': 'Mic', 'Nahum': 'Nah', 'Habakuk': 'Hab', 'Zefanya': 'Zeph',
-        'Hagai': 'Hag', 'Zakharia': 'Zech', 'Maleakhi': 'Mal', 'Matius': 'Matt',
-        'Markus': 'Mark', 'Lukas': 'Luke', 'Yohanes': 'John', 'Kisah Para Rasul': 'Acts',
-        'Roma': 'Rom', '1 Korintus': '1Cor', '2 Korintus': '2Cor', 'Galatia': 'Gal',
-        'Efesus': 'Eph', 'Filipi': 'Phil', 'Kolose': 'Col', '1 Tesalonika': '1Thess',
-        '2 Tesalonika': '2Thess', '1 Timotius': '1Tim', '2 Timotius': '2Tim',
-        'Titus': 'Titus', 'Filemon': 'Phlm', 'Ibrani': 'Heb', 'Yakobus': 'Jas',
-        '1 Petrus': '1Pet', '2 Petrus': '2Pet', '1 Yohanes': '1John', '2 Yohanes': '2John',
-        '3 Yohanes': '3John', 'Yudas': 'Jude', 'Wahyu': 'Rev'
+        'Kejadian': 'Kej', 'Keluaran': 'Kel', 'Imamat': 'Ima', 'Bilangan': 'Bil',
+        'Ulangan': 'Ul', 'Yosua': 'Yos', 'Hakim-hakim': 'Hak', 'Rut': 'Rut',
+        '1 Samuel': '1Sam', '2 Samuel': '2Sam', '1 Raja-raja': '1Raj', '2 Raja-raja': '2Raj',
+        '1 Tawarikh': '1Taw', '2 Tawarikh': '2Taw', 'Ezra': 'Ezr', 'Nehemia': 'Neh',
+        'Ester': 'Est', 'Ayub': 'Ayb', 'Mazmur': 'Maz', 'Amsal': 'Ams',
+        'Pengkhotbah': 'Pkh', 'Kidung Agung': 'Kid', 'Yesaya': 'Yes', 'Yeremia': 'Yer',
+        'Ratapan': 'Rat', 'Yehezkiel': 'Yeh', 'Daniel': 'Dan', 'Hosea': 'Hos',
+        'Yoel': 'Yoe', 'Amos': 'Amo', 'Obaja': 'Oba', 'Yunus': 'Yun',
+        'Mikha': 'Mik', 'Nahum': 'Nah', 'Habakuk': 'Hab', 'Zefanya': 'Zef',
+        'Hagai': 'Hag', 'Zakharia': 'Zak', 'Maleakhi': 'Mal', 'Matius': 'Mat',
+        'Markus': 'Mar', 'Lukas': 'Luk', 'Yohanes': 'Yoh', 'Kisah Para Rasul': 'Kis',
+        'Roma': 'Rom', '1 Korintus': '1Kor', '2 Korintus': '2Kor', 'Galatia': 'Gal',
+        'Efesus': 'Efe', 'Filipi': 'Fil', 'Kolose': 'Kol', '1 Tesalonika': '1Tes',
+        '2 Tesalonika': '2Tes', '1 Timotius': '1Tim', '2 Timotius': '2Tim',
+        'Titus': 'Tit', 'Filemon': 'Flm', 'Ibrani': 'Ibr', 'Yakobus': 'Yak',
+        '1 Petrus': '1Pet', '2 Petrus': '2Pet', '1 Yohanes': '1Yoh', '2 Yohanes': '2Yoh',
+        '3 Yohanes': '3Yoh', 'Yudas': 'Yud', 'Wahyu': 'Why'
     };
     
     let cleanRef = ref.trim();
     let kitabIndo = '';
     let ayat = '';
     
+    // Cari nama kitab (bisa 1 atau 2 kata)
     for (let [indo, eng] of Object.entries(kitabMap)) {
         if (cleanRef.startsWith(indo)) {
             kitabIndo = indo;
@@ -392,7 +391,61 @@ function getBibleLink(ref) {
     
     if (!kitabIndo) return 'https://alkitab.me';
     
-    const kitabEng = kitabMap[kitabIndo];
+    const kitabSingkat = kitabMap[kitabIndo];
+    
+    // Format untuk alkitab.me dengan URL encoding
+    // Contoh: Kej 1:1-2:25 menjadi Kej%201:1-2:25 atau Kej.1.1--2.25
+    const urlAyat = encodeURIComponent(ayat);
+    
+    // Coba format yang paling umum digunakan alkitab.me
+    return `https://alkitab.me/tb/${kitabSingkat}${urlAyat}`;
+}
+
+// ALTERNATIF: Jika format di atas tidak berfungsi, gunakan format search dengan bahasa Indonesia
+function getBibleLinkAlt(ref) {
+    // Format: https://alkitab.me/tb/search?q=Kejadian+1:1-2:25
+    return `https://alkitab.me/tb/search?q=${encodeURIComponent(ref)}`;
+}
+
+// ALTERNATIF 2: Format langsung dengan titik (versi yang lebih baru)
+function getBibleLinkV2(ref) {
+    const kitabMap = {
+        'Kejadian': 'Kej', 'Keluaran': 'Kel', 'Imamat': 'Ima', 'Bilangan': 'Bil',
+        'Ulangan': 'Ul', 'Yosua': 'Yos', 'Hakim-hakim': 'Hak', 'Rut': 'Rut',
+        '1 Samuel': '1Sam', '2 Samuel': '2Sam', '1 Raja-raja': '1Raj', '2 Raja-raja': '2Raj',
+        '1 Tawarikh': '1Taw', '2 Tawarikh': '2Taw', 'Ezra': 'Ezr', 'Nehemia': 'Neh',
+        'Ester': 'Est', 'Ayub': 'Ayb', 'Mazmur': 'Maz', 'Amsal': 'Ams',
+        'Pengkhotbah': 'Pkh', 'Kidung Agung': 'Kid', 'Yesaya': 'Yes', 'Yeremia': 'Yer',
+        'Ratapan': 'Rat', 'Yehezkiel': 'Yeh', 'Daniel': 'Dan', 'Hosea': 'Hos',
+        'Yoel': 'Yoe', 'Amos': 'Amo', 'Obaja': 'Oba', 'Yunus': 'Yun',
+        'Mikha': 'Mik', 'Nahum': 'Nah', 'Habakuk': 'Hab', 'Zefanya': 'Zef',
+        'Hagai': 'Hag', 'Zakharia': 'Zak', 'Maleakhi': 'Mal', 'Matius': 'Mat',
+        'Markus': 'Mar', 'Lukas': 'Luk', 'Yohanes': 'Yoh', 'Kisah Para Rasul': 'Kis',
+        'Roma': 'Rom', '1 Korintus': '1Kor', '2 Korintus': '2Kor', 'Galatia': 'Gal',
+        'Efesus': 'Efe', 'Filipi': 'Fil', 'Kolose': 'Kol', '1 Tesalonika': '1Tes',
+        '2 Tesalonika': '2Tes', '1 Timotius': '1Tim', '2 Timotius': '2Tim',
+        'Titus': 'Tit', 'Filemon': 'Flm', 'Ibrani': 'Ibr', 'Yakobus': 'Yak',
+        '1 Petrus': '1Pet', '2 Petrus': '2Pet', '1 Yohanes': '1Yoh', '2 Yohanes': '2Yoh',
+        '3 Yohanes': '3Yoh', 'Yudas': 'Yud', 'Wahyu': 'Why'
+    };
+    
+    let cleanRef = ref.trim();
+    let kitabIndo = '';
+    let ayat = '';
+    
+    for (let [indo, singkat] of Object.entries(kitabMap)) {
+        if (cleanRef.startsWith(indo)) {
+            kitabIndo = indo;
+            ayat = cleanRef.substring(indo.length).trim();
+            break;
+        }
+    }
+    
+    if (!kitabIndo) return 'https://alkitab.me/tb/';
+    
+    const kitabSingkat = kitabMap[kitabIndo];
+    
+    // Format: Kej.1.1--2.25 (menggunakan titik dan double dash untuk rentang)
     let urlAyat = ayat.replace(/:/g, '.');
     
     if (urlAyat.includes('-')) {
@@ -405,7 +458,7 @@ function getBibleLink(ref) {
         }
     }
     
-    return `https://alkitab.me/${kitabEng}.${urlAyat}`;
+    return `https://alkitab.me/tb/${kitabSingkat}.${urlAyat}`;
 }
 
 let currentDay = 1;
