@@ -352,66 +352,46 @@
 
 	addDay(120, "2 Samuel 17:1-18:33", "Nasihat Ahitophel dan Husai, Daud diselamatkan, Absalom terbunuh, ratapan Daud", "Kisah Para Rasul 6:15-7:60", "Pertama martir Stefanus, penglihatan kemuliaan Yesus, batu sampai mati", "Mazmur 120:1-7", "Aku berseru kepada TUHAN dalam kesesakanku", "Pengkhianatan dan Pengampunan", "Ahitophel memberikan nasihat yang sangat baik - jika diikuti pasti Daud akan mati - tetapi Tuhan membuat Husai mengalahkan nasihat Ahitophel dengan cara yang tidak masuk akal. Absalom terbunuh dengan tragis - rambutnya yang congkak tersangkut pada pohon. Daud meratapi anaknya meski Absalom ingin membunuhnya - 'Hai anakku Absalom, anakku, anakku Absalom! Andai saja aku mati menggantikan engkau!' Di PB, Stefanus menjadi martir pertama dengan penuh kemuliaan - melihat Yesus berdiri di sebelah kanan Allah, dan mengampuni mereka yang melemparinya. Mazmur 120 adalah doa orang yang tinggal di antara orang-orang yang membenci damai.", "אב", "Av", "Bapa - ratapan bapa yang tetap mengasihi meski anak berontak", "Percayalah bahwa nasihat Tuhan akan mengalahkan nasihat 'Ahitophel' apapun. Miliki hati bapa yang mengasihi meski dikhianati. Mengampunilah seperti Stefanus yang melihat kemuliaan Yesus meski sedang disiksa.", "Ya Tuhan, berikan saya hati yang mengasihi seperti Daud dan mengampuni seperti Stefanus. Amin.");
 
-        // Fungsi untuk membuat link langsung ke ayat - FORMAT YANG BENAR
-function getBibleLink(ref) {
-    // Mapping nama kitab Indonesia ke kode Alkitab Sabda
+        function getBibleLink(ref) {
+    // Format paling sederhana - langsung ke halaman kitab
     const kitabMap = {
-        'Kejadian': 'Gen', 'Keluaran': 'Exod', 'Imamat': 'Lev', 'Bilangan': 'Num',
-        'Ulangan': 'Deut', 'Yosua': 'Josh', 'Hakim-hakim': 'Judg', 'Rut': 'Ruth',
-        '1 Samuel': '1Sam', '2 Samuel': '2Sam', '1 Raja-raja': '1Kgs', '2 Raja-raja': '2Kgs',
-        '1 Tawarikh': '1Chr', '2 Tawarikh': '2Chr', 'Ezra': 'Ezra', 'Nehemia': 'Neh',
-        'Ester': 'Esth', 'Ayub': 'Job', 'Mazmur': 'Ps', 'Amsal': 'Prov',
-        'Pengkhotbah': 'Eccl', 'Kidung Agung': 'Song', 'Yesaya': 'Isa', 'Yeremia': 'Jer',
-        'Ratapan': 'Lam', 'Yehezkiel': 'Ezek', 'Daniel': 'Dan', 'Hosea': 'Hos',
-        'Yoel': 'Joel', 'Amos': 'Amos', 'Obaja': 'Obad', 'Yunus': 'Jonah',
-        'Mikha': 'Mic', 'Nahum': 'Nah', 'Habakuk': 'Hab', 'Zefanya': 'Zeph',
-        'Hagai': 'Hag', 'Zakharia': 'Zech', 'Maleakhi': 'Mal', 'Matius': 'Matt',
-        'Markus': 'Mark', 'Lukas': 'Luke', 'Yohanes': 'John', 'Kisah Para Rasul': 'Acts',
-        'Roma': 'Rom', '1 Korintus': '1Cor', '2 Korintus': '2Cor', 'Galatia': 'Gal',
-        'Efesus': 'Eph', 'Filipi': 'Phil', 'Kolose': 'Col', '1 Tesalonika': '1Thess',
-        '2 Tesalonika': '2Thess', '1 Timotius': '1Tim', '2 Timotius': '2Tim',
-        'Titus': 'Titus', 'Filemon': 'Phlm', 'Ibrani': 'Heb', 'Yakobus': 'Jas',
-        '1 Petrus': '1Pet', '2 Petrus': '2Pet', '1 Yohanes': '1John', '2 Yohanes': '2John',
-        '3 Yohanes': '3John', 'Yudas': 'Jude', 'Wahyu': 'Rev'
+        'Kejadian': '1', 'Keluaran': '2', 'Imamat': '3', 'Bilangan': '4',
+        'Ulangan': '5', 'Yosua': '6', 'Hakim-hakim': '7', 'Rut': '8',
+        '1 Samuel': '9', '2 Samuel': '10', '1 Raja-raja': '11', '2 Raja-raja': '12',
+        '1 Tawarikh': '13', '2 Tawarikh': '14', 'Ezra': '15', 'Nehemia': '16',
+        'Ester': '17', 'Ayub': '18', 'Mazmur': '19', 'Amsal': '20',
+        'Pengkhotbah': '21', 'Kidung Agung': '22', 'Yesaya': '23', 'Yeremia': '24',
+        'Ratapan': '25', 'Yehezkiel': '26', 'Daniel': '27', 'Hosea': '28',
+        'Yoel': '29', 'Amos': '30', 'Obaja': '31', 'Yunus': '32',
+        'Mikha': '33', 'Nahum': '34', 'Habakuk': '35', 'Zefanya': '36',
+        'Hagai': '37', 'Zakharia': '38', 'Maleakhi': '39', 'Matius': '40',
+        'Markus': '41', 'Lukas': '42', 'Yohanes': '43', 'Kisah Para Rasul': '44',
+        'Roma': '45', '1 Korintus': '46', '2 Korintus': '47', 'Galatia': '48',
+        'Efesus': '49', 'Filipi': '50', 'Kolose': '51', '1 Tesalonika': '52',
+        '2 Tesalonika': '53', '1 Timotius': '54', '2 Timotius': '55',
+        'Titus': '56', 'Filemon': '57', 'Ibrani': '58', 'Yakobus': '59',
+        '1 Petrus': '60', '2 Petrus': '61', '1 Yohanes': '62', '2 Yohanes': '63',
+        '3 Yohanes': '64', 'Yudas': '65', 'Wahyu': '66'
     };
     
     let cleanRef = ref.trim();
     let kitabIndo = '';
-    let ayat = '';
     
-    for (let [indo, eng] of Object.entries(kitabMap)) {
+    for (let [indo, num] of Object.entries(kitabMap)) {
         if (cleanRef.startsWith(indo)) {
             kitabIndo = indo;
-            ayat = cleanRef.substring(indo.length).trim();
             break;
         }
     }
     
     if (!kitabIndo) return 'https://alkitab.sabda.org/';
     
-    const kitabEng = kitabMap[kitabIndo];
+    const num = kitabMap[kitabIndo];
+    const match = ref.match(/(\d+):/);
+    const pasal = match ? match[1] : '1';
     
-    // Format URL Alkitab Sabda yang benar:
-    // https://alkitab.sabda.org/?b=Gen&c=1&v=1
-    // atau dengan rentang: https://alkitab.sabda.org/?b=Gen&c=1&v=1#2:25
-    
-    const match = ayat.match(/(\d+):(\d+)(?:-(\d+):(\d+)|-(\d+))?/);
-    if (!match) return `https://alkitab.sabda.org/?b=${kitabEng}&c=1&v=1`;
-    
-    const pasal = match[1];
-    const v1 = match[2];
-    let url = `https://alkitab.sabda.org/?b=${kitabEng}&c=${pasal}&v=${v1}`;
-    
-    // Jika ada rentang ayat
-    if (match[3] && match[4]) {
-        // Format: 1:1-2:25 (beda pasal)
-        url += `#${match[3]}:${match[4]}`;
-    } else if (match[5]) {
-        // Format: 1:1-25 (sama pasal)
-        url += `#${pasal}:${match[5]}`;
-    }
-    
-    return url;
+    // Format: https://alkitab.sabda.org/?page=bible&version=tb&book=1&chapter=1
+    return `https://alkitab.sabda.org/?page=bible&version=tb&book=${num}&chapter=${pasal}`;
 }
 
 let currentDay = 1;
