@@ -353,41 +353,47 @@
 	addDay(120, "2 Samuel 17:1-18:33", "Nasihat Ahitophel dan Husai, Daud diselamatkan, Absalom terbunuh, ratapan Daud", "Kisah Para Rasul 6:15-7:60", "Pertama martir Stefanus, penglihatan kemuliaan Yesus, batu sampai mati", "Mazmur 120:1-7", "Aku berseru kepada TUHAN dalam kesesakanku", "Pengkhianatan dan Pengampunan", "Ahitophel memberikan nasihat yang sangat baik - jika diikuti pasti Daud akan mati - tetapi Tuhan membuat Husai mengalahkan nasihat Ahitophel dengan cara yang tidak masuk akal. Absalom terbunuh dengan tragis - rambutnya yang congkak tersangkut pada pohon. Daud meratapi anaknya meski Absalom ingin membunuhnya - 'Hai anakku Absalom, anakku, anakku Absalom! Andai saja aku mati menggantikan engkau!' Di PB, Stefanus menjadi martir pertama dengan penuh kemuliaan - melihat Yesus berdiri di sebelah kanan Allah, dan mengampuni mereka yang melemparinya. Mazmur 120 adalah doa orang yang tinggal di antara orang-orang yang membenci damai.", "אב", "Av", "Bapa - ratapan bapa yang tetap mengasihi meski anak berontak", "Percayalah bahwa nasihat Tuhan akan mengalahkan nasihat 'Ahitophel' apapun. Miliki hati bapa yang mengasihi meski dikhianati. Mengampunilah seperti Stefanus yang melihat kemuliaan Yesus meski sedang disiksa.", "Ya Tuhan, berikan saya hati yang mengasihi seperti Daud dan mengampuni seperti Stefanus. Amin.");
 
         function getBibleLink(ref) {
-    // Sederhana: langsung ke pasal, pengguna scroll ke ayat sendiri
+    // alkitab.me dengan versi TB (Terjemahan Baru)
+    // Format: https://alkitab.me/TB/Kej/1/1-25 atau https://alkitab.me/TB/Kej/1/1/25
+    
     const kitabMap = {
-        'Kejadian': 'genesis', 'Keluaran': 'exodus', 'Imamat': 'leviticus', 
-        'Bilangan': 'numbers', 'Ulangan': 'deuteronomy', 'Yosua': 'joshua',
-        'Hakim-hakim': 'judges', 'Rut': 'ruth', '1 Samuel': '1-samuel',
-        '2 Samuel': '2-samuel', '1 Raja-raja': '1-kings', '2 Raja-raja': '2-kings',
-        '1 Tawarikh': '1-chronicles', '2 Tawarikh': '2-chronicles', 'Ezra': 'ezra',
-        'Nehemia': 'nehemiah', 'Ester': 'esther', 'Ayub': 'job', 'Mazmur': 'psalms',
-        'Amsal': 'proverbs', 'Pengkhotbah': 'ecclesiastes', 'Kidung Agung': 'song-of-solomon',
-        'Yesaya': 'isaiah', 'Yeremia': 'jeremiah', 'Ratapan': 'lamentations',
-        'Yehezkiel': 'ezekiel', 'Daniel': 'daniel', 'Hosea': 'hosea', 'Yoel': 'joel',
-        'Amos': 'amos', 'Obaja': 'obadiah', 'Yunus': 'jonah', 'Mikha': 'micah',
-        'Nahum': 'nahum', 'Habakuk': 'habakkuk', 'Zefanya': 'zephaniah',
-        'Hagai': 'haggai', 'Zakharia': 'zechariah', 'Maleakhi': 'malachi',
-        'Matius': 'matthew', 'Markus': 'mark', 'Lukas': 'luke', 'Yohanes': 'john',
-        'Kisah Para Rasul': 'acts', 'Roma': 'romans', '1 Korintus': '1-corinthians',
-        '2 Korintus': '2-corinthians', 'Galatia': 'galatians', 'Efesus': 'ephesians',
-        'Filipi': 'philippians', 'Kolose': 'colossians', '1 Tesalonika': '1-thessalonians',
-        '2 Tesalonika': '2-thessalonians', '1 Timotius': '1-timothy', '2 Timotius': '2-timothy',
-        'Titus': 'titus', 'Filemon': 'philemon', 'Ibrani': 'hebrews', 'Yakobus': 'james',
-        '1 Petrus': '1-peter', '2 Petrus': '2-peter', '1 Yohanes': '1-john',
-        '2 Yohanes': '2-john', '3 Yohanes': '3-john', 'Yudas': 'jude', 'Wahyu': 'revelation'
+        'Kejadian': 'Kej', 'Keluaran': 'Kel', 'Imamat': 'Ima', 'Bilangan': 'Bil',
+        'Ulangan': 'Ul', 'Yosua': 'Yos', 'Hakim-hakim': 'Hak', 'Rut': 'Rut',
+        '1 Samuel': '1Sam', '2 Samuel': '2Sam', '1 Raja-raja': '1Raj', '2 Raja-raja': '2Raj',
+        '1 Tawarikh': '1Taw', '2 Tawarikh': '2Taw', 'Ezra': 'Ezr', 'Nehemia': 'Neh',
+        'Ester': 'Est', 'Ayub': 'Ayb', 'Mazmur': 'Maz', 'Amsal': 'Ams',
+        'Pengkhotbah': 'Pkh', 'Kidung Agung': 'Kid', 'Yesaya': 'Yes', 'Yeremia': 'Yer',
+        'Ratapan': 'Rat', 'Yehezkiel': 'Yeh', 'Daniel': 'Dan', 'Hosea': 'Hos',
+        'Yoel': 'Yoe', 'Amos': 'Amo', 'Obaja': 'Oba', 'Yunus': 'Yun',
+        'Mikha': 'Mik', 'Nahum': 'Nah', 'Habakuk': 'Hab', 'Zefanya': 'Zef',
+        'Hagai': 'Hag', 'Zakharia': 'Zak', 'Maleakhi': 'Mal', 'Matius': 'Mat',
+        'Markus': 'Mar', 'Lukas': 'Luk', 'Yohanes': 'Yoh', 'Kisah Para Rasul': 'Kis',
+        'Roma': 'Rom', '1 Korintus': '1Kor', '2 Korintus': '2Kor', 'Galatia': 'Gal',
+        'Efesus': 'Efe', 'Filipi': 'Fil', 'Kolose': 'Kol', '1 Tesalonika': '1Tes',
+        '2 Tesalonika': '2Tes', '1 Timotius': '1Tim', '2 Timotius': '2Tim',
+        'Titus': 'Tit', 'Filemon': 'Flm', 'Ibrani': 'Ibr', 'Yakobus': 'Yak',
+        '1 Petrus': '1Pet', '2 Petrus': '2Pet', '1 Yohanes': '1Yoh', '2 Yohanes': '2Yoh',
+        '3 Yohanes': '3Yoh', 'Yudas': 'Yud', 'Wahyu': 'Why'
     };
     
-    const match = ref.match(/^(.+?)\s+(\d+):/);
-    if (!match) return 'https://www.biblegateway.com/';
+    // Parse referensi
+    const match = ref.match(/^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$/);
+    if (!match) return 'https://alkitab.me/';
     
     const namaKitab = match[1];
     const pasal = match[2];
+    const ayat1 = match[3];
+    const ayat2 = match[4];
+    
     const kode = kitabMap[namaKitab];
+    if (!kode) return 'https://alkitab.me/';
     
-    if (!kode) return 'https://www.biblegateway.com/';
-    
-    // BibleGateway dengan versi TB (Terjemahan Baru) - pasti berfungsi
-    return `https://www.biblegateway.com/passage/?search=${kode}+${pasal}&version=TB`;
+    // Format: /TB/Kej/1/1 atau /TB/Kej/1/1-25
+    if (ayat2) {
+        return `https://alkitab.me/TB/${kode}/${pasal}/${ayat1}-${ayat2}`;
+    } else {
+        return `https://alkitab.me/TB/${kode}/${pasal}/${ayat1}`;
+    }
 }
 
 let currentDay = 1;
